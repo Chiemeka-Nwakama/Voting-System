@@ -1,2 +1,2 @@
 # repo-Team3
-Ted Casey, Phong Lieu, Sidney Nguyen, and Chiemeka Nwakama
+Ted Casey, Phuong Lieu, Sidney Nguyen, and Chiemeka Nwakama
