@@ -1,0 +1,15 @@
+This is an overview of the project as the project write up has a lot of information
+
+Concept:
+
+You are tasked with creating a voting system that is capable of performing the following two types of voting:
+1) Instant Runoff Voting (plurality/majority type) - vote for canditaes in order of candidates. 
+If your first choice candidate does not have enough votes, the candidate is kicked off, and the second choice candidate is taken into account 
+
+2) Party List Voting using Closed Party List (proportional voting type) - vote for one party (not specific candidate). The number of votes determines
+the number of seats per party, and a preorder list determines which candidate gets the seats
+
+Type of development process: Waterfall
+
+First step of process: Create software requirements specification (SRS) document
+Due: Thursday, February 16 at 6:00pm
