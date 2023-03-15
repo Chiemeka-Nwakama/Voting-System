@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.io.*;
 public class CPL {
     private int numParties;
     private int numCandidates;

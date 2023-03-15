@@ -1,3 +1,4 @@
+
 public class CPL_Ballot {
     private int partyVote;
  

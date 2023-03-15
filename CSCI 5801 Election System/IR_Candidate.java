@@ -1,3 +1,4 @@
+
 public class IR_Candidate {
     private IR_Ballot[] ballots;
     private String name;
@@ -5,7 +6,8 @@ public class IR_Candidate {
     int votes;
     public IR_Candidate(String name, int totalBallots){
         this.name = name;
-        ballots = new IR_Ballot[totalBallots]; //makes ballots capacity = to total balltos since a voter could potentially have all of the votes by the end of the IR algorithm
+        ballots = new IR_Ballot[totalBallots]; /*makes ballots capacity = to total balltos since a voter 
+                                                could potentially have all of the votes by the end of the IR algorithm */
 
 
     }
