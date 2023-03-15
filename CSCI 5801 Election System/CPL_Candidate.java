@@ -3,9 +3,7 @@ public class CPL_Candidate {
     public CPL_Candidate(){
 
     }
-    public int addSeat(){
 
-    }
 
     public int getSeats(){
         
