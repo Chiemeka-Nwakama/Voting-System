@@ -6,7 +6,7 @@ public class CPL_Candidate {
 
 
     public int getSeats(){
-        
+        //fdsf
     }
 
     
