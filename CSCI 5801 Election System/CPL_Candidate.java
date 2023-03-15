@@ -11,5 +11,10 @@ public class CPL_Candidate {
     }
 
     
+    public String getName(){
+        return name;
+     }
+
+    
 } 
  // @casey526
