@@ -5,7 +5,7 @@ public class Party {
     private int remainderVotes;
     private int seats;
     private String name;
-
+// test hello
     public Party(){
 
     }
