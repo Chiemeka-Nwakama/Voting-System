@@ -9,8 +9,9 @@ public class CPL {
     private Party[] parties;
     private CPL_Ballot[] ballots;
     private CPL_Audit_File audit;
+    private File *election_file;
 
-    public CPL(){
+    public CPL(File *file){
 
     }
     
