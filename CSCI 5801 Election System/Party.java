@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class Party {
     private CPL_Candidate[] candidates;
     private CPL_Ballot[] partyBallots;
@@ -5,9 +7,12 @@ public class Party {
     private int remainderVotes;
     private int seats;
     private String name;
-// test hello
+
     public Party(String name){
         this.name = name;
+        totalVotes = 0;
+        seats = 0;
+        remainderVotes = 0;
 
     }
     public void populateCandidates(String[] candidateNames, int numCandidates){
@@ -21,37 +26,54 @@ public class Party {
     }
 }
     public void clearCandidates(){
+        // MAY NOT BE NECESSARY
+        // deference ballots by setting them to null
+
+        candidates = null;
 
     }
     public CPL_Candidate[] getCandidates(){
+        return candidates;
 
     }
     public void clearBallots(){
-        for(int i = 0; i < CPL_Ballot; i++)
+        // MAY NOT BE NECESSARY
+        // deference ballots by setting them to null
+
+        partyBallots = null;
 
     }
     public CPL_Ballot[] getBallots(){
+        return partyBallots;
 
     }
     public String getName(){
+        return name;
 
     }
     public void addVote(){
+        totalVotes++;
 
     }
     public int getVote(){
+        return totalVotes;
 
     }
     public void addSeats(){
+        seats++;
 
     }
     public int getSeats(){
 
+        return seats;
     }
+
     public int getRemainderVotes(){
+        return remainderVotes;
 
     }
     public void setRemainderVotes(int votes){
+        remainderVotes = votes;
         
     }
 

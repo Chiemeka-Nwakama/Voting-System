@@ -20,6 +20,7 @@ public class CPL {
         String[] partyNames = sc.nextLine().split(","); // 3rd line -- gets names of the party
         parties = new Party[numParties];
         for(int i=0; i < numParties; i++){ //creates parties 
+            partyNames[i] = partyNames[i].trim(); // remove leading space between comma and name : , green party = green party
             parties[i] = new Party(partyNames[i]);
         }
         for(int i = 0; i < numParties; i++){ //reads candidates until all parties are populated
@@ -37,21 +38,26 @@ public class CPL {
     }
 }
     
-    void run(){
+    void run(File file){
+
 
     }
 
-    public int getParties(){
+    public int getNumParties(){
+        return numParties;
 
     }
 
-    public int getCandidates(){
+    public int getNumCandidates(){
+        return numCandidates;
 
     }
     public int getTotalSeats(){
+        return totalSeats;
 
     }
     public int getNumBallots(){
+        return numBallots;
 
     }
     
