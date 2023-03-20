@@ -19,6 +19,7 @@ public class Party {
 
     }
     public void clearBallots(){
+        for(int i = 0; i < CPL_Ballot; i++)
 
     }
     public CPL_Ballot[] getBallots(){
