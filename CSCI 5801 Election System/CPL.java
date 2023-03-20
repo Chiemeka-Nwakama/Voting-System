@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.io.*;
 public class CPL {
     private int numParties;
     private int numCandidates;
@@ -9,11 +10,11 @@ public class CPL {
     private CPL_Ballot[] ballots;
     private CPL_Audit_File audit;
 
-    public CPL(){
+    public CPL(File file){
 
     }
     
-    void run(File file){
+    void run(){
 
     }
 
