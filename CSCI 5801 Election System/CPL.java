@@ -9,7 +9,7 @@ public class CPL {
     private Party[] parties;
     private CPL_Ballot[] ballots;
     private CPL_Audit_File audit;
-    private File *election_file;
+    private File election_file;
 
     public CPL(File file){
         audit = new CPL_Audit_File(); // intitalzies the audit file
@@ -26,14 +26,20 @@ public class CPL {
             String[] Candidate_names =  sc.nextLine().split(",");
             parties[i].populateCandidates(Candidate_names, Candidate_names.length);
             
-
         }
+        totalSeats =  sc.nextInt(); // reads in the total number of seats avaliable
+        numBallots =  sc.nextInt(); // reads in the total number of ballots in election
+        for(int i = 0; i < numParties; i++){ //reads candidates until all parties are populated
+           
+            parties[i].initilizeBallotCapacity(numBallots); //initialize capacity of ballots for each party to be total ballots in election
+        }
+
 
         sc.close();
 
     }
     catch(IOException e){ 
-
+        System.out.println("Invalid File"); // catches error
     }
 }
     

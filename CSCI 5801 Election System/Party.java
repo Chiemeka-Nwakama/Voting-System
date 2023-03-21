@@ -8,6 +8,8 @@ public class Party {
 // test hello
     public Party(String name){
         this.name = name;
+        
+
 
     }
     public void populateCandidates(String[] candidateNames, int numCandidates){
@@ -20,6 +22,10 @@ public class Party {
 
     }
 }
+
+public void initilizeBallotCapacity(int totalBallots){
+    partyBallots = new CPL_Ballot[totalBallots]; // makes the ballot array as big as there are ballots in the election
+}
     public void clearCandidates(){
 
     }
@@ -30,10 +36,10 @@ public class Party {
 
     }
     public CPL_Ballot[] getBallots(){
-
+            return partyBallots;
     }
     public String getName(){
-
+            return name;
     }
     public void addVote(){
 
