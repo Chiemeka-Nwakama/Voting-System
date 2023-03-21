@@ -5,11 +5,11 @@ public class CPL_Ballot {
     private int partyVote;
  
 
-    public CPL_Ballot(int pos, int amountOfParties){
+    public CPL_Ballot(int partyVote, int amountOfParties){
         ballot = new int[amountOfParties];
         Arrays.fill(ballot, 0); // fill entire array with 0s
-        ballot[pos] = 1; // set vote position to 1
-        partyVote = pos;
+        ballot[partyVote] = 1; // set vote position to 1
+        this.partyVote = partyVote;
 
     }
 
