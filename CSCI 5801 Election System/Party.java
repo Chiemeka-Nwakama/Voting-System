@@ -7,12 +7,17 @@ public class Party {
     private int remainderVotes;
     private int seats;
     private String name;
+    private static int count = 0;
+    int id;
+ 
 
     public Party(String name){
         this.name = name;
         totalVotes = 0;
         seats = 0;
         remainderVotes = 0;
+        id = count;
+        count++;
 
     }
     public void populateCandidates(String[] candidateNames, int numCandidates){
@@ -56,7 +61,7 @@ public void initilizeBallotCapacity(int totalBallots){
 
     }
     public void addVote(CPL_Ballot ballot){
-        partyBallots[totalVotes-1] = ballot; //gives voter's ballot to party
+        partyBallots[totalVotes] = ballot; //gives voter's ballot to party
         totalVotes++; //adds to total votes party has
 
     }
@@ -81,6 +86,12 @@ public void initilizeBallotCapacity(int totalBallots){
         remainderVotes = votes;
         
     }
+
+    public int getId(){
+        return id;
+    }
+
+    
 
     
 }
