@@ -1,3 +1,5 @@
+import java.io.File;
+
 public class IR_Audit_File {
     private File auditFile;
     
