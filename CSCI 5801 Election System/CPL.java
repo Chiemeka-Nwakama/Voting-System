@@ -22,10 +22,9 @@ public class CPL {
     
     void run(){
         audit.writeToAudit("Start of CPL Election");
-        audit.writeToAudit("Distributing Ballots to Parties: ");
-
-
-        distributeBallots(); // distibutes Ballots to the parties associated with the parties voted for
+        audit.writeToAudit("Assigning Ballots to Parties: ");
+        assignBallots(); // distibutes Ballots to the parties associated with the parties voted for
+        audit.writeToAudit("Distributing Seats to Parties: ");
          distributeSeats(); // distributes seats to parties
 
     }
@@ -49,19 +48,20 @@ public class CPL {
     }
     
     public void distributeSeats(){
+        
 
 
     }
 
-    public void distributeBallots(){
+    public void assignBallots(){
 
         for(CPL_Ballot ballot: ballots){
             int partyVote = ballot.getPartyVote();
             parties[partyVote].addVote(ballot);
-            audit.writeToAudit("Adding " +  ballot + "to " + parties[partyVote]);
+            audit.writeToAudit("Assigning " +  ballot + "to " + parties[partyVote]);
         }
         Arrays.fill(ballots, null); // clears ballots since no longer need since they are in the parties now
-        audit.writeToAudit("Ballots Distrbution and Vote Count Complete");
+        audit.writeToAudit("Ballots Assignment and Vote Count Complete");
         audit.writeToAudit("Results: ");
         for(Party party: parties){ //iterates through each party
             audit.writeToAudit(party.getName() + ":");
@@ -126,10 +126,13 @@ public class CPL {
                     
                 }  
                 sc.close();
+                audit.writeToAudit("Data Succesfully Populated!");
            
 }
 catch(IOException e){ 
-    System.out.println("Invalid File"); // catches error
+    audit.writeToAudit("Data Population Failed ---> Invalid File!");
+
+    
 }
 
     }
@@ -141,9 +144,9 @@ catch(IOException e){
     public int poolselect(){
 
     }
-    public void assignBallots(){
 
-    }
+
+    
     public void displayResults(){
 
     }
