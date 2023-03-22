@@ -27,7 +27,7 @@ public class Election{
                 String type = file_scan.nextLine(); // scans in the first line of the election file to see what type of election it is                
                 if (type.equals("CPL")){
                     CPL cpl  = new CPL(election);
-                  //  cpl.run(election);
+                    cpl.run(election);
                     
                 }else{
                     

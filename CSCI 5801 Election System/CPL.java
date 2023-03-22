@@ -20,7 +20,7 @@ public class CPL {
         audit = new CPL_Audit_File(); // intitalzies the audit file
         audit.writeToAudit("CPL Election found");
         audit.writeToAudit("Audit file initialized");
-        audit.writeToAudit("Populating Data from CPL election file...");
+        audit.writeToAudit("Populating Data from CPL election file...\n");
         sc = new Scanner(file);
         populateParties(file, sc);
         populateCandidates(file, sc);
@@ -34,12 +34,12 @@ public class CPL {
         sc.close();
     }
     
-    void run(){
+    void run(File file){
         audit.writeToAudit("Start of CPL Election");
         audit.writeToAudit("Assigning Ballots to Parties: ");
         assignBallots(); // distibutes Ballots to the parties associated with the parties voted for
-        audit.writeToAudit("Distributing Seats to Parties: ");
-         distributeSeats(); // distributes seats to parties
+        //audit.writeToAudit("Distributing Seats to Parties: ");
+        // distributeSeats(); // distributes seats to parties
 
     }
 
@@ -88,20 +88,21 @@ public class CPL {
         for(CPL_Ballot ballot: ballots){
             int partyVote = ballot.getPartyVote();
             parties[partyVote].addVote(ballot);
-            audit.writeToAudit("Assigning " +  ballot + "to " + parties[partyVote]);
+            audit.writeToAudit("Assigning " +  ballot + " to " + parties[partyVote].getName());
         }
         Arrays.fill(ballots, null); // clears ballots since no longer need since they are in the parties now
         audit.writeToAudit("Ballots Assignment and Vote Count Complete");
         audit.writeToAudit("Results: ");
         for(Party party: parties){ //iterates through each party
-            audit.writeToAudit(party.getName() + ":");
+            audit.writeToAudit("\n" + party.getName() + ":");
             int partyVotes = party.getVotes(); //uses total votes to know when to stop looking for ballots since the rest will be null
-            audit.writeToAudit(party.getName() + "Total Votes: " + partyVotes); // writes total votes to audit
-            audit.writeToAudit(party.getName() + "Ballots Earned: "); // writes ballots earned to audit
+            audit.writeToAudit("Total Votes: " + partyVotes); // writes total votes to audit
+            audit.writeToAudit("Ballots Earned: "); // writes ballots earned to audit
             CPL_Ballot[] partyBallots = party.getBallots();
             for(int i = 0; i < partyVotes; i++){ //iterates through the ballot array in each party after distrubtion
                 audit.writeToAudit(partyBallots[i].toString());  // writes the each ballot the party earned to audit
             }
+            //audit.writeToAudit("\n");
         }
 
 
@@ -133,11 +134,15 @@ public void populateCandidates(File file, Scanner sc){ //split into poluate part
         String[] Candidate_names =  sc.nextLine().split(",");
         parties[i].populateCandidates(Candidate_names, Candidate_names.length);
         
-        audit.writeToAudit(parties[i].getName()); //writes party name to audit
+        audit.writeToAudit(parties[i].getName() + ": "); //writes party name to audit
+        String candidateList = "";
         for (CPL_Candidate candidate: parties[i].getCandidates()){ //writes each candidate in each party to audit
-            audit.writeToAudit(candidate.getName());
+            candidateList += candidate.getName() + ", ";
 
         }
+        candidateList = candidateList.substring(0, candidateList.length()-2);
+        audit.writeToAudit(candidateList + "\n");
+
           
     }    
 
