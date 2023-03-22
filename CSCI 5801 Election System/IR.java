@@ -24,41 +24,42 @@ public class IR {
         while (scanner.hasNextLine()) {
             String data = scanner.nextLine();
             if (counter == 0){
-            }else if (counter == 1){
+            }else if (counter == 1){ //get numCandidates
                 numCandidates = Integer.parseInt(data);
                 candidates = new IR_Candidate[numCandidates];
-            }else if (counter == 2){
+            }else if (counter == 2){ //get candidates
                 String tempCandidates[] = data.split(",");
-                for (int a = 0; a <= numCandidates; a++){
+                for (int a = 0; a < numCandidates; a++){
                     candidates[a] = new IR_Candidate(tempCandidates[a]);
                 }
-            }else if (counter == 3){
+            }else if (counter == 3){ //get numBallots
                 numBallots = Integer.parseInt(data);
                 ballots = new IR_Ballot[numBallots];
                 finalBallot = new int[numCandidates];
-            }else{
+            }else{ //parse ballots
                 tempBallot = data.split(",");
                 for (int a = 0; a < numCandidates; a++){
                     finalBallot[a] = Integer.parseInt(tempBallot[a]);
                 }
-                ballots[curBallot] = new IR_Ballot(finalBallot);
+                ballots[curBallot] = new IR_Ballot(finalBallot); //add ballot to ballots array
+                for (int a = 0; a < numCandidates; a++){ //add ballot to candidates ballot array
+                    if (finalBallot[a] == 1){
+                        candidates[a].addBallot(finalBallot); 
+                    }
+                }
                 curBallot++;
             }
             counter++;
         }
+    }
 
 
     public IR_Candidate[] getCandidates(){
-        
+        return candidates;
     }
 
     public int getNumCandidates(){
         return this.numCandidates;
-    }
-
-    
-    public IR_Ballot[] getCandidateBallots(int candiateNum){
-
     }
 
    

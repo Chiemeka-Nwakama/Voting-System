@@ -7,7 +7,7 @@ public class IR_Candidate {
         status = true;
         this.name = name;
         votes = 0;
-        ballots = new IR_Ballot(null); //determine how large to make arrays, maybe as large as all ballots, but very memory heavy
+        ballots = new IR_Ballot[null]; //determine how large to make arrays, maybe as large as all ballots, but very memory heavy
     }
 
     public void addBallot(IR_Ballot ballot){
@@ -21,6 +21,14 @@ public class IR_Candidate {
 
     public void setStatus(){
         this.status = false;
+    }
+
+    public int getVotes(){
+        return votes;
+    }
+
+    public IR_Ballot[] getBallots(){
+        return ballots;
     }
 
     
