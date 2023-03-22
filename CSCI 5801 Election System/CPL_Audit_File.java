@@ -1,3 +1,5 @@
+import java.io.File;
+
 public class CPL_Audit_File {
     private File auditFile;
     

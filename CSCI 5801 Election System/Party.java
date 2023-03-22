@@ -13,16 +13,16 @@ public class Party {
         totalVotes = 0;
         seats = 0;
         remainderVotes = 0;
+        System.out.println("name: " + name);
 
-    }
+    } 
+
     public void populateCandidates(String[] candidateNames, int numCandidates){
         candidates = new CPL_Candidate[numCandidates]; // intitalizes candidate list
+
         for(int i = 0; i < numCandidates; i++){ //creates candidates inaccordance to how many there are
-
+            candidates[i] = new CPL_Candidate(candidateNames[i].trim(), name); //populates each candidate one by one
         
-        candidates[i] = new CPL_Candidate(candidateNames[i], name); //populates each candidate one by one
-        
-
     }
 }
     public void clearCandidates(){
@@ -32,6 +32,8 @@ public class Party {
         candidates = null;
 
     }
+
+    // WOULD RETURN MEMORY ADDRESS SO I DONT THINK WE EVEN NEED THIS
     public CPL_Candidate[] getCandidates(){
         return candidates;
 
@@ -43,6 +45,9 @@ public class Party {
         partyBallots = null;
 
     }
+
+    // WOULD RETURN MEMORY ADDRESS SO I DONT THINK WE EVEN NEED THIS
+
     public CPL_Ballot[] getBallots(){
         return partyBallots;
 

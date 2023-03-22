@@ -4,6 +4,7 @@ public class CPL_Candidate {
     private int seats;
     private String name;
     private String partyName;
+
     public CPL_Candidate(String name, String partyName){
         this.name = name;
         this.partyName = partyName;
@@ -23,4 +24,3 @@ public class CPL_Candidate {
 
     
 } 
- // @casey526

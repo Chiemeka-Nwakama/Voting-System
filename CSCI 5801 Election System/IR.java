@@ -1,4 +1,6 @@
 import java.util.Scanner;
+import java.io.File;
+
 public class IR {
     private int numCandidates;
     private IR_Candidate[] candidates;
@@ -6,14 +8,14 @@ public class IR {
     private IR_Ballot[] ballots;
     private IR_Audit_File audit;
 
-    public IR(){
+    public IR(File file){
 
     }
     
     void run(File file){
 
     }
-
+/*
 
     public IR_Candidate[] getCandidates(){
 
@@ -64,5 +66,5 @@ public class IR {
         
     }
 
-    
+    */
 }

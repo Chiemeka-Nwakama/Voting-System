@@ -12,6 +12,7 @@ public class IR_Ballot {
     }
 
     public int getCurrentVote(){
+        return 0;
 
     }
 
