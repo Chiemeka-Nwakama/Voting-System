@@ -9,7 +9,7 @@ public class CPL_Audit_File {
     }
     public void writeToAudit(String thing){
         audit = audit + thing + "/n";
-       // System.out.println(thing);
+        System.out.println(thing);
     }
 
     public void outputAudit(){

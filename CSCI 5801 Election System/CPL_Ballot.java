@@ -1,7 +1,7 @@
 import java.util.Arrays;
 
 public class CPL_Ballot {
-    private int ballot[];
+    private String ballot[];
     private int partyVote;
     private String partyName;
     private static int count = 0; //keeps track of how many parties are made
@@ -10,9 +10,9 @@ public class CPL_Ballot {
 
     public CPL_Ballot(int partyVote, int amountOfParties){
         
-        ballot = new int[amountOfParties];
-        Arrays.fill(ballot, 0); // fill entire array with 0s
-        ballot[partyVote] = 1; // set vote position to 1
+        ballot = new String[amountOfParties];
+        Arrays.fill(ballot, ","); // fill entire array with 0s
+        ballot[partyVote] = "1"; // set vote position to 1
         this.partyVote = partyVote;
         id = count;
         count++;
@@ -26,12 +26,17 @@ public class CPL_Ballot {
 
     }
 
-    public int[] representation(){
-        return ballot;
+    public String representation(){
+        return toString();
     }
 
     public String toString(){
-        return "Ballot " + id;
+        String b = "";
+        for(int i = 0; i < ballot.length; i++) {
+            b = b + ballot[i];
+        }
+
+        return "Ballot " + id + ": " + b;
     }
     public int getId(){
         return id;

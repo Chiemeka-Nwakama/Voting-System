@@ -13,14 +13,25 @@ public class CPL {
     private CPL_Audit_File audit;
     private File election_file;
     private final int randomConstant = 1000;
+    public Scanner sc;
     
 
-    public CPL(File file){
-        audit.writeToAudit("CPL Election found");
+    public CPL(File file) throws FileNotFoundException{
         audit = new CPL_Audit_File(); // intitalzies the audit file
-        audit.writeToAudit("Audit file intialized");
+        audit.writeToAudit("CPL Election found");
+        audit.writeToAudit("Audit file initialized");
         audit.writeToAudit("Populating Data from CPL election file...");
-        populateData(file); // intitalizes the values from the read in files
+        sc = new Scanner(file);
+        populateParties(file, sc);
+        populateCandidates(file, sc);
+        populateBallots(file, sc);
+        
+        for(int i = 0; i < numParties; i++) {
+            //System.out.println("Party: " + parties[i].getName());
+            //System.out.println(parties[i].getCandidates());
+        }
+        
+        sc.close();
     }
     
     void run(){
@@ -98,64 +109,65 @@ public class CPL {
 
 
     }
+    public void populateParties(File file, Scanner sc) {
+        sc.nextLine(); //ignores first line since it was read already in the Election Class
+        numParties =  sc.nextInt(); //reads in the 2nd line - number of parties
+        audit.writeToAudit("Number of Parties: " + numParties);
+        sc.nextLine();
+        String[] partyNames = sc.nextLine().split(","); // 3rd line -- gets names of the party
+        parties = new Party[numParties];
+        audit.writeToAudit("Parties: ");
+        for(int i=0; i < numParties; i++){ //creates parties 
+            partyNames[i] = partyNames[i].trim(); // remove leading space between comma and name : , green party = green party
+            parties[i] = new Party(partyNames[i]);
+            audit.writeToAudit("Party " + i  + ": " + parties[i].getName());
+        
 
-    public void populateData(File file){
-        try {  
-            Scanner sc = new Scanner(file);
-            sc.nextLine(); //ignores first line since it was read already in the Election Class
-            numParties =  sc.nextInt(); //reads in the 2nd line - number of parties
-            audit.writeToAudit("Number of Parties: " + numParties);
-            String[] partyNames = sc.nextLine().split(","); // 3rd line -- gets names of the party
-            parties = new Party[numParties];
-            for(int i=0; i < numParties; i++){ //creates parties 
-                partyNames[i] = partyNames[i].trim(); // remove leading space between comma and name : , green party = green party
-                parties[i] = new Party(partyNames[i]);
-                audit.writeToAudit("Parties: ");
-                audit.writeToAudit("Party " + i  + ": " + parties[i].getName());
-            }
-            for(int i = 0; i < numParties; i++){ //reads candidates until all parties are populated
-                String[] Candidate_names =  sc.nextLine().split(",");
-                parties[i].populateCandidates(Candidate_names, Candidate_names.length);
-                audit.writeToAudit(parties[i].getName()); //writes party name to audit
-                for (CPL_Candidate candidate: parties[i].getCandidates()){ //writes each candidate in each party to audit
-                    audit.writeToAudit(candidate.getName());
-
-                }
-            
-                
-            }
-            totalSeats =  sc.nextInt(); // reads in the total number of seats avaliable
-            audit.writeToAudit("Total Seats: " + totalSeats);
-            numBallots =  sc.nextInt(); // reads in the total number of ballots in election
-            audit.writeToAudit("Number of Ballots: " + numBallots);
-            for(int i = 0; i < numParties; i++){ //reads candidates until all parties are populated
-               
-                parties[i].initilizeBallotCapacity(numBallots); //initialize capacity of ballots for each party to be total ballots in election
-            }
-
-            audit.writeToAudit("Ballots:");
-           
-            for(int i = 0; i < numBallots; i++){
-
-                String ballot = sc.nextLine();
-                int partyVote = ballot.indexOf("1"); // gets the pos of the vote
-               
-                    ballots[i] = new CPL_Ballot(partyVote, numParties); //intializes a new ballot
-                    audit.writeToAudit("Ballot " + ballots[i].getId() + ": " + ballots[i].representation()); //prints out the ballots by id and their integer array repesentation
-                    
-                }  
-                sc.close();
-                audit.writeToAudit("Data Succesfully Populated!");
-           
-}
-catch(IOException e){ 
-    audit.writeToAudit("Data Population Failed ---> Invalid File!");
-
+    }
     
 }
 
+public void populateCandidates(File file, Scanner sc){ //split into poluate parties, candidates, ballot methods  
+  
+    for(int i = 0; i < numParties; i++){ //reads candidates until all parties are populated
+        String[] Candidate_names =  sc.nextLine().split(",");
+        parties[i].populateCandidates(Candidate_names, Candidate_names.length);
+        
+        audit.writeToAudit(parties[i].getName()); //writes party name to audit
+        for (CPL_Candidate candidate: parties[i].getCandidates()){ //writes each candidate in each party to audit
+            audit.writeToAudit(candidate.getName());
+
+        }
+          
+    }    
+
+}
+
+public void populateBallots(File file, Scanner sc) {         
+    totalSeats =  sc.nextInt(); // reads in the total number of seats avaliable
+    audit.writeToAudit("Total Seats: " + totalSeats);
+    numBallots =  sc.nextInt(); // reads in the total number of ballots in election
+    ballots = new CPL_Ballot[numBallots];
+    sc.nextLine();
+    audit.writeToAudit("Number of Ballots: " + numBallots);
+    
+    for(int i = 0; i < numParties; i++){ //reads candidates until all parties are populated
+           
+        parties[i].initilizeBallotCapacity(numBallots); //initialize capacity of ballots for each party to be total ballots in election
     }
 
+    audit.writeToAudit("Ballots:");
+    for(int i = 0; i < numBallots; i++){
+        String ballot = sc.nextLine();
+        int partyVote = ballot.indexOf("1"); // gets the pos of the vote
+        ballots[i] = new CPL_Ballot(partyVote, numParties); //intializes a new ballot
+        audit.writeToAudit(ballots[i].toString()); //prints out the ballots by id and their integer array repesentation
+                
+    }  
+    audit.writeToAudit("Data Succesfully Populated!");
+            
+    
+}
     
     public int coinToss(){
         Random randomNum = new Random();
@@ -167,6 +179,7 @@ catch(IOException e){
     return result;
 }
     public int poolselect(){
+        return 0;
 
     }
 

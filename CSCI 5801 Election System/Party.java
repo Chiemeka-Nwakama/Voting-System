@@ -23,11 +23,10 @@ public class Party {
 
     public void populateCandidates(String[] candidateNames, int numCandidates){
         candidates = new CPL_Candidate[numCandidates]; // intitalizes candidate list
-
         for(int i = 0; i < numCandidates; i++){ //creates candidates inaccordance to how many there are
             candidates[i] = new CPL_Candidate(candidateNames[i].trim(), name); //populates each candidate one by one
-        
     }
+    
 }
 
 public void initilizeBallotCapacity(int totalBallots){
@@ -43,6 +42,7 @@ public void initilizeBallotCapacity(int totalBallots){
 
     // WOULD RETURN MEMORY ADDRESS SO I DONT THINK WE EVEN NEED THIS
     public CPL_Candidate[] getCandidates(){
+
         return candidates;
 
     }
