@@ -48,7 +48,12 @@ public class CPL {
     }
     
     public void distributeSeats(){
-        
+        int quota = numBallots / totalSeats; //calculates the quotes to be used to determine seats handed out
+        audit.writeToAudit("Calculating Quota: total Votes / total Seats");
+        audit.writeToAudit("Quota =  " + quota);
+        int seatsRemaining = totalSeats;
+        audit.writeToAudit("Seats Remaining: " + seatsRemaining);
+
 
 
     }
@@ -144,6 +149,19 @@ catch(IOException e){
     public int poolselect(){
 
     }
+
+    public void sortParties(Party[] parties) // sorts party by their remainder votes
+    {
+        for (int j = 1; j < parties.length; j++) {  
+            Party key = parties[j];
+            int i = j-1;  
+            while ( (i > -1) && ( parties[i].getRemainderVotes() > key.getRemainderVotes()  ) ) {  
+                parties[i+1] = parties[i];  
+                i--;  
+            }  
+            parties[i+1] = key;  
+    }
+}
 
 
     
