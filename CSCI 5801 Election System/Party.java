@@ -13,7 +13,6 @@ public class Party {
         totalVotes = 0;
         seats = 0;
         remainderVotes = 0;
-        System.out.println("name: " + name);
 
     } 
 
