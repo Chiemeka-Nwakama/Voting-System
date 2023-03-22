@@ -8,7 +8,7 @@ public class Party {
     private int seats;
     private String name;
     private static int count = 0;
-    int id;
+    private int id;
  
 
     public Party(String name){
@@ -73,8 +73,8 @@ public void initilizeBallotCapacity(int totalBallots){
         return totalVotes;
 
     }
-    public void addSeats(){
-        seats++;
+    public void addSeats(int amountOfSeats){
+        seats = seats + amountOfSeats;
 
     }
     public int getSeats(){
