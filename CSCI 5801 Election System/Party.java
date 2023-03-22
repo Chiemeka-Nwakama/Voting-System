@@ -7,12 +7,17 @@ public class Party {
     private int remainderVotes;
     private int seats;
     private String name;
+    private static int count = 0;
+    int id;
+ 
 
     public Party(String name){
         this.name = name;
         totalVotes = 0;
         seats = 0;
         remainderVotes = 0;
+        id = count;
+        count++;
 
     } 
 
@@ -23,6 +28,10 @@ public class Party {
             candidates[i] = new CPL_Candidate(candidateNames[i].trim(), name); //populates each candidate one by one
         
     }
+}
+
+public void initilizeBallotCapacity(int totalBallots){
+    partyBallots = new CPL_Ballot[totalBallots]; // makes the ballot array as big as there are ballots in the election
 }
     public void clearCandidates(){
         // MAY NOT BE NECESSARY
@@ -55,11 +64,12 @@ public class Party {
         return name;
 
     }
-    public void addVote(){
-        totalVotes++;
+    public void addVote(CPL_Ballot ballot){
+        partyBallots[totalVotes] = ballot; //gives voter's ballot to party
+        totalVotes++; //adds to total votes party has
 
     }
-    public int getVote(){
+    public int getVotes(){
         return totalVotes;
 
     }
@@ -80,6 +90,12 @@ public class Party {
         remainderVotes = votes;
         
     }
+
+    public int getId(){
+        return id;
+    }
+
+    
 
     
 }
