@@ -13,35 +13,11 @@ public class CPL {
     private File election_file;
 
     public CPL(File file){
+        audit.writeToAudit("CPL Election found");
         audit = new CPL_Audit_File(); // intitalzies the audit file
-        try {  
-        Scanner sc = new Scanner(file);
-        sc.nextLine(); //ignores first line since it was read already in the Election Class
-        numParties =  sc.nextInt(); //reads in the 2nd line - number of parties
-        sc.nextLine(); // skip the rest of the line containing the numParties
-        String[] partyNames = sc.nextLine().split(","); // 3rd line -- gets names of the party
-        parties = new Party[numParties];
-   
-
-
-
-        for(int i=0; i < numParties; i++){ //creates parties 
-
-            partyNames[i] = partyNames[i].trim(); // remove leading space between comma and name : , green party = green party
-            parties[i] = new Party(partyNames[i]);
-        }
-
-        for(int i = 0; i < numParties; i++){ //reads candidates until all parties are populated
-            String[] Candidate_names =  sc.nextLine().split(",");
-            parties[i].populateCandidates(Candidate_names, Candidate_names.length);
-        }
-
-        sc.close();
-
-    }
-    catch(IOException e){
-        System.out.println("Error: File could not be opened"); 
-
+        audit.writeToAudit("Audit file intialized");
+        audit.writeToAudit("Populating Data from CPL election file...");
+        populateData(file); // intitalizes the values from the read in files
     }
     
     void run(){
