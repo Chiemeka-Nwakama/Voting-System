@@ -73,8 +73,8 @@ public void initilizeBallotCapacity(int totalBallots){
         return totalVotes;
 
     }
-    public void addSeats(){
-        seats++;
+    public void addSeats(int amountOfSeats){
+        seats = seats + amountOfSeats;
 
     }
     public int getSeats(){

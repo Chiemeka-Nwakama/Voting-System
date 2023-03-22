@@ -1,6 +1,7 @@
 import java.util.Scanner;
 import java.io.*;
 import java.util.Arrays;
+import java.util.Random;
 public class CPL {
     private int numParties;
     private int numCandidates;
@@ -11,6 +12,8 @@ public class CPL {
     private CPL_Ballot[] ballots;
     private CPL_Audit_File audit;
     private File election_file;
+    private final int randomConstant = 1000;
+    
 
     public CPL(File file){
         audit.writeToAudit("CPL Election found");
@@ -52,6 +55,17 @@ public class CPL {
         audit.writeToAudit("Calculating Quota: total Votes / total Seats");
         audit.writeToAudit("Quota =  " + quota);
         int seatsRemaining = totalSeats;
+        audit.writeToAudit("First Round of Seat Distrubution:");
+        audit.writeToAudit("Seats Remaining: " + seatsRemaining);
+        for(int i = 0; i < numParties; i++){
+           int seats =  parties[i].getVotes()/quota; //calculates the seats the a part will be granted before remainder
+           parties[i].addSeats(seats);
+           seatsRemaining = seatsRemaining - seats;
+           audit.writeToAudit(parties[i].getName() + "Seats: " + seats); // writes to audit how many seats each party was givin in frist round
+
+
+        }
+        audit.writeToAudit("Second Round of Seat Distrubution:");
         audit.writeToAudit("Seats Remaining: " + seatsRemaining);
 
 
@@ -144,8 +158,14 @@ catch(IOException e){
 
     
     public int coinToss(){
+        Random randomNum = new Random();
+        int result = 0;
+        for(int i = 0; i < randomConstant; i++ ){//flips a coin 1000 time prior to gaurantee true randomness opposed to pseudo
 
+           result =  randomNum.nextInt(2);
     }
+    return result;
+}
     public int poolselect(){
 
     }
