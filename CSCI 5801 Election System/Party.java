@@ -8,7 +8,7 @@ public class Party {
     private int seats;
     private String name;
     private static int count = 0;
-    int id;
+    private int id;
  
 
     public Party(String name){
