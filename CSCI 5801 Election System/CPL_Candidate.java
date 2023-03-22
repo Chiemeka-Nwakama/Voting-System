@@ -22,5 +22,7 @@ public class CPL_Candidate {
      }
 
     
+
+    
 } 
  // @casey526

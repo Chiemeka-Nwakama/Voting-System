@@ -52,13 +52,15 @@ public void initilizeBallotCapacity(int totalBallots){
 
     }
     public String getName(){
+        return name;
 
     }
-    public void addVote(){
-        totalVotes++;
+    public void addVote(CPL_Ballot ballot){
+        partyBallots[totalVotes-1] = ballot; //gives voter's ballot to party
+        totalVotes++; //adds to total votes party has
 
     }
-    public int getVote(){
+    public int getVotes(){
         return totalVotes;
 
     }
