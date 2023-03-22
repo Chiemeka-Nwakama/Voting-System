@@ -67,8 +67,15 @@ public class IR {
         return this.numBallots;
     }
     
-    public void makeLoser(IR_Candidate makeLoser){
+    public void makeLoser(IR_Candidate loser){
+        loser.setStatus();
+        IR_Ballot curBallot;
+        IR_Ballot[] loserBallots = IR_Ballot[loser.getVotes()];
+        loserBallots = loser.getBallots();
+        for (int a = 0; a < loser.getVotes(); a++){ //reassign ballots
+            curBallot = loserBallots[a];
 
+        }
     }
     public int coinToss(){
 

@@ -1,8 +1,8 @@
 public class IR_Candidate {
     private IR_Ballot[] ballots;
-    boolean status;
-    int votes;
-    String name;
+    private boolean status;
+    private int votes;
+    private String name;
     public IR_Candidate(String name){
         status = true;
         this.name = name;
