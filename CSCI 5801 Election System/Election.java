@@ -7,7 +7,6 @@ public class Election{
         String fileName;
         boolean valid = false;
         Scanner scanner = new Scanner(System.in); //intializes a scanner object
-       // Scanner file_scan = new Scanner(System.i);; // scanner object for files
         File election;
 
         if(args.length > 1) {

@@ -4,13 +4,12 @@ public class CPL_Audit_File {
     private File auditFile;
     
     public CPL_Audit_File(){
-
         auditFile = new File("audit");
 
     }
     public void writeToAudit(String thing){
         audit = audit + thing + "/n";
-        System.out.println(thing);
+       // System.out.println(thing);
     }
 
     public void outputAudit(){
@@ -23,7 +22,7 @@ public class CPL_Audit_File {
           } catch (IOException e) {
             System.out.println("An error occurred.");
             e.printStackTrace();
-    }
+        }
 
-}
+    }
 }
