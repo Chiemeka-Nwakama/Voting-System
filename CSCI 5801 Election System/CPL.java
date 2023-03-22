@@ -26,11 +26,6 @@ public class CPL {
         populateCandidates(file, sc);
         populateBallots(file, sc);
         
-        for(int i = 0; i < numParties; i++) {
-            //System.out.println("Party: " + parties[i].getName());
-            //System.out.println(parties[i].getCandidates());
-        }
-        
         sc.close();
     }
     
@@ -38,8 +33,8 @@ public class CPL {
         audit.writeToAudit("Start of CPL Election");
         audit.writeToAudit("Assigning Ballots to Parties: ");
         assignBallots(); // distibutes Ballots to the parties associated with the parties voted for
-        //audit.writeToAudit("Distributing Seats to Parties: ");
-        // distributeSeats(); // distributes seats to parties
+        audit.writeToAudit("\nDistributing Seats to Parties: ");
+        distributeSeats(); // distributes seats to parties
 
     }
 
@@ -76,12 +71,38 @@ public class CPL {
 
 
         }
-        audit.writeToAudit("Second Round of Seat Distrubution:");
+        audit.writeToAudit("\nSecond Round of Seat Distrubution:");
         audit.writeToAudit("Seats Remaining: " + seatsRemaining);
+        audit.writeToAudit("Votes Remaining: ");
+        calculateRemainingVotes(quota);
+        for(int i = 0; i < numParties; i++) {
+            audit.writeToAudit(parties[i].getName() + ": " + parties[i].getRemainderVotes());
+        }
+        Party temp[] = parties.clone();
 
+        sortParties(parties);
+
+        System.out.println();
+        for(int i =0; i < seatsRemaining; i++) {
+            parties[i].addSeats(1);
+        }
+
+        parties = temp.clone();
+
+        for(int i =0; i < numParties; i++) {
+            audit.writeToAudit(parties[i].getName() + "Seats: " + parties[i].getSeats());
+        }
 
 
     }
+
+    public void calculateRemainingVotes(int quota){
+        for(int i = 0; i < numParties; i++) {
+            int remaining = parties[i].getVotes() % quota;
+            parties[i].setRemainderVotes(remaining);
+        }
+    }
+    
 
     public void assignBallots(){
 
@@ -193,7 +214,7 @@ public void populateBallots(File file, Scanner sc) {
         for (int j = 1; j < parties.length; j++) {  
             Party key = parties[j];
             int i = j-1;  
-            while ( (i > -1) && ( parties[i].getRemainderVotes() > key.getRemainderVotes()  ) ) {  
+            while ( (i > -1) && ( parties[i].getRemainderVotes() < key.getRemainderVotes()  ) ) {  
                 parties[i+1] = parties[i];  
                 i--;  
             }  
