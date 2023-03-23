@@ -2,6 +2,7 @@ public class IR_Ballot {
     private int[] ballot;
     private int currentVote; //holds the ranking of the current vote
     private int currentCandidate; //holds the index of the candadate for the current vote
+    private int ballotID;
 
     /** 
     *This constructor create rankings array to store the ranking of candidates
@@ -43,9 +44,14 @@ public class IR_Ballot {
     /** 
     *getCurrentVote() method return index of currently voted for candidate
     @param void
-    @return void
+    @return currentCandidate
     **/
     public int getCurrentVote(){return currentCandidate;} //returns index of currently voted for candidate
 
-    
+    /** 
+    *getBallotID() method return current ballotID of the election
+    @param void
+    @return ballotID
+    **/
+    public int getBallotID(){return ballotID;}
 }
