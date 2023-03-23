@@ -29,7 +29,11 @@ public class CPL {
         
         sc.close();
     }
-    
+      /**
+   * This method runs the entire election from start to finish using various methods along the way writes to the audit file
+   * @param file
+   * @return void
+   */
     void run(File file){
         audit.writeToAudit("Start of CPL Election");
         audit.writeToAudit("Assigning Ballots to Parties: ");
@@ -56,6 +60,13 @@ public class CPL {
         return numBallots;
 
     }
+
+    /**
+   * This method distributes the seats of in the election in two round allocations to the parties based on votes and the quota, ran after assigning ballots
+   * @param void
+   * @return void
+   */
+
     
     public void distributeSeats(){
         int quota = numBallots / totalSeats; //calculates the quotes to be used to determine seats handed out
@@ -88,6 +99,7 @@ public class CPL {
         for(int i =numParties; i >= 0 || seatsRemaining == 0; i--) {
             if(seatsRemaining < (numParties-i)){
                 int tiedParties = 0;
+                
                 for(int j = i - 1; parties[j+1] == parties[j]; j--){
                     tiedParties++;
                 }
@@ -95,41 +107,47 @@ public class CPL {
                 if(tiedParties == 2){ // two way tie
                     int winner = coinToss();
                     if(winner == 0){
-                        audit.writeToAudit(parties[j+1].getName() + " Won the coin toss!");
-                        audit.writeToAudit("Allocating " + 1 + "seat" +  " to " + parties[j].getName());
+                        audit.writeToAudit(parties[i].getName() + " Won the coin toss!");
+                        audit.writeToAudit("Allocating " + 1 + "seat" +  " to " + parties[i].getName());
 
                     }
                     else{
-                        audit.writeToAudit(parties[j].getName() + " Won the coin toss!");
-                        audit.writeToAudit("Allocating " + 1 + "seat" +  " to " + parties[j].getName());
+                        audit.writeToAudit(parties[i-1].getName() + " Won the coin toss!");
+                        audit.writeToAudit("Allocating " + 1 + "seat" +  " to " + parties[i-1].getName());
 
                     }
                 }
                 else{
-                    
+
 
                 }
                 
 
                
-                
+            }  
             else{
             parties[i].addSeats(1);
             seatsRemaining--;
             }
            
         }
+    
 
         parties = temp.clone(); // corrects parties back to orginal order
 
         for(int i =0; i < numParties; i++) {
             audit.writeToAudit(parties[i].getName() + "Seats: " + parties[i].getSeats());
-        }
+        
 
     
     }
 }
     
+/**
+   * This method calculates the remaining votes that a party has left after the first round allocation via the modulous of votes by the quota to get the remainder
+   * @param quota the quota of the election calculated by taking (total votes in election)/(total seats)
+   * @return void
+   */
 
     public void calculateRemainingVotes(int quota){
         for(int i = 0; i < numParties; i++) {
@@ -137,7 +155,12 @@ public class CPL {
             parties[i].setRemainderVotes(remaining);
         }
     }
-    
+    /**
+   * This method assigns ballots to Parties based on who they voted adding them to vote count of each party as well as giving the ballots to each parties candidates list
+   * @param void
+   * @return void
+   */
+
 
     public void assignBallots(){
 
@@ -166,6 +189,13 @@ public class CPL {
 
 
     }
+    /**
+   * This method is called in the CPL constructor populating and intilazing the Party objects along with reading in the total number of parties
+   * @param file the election file 
+   * @param sc the sc already initalized in the CPL constructor
+   * @return void
+   */
+
     public void populateParties(File file, Scanner sc) {
         sc.nextLine(); //ignores first line since it was read already in the Election Class
         numParties =  sc.nextInt(); //reads in the 2nd line - number of parties
@@ -183,6 +213,13 @@ public class CPL {
     }
     
 }
+/**
+   * This method is called in the CPL constructor populating and intializing the Candidate list in each party
+   * @param file the election file 
+   * @param sc the sc already initalized in the CPL constructor
+   * @return void
+   */
+
 
 public void populateCandidates(File file, Scanner sc){ //split into poluate parties, candidates, ballot methods  
   
@@ -203,6 +240,12 @@ public void populateCandidates(File file, Scanner sc){ //split into poluate part
     }    
 
 }
+    /**
+   * This method is called in the CPL constructor populating and intializing the CPL Ballot objects along with reading in the total number of seats to be given
+   * @param file the election file 
+   * @param sc the sc already initalized in the CPL constructor
+   * @return void
+   */
 
 public void populateBallots(File file, Scanner sc) {         
     totalSeats =  sc.nextInt(); // reads in the total number of seats avaliable
@@ -229,7 +272,11 @@ public void populateBallots(File file, Scanner sc) {
             
     
 }
-    
+     /**
+   * This method cointToss() will determine which party gets a seat in the two way tie
+   * @param void 
+   * @return A a randomly generate number 0 or 1, 0 for heads, 1 for tails
+   */
     public int coinToss(){
         Random randomNum = new Random();
         int result = 0;
