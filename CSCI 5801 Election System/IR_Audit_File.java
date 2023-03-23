@@ -1,14 +1,14 @@
 import java.io.*;
 public class IR_Audit_File {
     private File auditFile;
-    private string result;
+    private String result;
     
     /** 
     *This is a constructor initializer for IR audit file
     @param void
     **/
     public IR_Audit_File(){
-        this.auditFile = new File();
+        this.auditFile = new File("result");
         result = "";
     }
 
@@ -31,7 +31,7 @@ public class IR_Audit_File {
         System.out.print(auditFile);
          try{
             FileWriter writer = new FileWriter(auditFile);
-            writer.write(audit);
+            writer.write(result);
             writer.close();
         } catch (IOException e) {
             System.out.println("Cannot write IR results to audit file.");
