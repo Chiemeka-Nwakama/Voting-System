@@ -1,5 +1,8 @@
 import java.util.Scanner;
 import java.io.*;
+import java.util.Arrays;
+import java.util.Random;
+
 public class IR {
     private File inputFile;
     private int numCandidates;
@@ -7,21 +10,43 @@ public class IR {
     private int numBallots;
     private IR_Ballot[] ballots;
     private IR_Audit_File audit;
-    private IR_Candidate[] curRanking;
+    private IR_Candidate[] ranking;
+    private string result; //use to write each step into the audit file
+    private final int randomConstant = 1000;
+    private int remainingCandidates;
 
     public IR(File  file){
         inputFile = file;
         //TODO: Create audit file
-        audit = new IR_Audit_File("IR_auditFile.txt");
+        audit = new IR_Audit_File();
+        audit.writeToAudit("Instant Runoff Voting Election");
         
 
     }
     
     void run(){
+        //write to audit file
         populateData(); //add all ballots to ballot array and assign IDs
         assignBallots(); //assign ballot IDs to candidate's ballot array
-        if (!getElectionStatus()){ //rank all candidates and check for winner
-
+        remainingCandidates = numCandidates;
+        while (!getElectionStatus()){ //rank all candidates and check for winner
+            int numTied = checkForWinnerTie;
+            if (numTied == remainingCandidates){
+                if (numTied == 2){
+                    coinToss(); //declare a winner and end process
+                }else{
+                    poolselect(numTied); //redistribute losing candidate's votes
+                }
+            }else{
+                numTied = checkForLoserTie;
+                if (numTied == 2){
+                    coinToss();
+                }else if (numTied > 2){
+                    poolselect(numTied);
+                }else{
+                    ranking[remainingCandidates - 1]
+                }
+            }
         }
     }
 
@@ -95,14 +120,51 @@ public class IR {
             candidates[ballots[curBallot].getCurrentVote()].addBallot(curBallot); //add ballot to new candidate's array
         }
         loser.removeVotes(); //set loser's vote count to 0
+        remainingCandidates--;
+    }
+
+    public int checkForWinnerTie(){
+        int tieCounter = 1; //set tieCounter to 1 if no candidates are tied
+        for (int a = 1; a < numCandidates; a++){ //check if there's a tie, start with second candidate
+            if (ranking[0].getVotes == ranking[a].getVotes){
+                tieCounter++; //increament 
+            }else{
+                break;
+            }
+        }
+        return tieCounter;
+    }
+
+    public int checkForLoserTie(){
+        int tieCounter = 1; //set tieCounter to 1 if no candidates are tied
+        for (int a = numCandidates - 2; a >= 0; a--){ //check if there's a tie 
+            if (ranking[numCandidates - 1].getVotes == ranking[a].getVotes){
+                tieCounter++;
+            }else{
+                break;
+            }
+        }
+        return tieCounter;
     }
 
     public int coinToss(){
+        Random randomNum = new Random();
+        int result = 0;
+        for(int i = 0; i < randomConstant; i++){
+            result = randomNum.nextInt(2);
+        }
+        return result;      
 
     }
 
-    public int poolselect(){
-
+    public int poolselect(int numTied){
+        Random randomNum = new Random();
+        int result = 0;
+        for(int i = 0; i < randomConstant; i++){
+            result = randomNum.nextInt(numTied);
+        }
+        
+        return result;
     }
 
     public void displayResults(){
@@ -117,7 +179,8 @@ public class IR {
             System.out.println("  " + candidates[i] + "  " + ballots[i].getCurrentVote());
         }
 
-        String result = "-----Instant Runoff Election Results-----\n" +
+        result = "-----Instant Runoff Election Results-----\n" +
+                        "Ballot ID: " + ballot.getBallotID() + "\n" + 
                         "***The winner is: \n" + 
                         "--Information on the Election--\n" +
                         "Number of Candidates: " + numCandidates + "\n" +
@@ -128,10 +191,6 @@ public class IR {
         }
         audit.writeToAudit(result);
 
-    }
-
-    public void countVote(IR_Ballot ballot){
-        
     }
 
     public boolean setElectionStatus(){ //rank all candidates highest to lowest, find winner if there is one

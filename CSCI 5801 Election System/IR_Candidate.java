@@ -3,16 +3,16 @@ public class IR_Candidate {
     private boolean status;
     private int votes;
     private String name;
-    private int index;
+    private int ID;
     private boolean winner;
     private int winningBallots;
     private int curRank;
-    public IR_Candidate(String name, int index){
+    public IR_Candidate(String name, int candidateID){
         curRank = 0;
         status = true;
         winner = false;
         this.name = name;
-        this.index = index;
+        ID = index;
         votes = 0; 
     }
 
