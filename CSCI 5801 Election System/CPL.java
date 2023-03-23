@@ -292,6 +292,11 @@ public void populateBallots(File file, Scanner sc) {
 
     }
 
+      /**
+   * This method sorts parties using Insertion sort by remainder of votes
+   * @param parties an array of the parties to be sorted
+   * @return void
+   */
     public void sortParties(Party[] parties) // sorts party by their remainder votes
     {
         for (int j = 1; j < parties.length; j++) {  
