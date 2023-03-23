@@ -25,6 +25,7 @@ public class CPL {
         populateParties(file, sc);
         populateCandidates(file, sc);
         populateBallots(file, sc);
+        audit.writeToAudit("Data Succesfully Populated!");
         
         sc.close();
     }
@@ -66,6 +67,7 @@ public class CPL {
         for(int i = 0; i < numParties; i++){
            int seats =  parties[i].getVotes()/quota; //calculates the seats the a part will be granted before remainder
            parties[i].addSeats(seats);
+           audit.writeToAudit("Allocating " + seats + "seats to " + parties[i].getName());
            seatsRemaining = seatsRemaining - seats;
            audit.writeToAudit(parties[i].getName() + "Seats: " + seats); // writes to audit how many seats each party was givin in frist round
 
@@ -74,7 +76,7 @@ public class CPL {
         audit.writeToAudit("\nSecond Round of Seat Distrubution:");
         audit.writeToAudit("Seats Remaining: " + seatsRemaining);
         audit.writeToAudit("Votes Remaining: ");
-        calculateRemainingVotes(quota);
+        calculateRemainingVotes(quota); // calculates the remaining votes left to distribute seats
         for(int i = 0; i < numParties; i++) {
             audit.writeToAudit(parties[i].getName() + ": " + parties[i].getRemainderVotes());
         }
@@ -83,18 +85,51 @@ public class CPL {
         sortParties(parties);
 
         System.out.println();
-        for(int i =0; i < seatsRemaining; i++) {
+        for(int i =numParties; i >= 0 || seatsRemaining == 0; i--) {
+            if(seatsRemaining < (numParties-i)){
+                int tiedParties = 0;
+                for(int j = i - 1; parties[j+1] == parties[j]; j--){
+                    tiedParties++;
+                }
+                tiedParties++;
+                if(tiedParties == 2){ // two way tie
+                    int winner = coinToss();
+                    if(winner == 0){
+                        audit.writeToAudit(parties[j+1].getName() + " Won the coin toss!");
+                        audit.writeToAudit("Allocating " + 1 + "seat" +  " to " + parties[j].getName());
+
+                    }
+                    else{
+                        audit.writeToAudit(parties[j].getName() + " Won the coin toss!");
+                        audit.writeToAudit("Allocating " + 1 + "seat" +  " to " + parties[j].getName());
+
+                    }
+                }
+                else{
+                    
+
+                }
+                
+
+               
+                
+            else{
             parties[i].addSeats(1);
+            seatsRemaining--;
+            }
+           
         }
 
-        parties = temp.clone();
+        parties = temp.clone(); // corrects parties back to orginal order
 
         for(int i =0; i < numParties; i++) {
             audit.writeToAudit(parties[i].getName() + "Seats: " + parties[i].getSeats());
         }
 
-
+    
     }
+}
+    
 
     public void calculateRemainingVotes(int quota){
         for(int i = 0; i < numParties; i++) {
@@ -190,7 +225,7 @@ public void populateBallots(File file, Scanner sc) {
         audit.writeToAudit(ballots[i].toString()); //prints out the ballots by id and their integer array repesentation
                 
     }  
-    audit.writeToAudit("Data Succesfully Populated!");
+   
             
     
 }
@@ -202,6 +237,7 @@ public void populateBallots(File file, Scanner sc) {
 
            result =  randomNum.nextInt(2);
     }
+    result =  randomNum.nextInt(2);
     return result;
 }
     public int poolselect(){
@@ -214,7 +250,7 @@ public void populateBallots(File file, Scanner sc) {
         for (int j = 1; j < parties.length; j++) {  
             Party key = parties[j];
             int i = j-1;  
-            while ( (i > -1) && ( parties[i].getRemainderVotes() < key.getRemainderVotes()  ) ) {  
+            while ( (i > -1) && ( parties[i].getRemainderVotes() < key.getRemainderVotes())) {  
                 parties[i+1] = parties[i];  
                 i--;  
             }  
