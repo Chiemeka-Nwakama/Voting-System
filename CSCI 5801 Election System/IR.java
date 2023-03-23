@@ -8,16 +8,20 @@ public class IR {
     private IR_Ballot[] ballots;
     private IR_Audit_File audit;
     private IR_Candidate[] ranking;
+    private string result; //use to write each step into the audit file
 
     public IR(File  file){
         inputFile = file;
         //TODO: Create audit file
-        audit = new IR_Audit_File("IR_auditFile.txt");
+        audit = new IR_Audit_File();
+        audit.writeToAudit("IR");
         
 
     }
     
     void run(){
+        //write to audit file
+        audit.writeToAudit("Start of IR Election");
         int counter = 0;
         int curBallot = 0;
         String tempBallot[];
@@ -29,10 +33,12 @@ public class IR {
             }else if (counter == 1){ //get numCandidates
                 numCandidates = Integer.parseInt(data);
                 candidates = new IR_Candidate[numCandidates];
+                audit.writeToAudit(result = Integer.toString(numCandidates));   //write candidate # to audit
             }else if (counter == 2){ //get candidates
                 String tempCandidates[] = data.split(",");
                 for (int a = 0; a < numCandidates; a++){
                     candidates[a] = new IR_Candidate(tempCandidates[a], a);
+                    audit.writeToAudit(result = Integer.toString(candidate[a]));    //write candidate names to audit
                 }
             }else if (counter == 3){ //get numBallots
                 numBallots = Integer.parseInt(data);
@@ -40,6 +46,7 @@ public class IR {
                 for (int a = 0; a < numCandidates; a++){
                     candidates[a].setCandidateBallots(numBallots);
                 }
+                audit.writeToAudit(result = Integer.toString(numBallots));  //write number of ballots
             }else{ //parse ballots
                 finalBallot = new int[numCandidates];
                 tempBallot = data.split(",");
