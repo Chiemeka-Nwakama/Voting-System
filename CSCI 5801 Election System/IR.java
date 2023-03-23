@@ -7,7 +7,7 @@ public class IR {
     private int numBallots;
     private IR_Ballot[] ballots;
     private IR_Audit_File audit;
-    private IR_Candidate[] ranking;
+    private IR_Candidate[] curRanking;
 
     public IR(File  file){
         inputFile = file;
@@ -18,6 +18,14 @@ public class IR {
     }
     
     void run(){
+        populateData(); //add all ballots to ballot array and assign IDs
+        assignBallots(); //assign ballot IDs to candidate's ballot array
+        if (!getElectionStatus()){ //rank all candidates and check for winner
+
+        }
+    }
+
+    public void populateData(){
         int counter = 0;
         int curBallot = 0;
         String tempBallot[];
@@ -46,17 +54,20 @@ public class IR {
                 for (int a = 0; a < numCandidates; a++){
                     finalBallot[a] = Integer.parseInt(tempBallot[a]);
                 }
-                ballots[curBallot] = new IR_Ballot(finalBallot); //add ballot to ballots array
-                for (int a = 0; a < numCandidates; a++){ //add ballot to candidates ballot array
-                    if (finalBallot[a] == 1){
-                        candidates[a].addBallot(new IR_Ballot(finalBallot)); 
-                    }
-                }
+                ballots[curBallot] = new IR_Ballot(finalBallot, curBallot); //add ballot to ballots array
                 curBallot++;
             }
             counter++;
         }
-        
+        scanner.close();
+    }
+
+    public void assignBallots(){
+        int currentCandidate = -1;
+        for (int a = 0; a < numBallots; a++){
+            currentCandidate = ballots[a].getCurrentVote();
+            candidates[currentCandidate].addBallot(a);
+        }
     }
 
 
@@ -75,13 +86,13 @@ public class IR {
     
     public void makeLoser(IR_Candidate loser){
         loser.setStatus();
-        IR_Ballot curBallot;
-        IR_Ballot[] loserBallots = new IR_Ballot[loser.getVotes()];
+        int curBallot;
+        int[] loserBallots = new int[loser.getVotes()];
         loserBallots = loser.getBallots();
         for (int a = 0; a < loser.getVotes(); a++){ //reassign ballots
             curBallot = loserBallots[a];
-            curBallot.updateCurrentVote();
-            candidates[curBallot.getCurrentVote()].addBallot(curBallot); //add ballot to new candidate's array
+            ballots[curBallot].updateCurrentVote();
+            candidates[ballots[curBallot].getCurrentVote()].addBallot(curBallot); //add ballot to new candidate's array
         }
         loser.removeVotes(); //set loser's vote count to 0
     }
@@ -123,12 +134,27 @@ public class IR {
         
     }
 
-    public IR_Candidate[] getElectionStatus(){ //rank all candidates highest to lowest, find winner if there is one
-        ranking = new IR_Candidate[numCandidates];
-        for (int a = 0; a < numCandidates; a++){
-            
+    public boolean setElectionStatus(){ //rank all candidates highest to lowest, find winner if there is one
+        curRanking = new IR_Candidate[numCandidates];
+        curRanking = candidates;
+        for (int i = 0; i < numCandidates; i++){ //insertion sort modified from geeksforgeeks
+            IR_Candidate key = curRanking[i];
+            int j = i - 1;
+ 
+            /* Move elements of arr[0..i-1], that are
+               greater than key, to one position ahead
+               of their current position */
+            while (j >= 0 && (ranking[j].getVotes()) > key.getVotes) {
+                curRanking[j + 1] = curRanking[j];
+                j = j - 1;
+            }
+            curRanking[j + 1] = key;
         }
-        return ranking;
+        if (curRanking[0].getWinner()){
+            return true;
+        }else{
+            return false;
+        }
     }
    
     public void clearCandidates(IR_Candidate[] candidates){

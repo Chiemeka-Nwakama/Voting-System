@@ -2,8 +2,9 @@ public class IR_Ballot {
     private int[] ballot;
     private int currentVote; //holds the ranking of the current vote
     private int currentCandidate; //holds the index of the candadate for the current vote
+    private int ballotID; //holds index for ballot in IR's ballot array
 
-    public IR_Ballot(int[] rankings){
+    public IR_Ballot(int[] rankings, int index){
         ballot = rankings;
         for (int a = 0; a <= ballot.length; a++){ //parse through ballot for first vote
             if (ballot[a] == 1){
@@ -12,6 +13,7 @@ public class IR_Ballot {
             }
         }
         currentVote = 1;
+        ballotID = index;
     }
 
     public void updateCurrentVote(){ //called when candidate is eliminated, updates vote to next rank
@@ -32,6 +34,8 @@ public class IR_Ballot {
     }
 
     public int getCurrentVote(){return currentCandidate;} //returns index of currently voted for candidate
+
+    public int getBallotID(){return ballotID;} 
 
     
 }

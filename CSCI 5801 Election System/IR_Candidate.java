@@ -1,5 +1,5 @@
 public class IR_Candidate {
-    private IR_Ballot[] ballots;
+    private int[] ballots;
     private boolean status;
     private int votes;
     private String name;
@@ -16,8 +16,8 @@ public class IR_Candidate {
         votes = 0; 
     }
 
-    public void addBallot(IR_Ballot ballot){
-        ballots[votes] = ballot;
+    public void addBallot(int ballotIndex){
+        ballots[votes] = ballotIndex;
         votes += 1;
         if (votes >= winningBallots){
             winner = true;
@@ -48,7 +48,7 @@ public class IR_Candidate {
         curRank = rank;
     }
 
-    public IR_Ballot[] getBallots(){
+    public int[] getBallots(){
         return ballots;
     }
 
@@ -57,7 +57,7 @@ public class IR_Candidate {
     }
 
     public void setCandidateBallots(int numBallots){
-        ballots = new IR_Ballot[numBallots];
+        ballots = new int[numBallots];
         winningBallots = (int) Math.ceil((double)numBallots / 2); //divide totalBallots by 2, round up if not whole number
         if (numBallots % 2 == 0){
             winningBallots++; //add 1 if whole number, making it half the totalBallots + 1
