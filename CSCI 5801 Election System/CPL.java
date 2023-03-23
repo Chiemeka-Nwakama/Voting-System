@@ -15,6 +15,10 @@ public class CPL {
     private final int randomConstant = 1000;
     public Scanner sc;
     
+      /**
+   * This constructor takes in the election file and kicks off the population of data into data types by calling various methods within
+   * @param file
+   */
 
     public CPL(File file) throws FileNotFoundException{
         audit = new CPL_Audit_File(); // intitalzies the audit file
