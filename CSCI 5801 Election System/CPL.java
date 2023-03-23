@@ -24,7 +24,7 @@ public class CPL {
         audit = new CPL_Audit_File(); // intitalzies the audit file
         audit.writeToAudit("CPL Election found");
         audit.writeToAudit("Audit file initialized");
-        audit.writeToAudit("Populating Data from CPL election file...\n");
+        audit.writeToAudit("Populating Data from CPL election file...");
         sc = new Scanner(file);
         populateParties(file, sc);
         populateCandidates(file, sc);
@@ -42,7 +42,7 @@ public class CPL {
         audit.writeToAudit("Start of CPL Election");
         audit.writeToAudit("Assigning Ballots to Parties: ");
         assignBallots(); // distibutes Ballots to the parties associated with the parties voted for
-        audit.writeToAudit("\nDistributing Seats to Parties: ");
+        audit.writeToAudit("Distributing Seats to Parties: ");
         distributeSeats(); // distributes seats to parties
 
     }
@@ -88,7 +88,7 @@ public class CPL {
 
 
         }
-        audit.writeToAudit("\nSecond Round of Seat Distrubution:");
+        audit.writeToAudit("Second Round of Seat Distrubution:");
         audit.writeToAudit("Seats Remaining: " + seatsRemaining);
         audit.writeToAudit("Votes Remaining: ");
         calculateRemainingVotes(quota); // calculates the remaining votes left to distribute seats
@@ -177,7 +177,7 @@ public class CPL {
         audit.writeToAudit("Ballots Assignment and Vote Count Complete");
         audit.writeToAudit("Results: ");
         for(Party party: parties){ //iterates through each party
-            audit.writeToAudit("\n" + party.getName() + ":");
+            audit.writeToAudit(party.getName() + ":");
             int partyVotes = party.getVotes(); //uses total votes to know when to stop looking for ballots since the rest will be null
             audit.writeToAudit("Total Votes: " + partyVotes); // writes total votes to audit
             audit.writeToAudit("Ballots Earned: "); // writes ballots earned to audit
@@ -238,7 +238,7 @@ public void populateCandidates(File file, Scanner sc){ //split into poluate part
 
         }
         candidateList = candidateList.substring(0, candidateList.length()-2);
-        audit.writeToAudit(candidateList + "\n");
+        audit.writeToAudit(candidateList);
 
           
     }    
