@@ -1,0 +1,141 @@
+CPL Election found
+Audit file initialized
+Populating Data from CPL election file...
+
+Number of Parties: 7
+Parties: 
+Party 0: Democratic
+Party 1: Republican
+Party 2: New Wave
+Party 3: Reform
+Party 4: Green
+Party 5: Independent
+Party 6: Test
+
+Candidates:
+Democratic: 
+Foster, Volz, Pike
+
+Republican: 
+Green, Xu, Wang
+
+New Wave: 
+Jacks, Rosen
+
+Reform: 
+McClure, Berg
+
+Green: 
+Zheng, Melvin
+
+Independent: 
+Peters
+
+Test: 
+Tester
+
+Total Seats: 1
+Number of Ballots: 9
+Ballots:
+Ballot 0: 1,,,,,,
+Ballot 1: ,,,,,,1
+Ballot 2: ,1,,,,,
+Ballot 3: ,,,,1,,
+Ballot 4: ,,,,,1,
+Ballot 5: ,,,1,,,
+Ballot 6: ,,1,,,,
+Ballot 7: 1,,,,,,
+Ballot 8: ,1,,,,,
+Data Succesfully Populated!
+
+Start of CPL Election
+Assigning Ballots to Parties: 
+Assigning Ballot 0: 1,,,,,, to Democratic
+Assigning Ballot 1: ,,,,,,1 to Test
+Assigning Ballot 2: ,1,,,,, to Republican
+Assigning Ballot 3: ,,,,1,, to Green
+Assigning Ballot 4: ,,,,,1, to Independent
+Assigning Ballot 5: ,,,1,,, to Reform
+Assigning Ballot 6: ,,1,,,, to New Wave
+Assigning Ballot 7: 1,,,,,, to Democratic
+Assigning Ballot 8: ,1,,,,, to Republican
+Ballots Assignment and Vote Count Complete!
+
+Results:
+ 
+Democratic:
+Total Votes: 2
+Ballots Earned: 
+Ballot 0: 1,,,,,,
+Ballot 7: 1,,,,,,
+
+Republican:
+Total Votes: 2
+Ballots Earned: 
+Ballot 2: ,1,,,,,
+Ballot 8: ,1,,,,,
+
+New Wave:
+Total Votes: 1
+Ballots Earned: 
+Ballot 6: ,,1,,,,
+
+Reform:
+Total Votes: 1
+Ballots Earned: 
+Ballot 5: ,,,1,,,
+
+Green:
+Total Votes: 1
+Ballots Earned: 
+Ballot 3: ,,,,1,,
+
+Independent:
+Total Votes: 1
+Ballots Earned: 
+Ballot 4: ,,,,,1,
+
+Test:
+Total Votes: 1
+Ballots Earned: 
+Ballot 1: ,,,,,,1
+
+
+Distributing Seats to Parties: 
+Calculating Quota: total Votes / total Seats
+Quota =  9
+
+First Round of Seat Distrubution:
+Seats Remaining: 1
+Allocating 0 seats to Democratic
+Democratic Seats: 0
+Allocating 0 seats to Republican
+Republican Seats: 0
+Allocating 0 seats to New Wave
+New Wave Seats: 0
+Allocating 0 seats to Reform
+Reform Seats: 0
+Allocating 0 seats to Green
+Green Seats: 0
+Allocating 0 seats to Independent
+Independent Seats: 0
+Allocating 0 seats to Test
+Test Seats: 0
+
+Second Round of Seat Distrubution:
+Seats Remaining: 1
+Votes Remaining: 
+Democratic: 2
+Republican: 2
+New Wave: 1
+Reform: 1
+Green: 1
+Independent: 1
+Test: 1
+DemocraticSeats: 1
+RepublicanSeats: 0
+New WaveSeats: 0
+ReformSeats: 0
+GreenSeats: 0
+IndependentSeats: 0
+TestSeats: 0

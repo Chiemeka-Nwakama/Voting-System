@@ -79,17 +79,14 @@ public class CPL {
         Party temp[] = parties.clone();
         secondRound(seatsRemaining, quota);
 
-
-
-           // If i == i+1, we have to check if the remaining seats is less than the number of dups 
         
-// pool select if there is more than the seatsremaining x num of parties's random number, redo it
         parties = temp.clone(); // corrects parties back to orginal order
 
         for(int i =0; i < numParties; i++) {
             audit.writeToAudit(parties[i].getName() + "Seats: " + parties[i].getSeats());
     
     }
+    audit.outputAudit();
 }
 
     public void firstRound(int seatsRemaining, int quota){
@@ -202,8 +199,8 @@ public class CPL {
             audit.writeToAudit("Assigning " +  ballot + " to " + parties[partyVote].getName());
         }
         Arrays.fill(ballots, null); // clears ballots since no longer need since they are in the parties now
-        audit.writeToAudit("Ballots Assignment and Vote Count Complete\n");
-        audit.writeToAudit("Results: ");
+        audit.writeToAudit("Ballots Assignment and Vote Count Complete!\n");
+        audit.writeToAudit("Results:\n ");
         for(Party party: parties){ //iterates through each party
             audit.writeToAudit(party.getName() + ":");
             int partyVotes = party.getVotes(); //uses total votes to know when to stop looking for ballots since the rest will be null
@@ -213,6 +210,7 @@ public class CPL {
             for(int i = 0; i < partyVotes; i++){ //iterates through the ballot array in each party after distrubtion
                 audit.writeToAudit(partyBallots[i].toString());  // writes the each ballot the party earned to audit
             }
+            audit.writeToAudit("");
         }
 
 
@@ -239,7 +237,7 @@ public class CPL {
             partyNames[i] = partyNames[i].trim(); // remove leading space between comma and name : , green party = green party
             parties[i] = new Party(partyNames[i]);
             audit.writeToAudit("Party " + i  + ": " + parties[i].getName());
-    }
+        }   
     
 }
 /**
@@ -251,7 +249,7 @@ public class CPL {
 
 
 public void populateCandidates(File file, Scanner sc){ //split into poluate parties, candidates, ballot methods  
-  
+    audit.writeToAudit("\nCandidates:");
     for(int i = 0; i < numParties; i++){ //reads candidates until all parties are populated
         String[] Candidate_names =  sc.nextLine().split(",");
         parties[i].populateCandidates(Candidate_names, Candidate_names.length);
@@ -264,6 +262,7 @@ public void populateCandidates(File file, Scanner sc){ //split into poluate part
         }
         candidateList = candidateList.substring(0, candidateList.length()-2);
         audit.writeToAudit(candidateList);
+        audit.writeToAudit("");
 
           
     }    

@@ -109,6 +109,7 @@ public void initilizeBallotCapacity(int totalBallots){
     }
 
     public int poolselect(int amountParties, Party[] parties){
+        /*
 
         if(more duplicates than seatsRemaining){
             redo
@@ -116,6 +117,7 @@ public void initilizeBallotCapacity(int totalBallots){
         else{
 
         }
+        */
         return 0;
 
     }
