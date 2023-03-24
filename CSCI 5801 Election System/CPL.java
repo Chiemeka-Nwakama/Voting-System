@@ -42,6 +42,7 @@ public class CPL {
         assignBallots(); // distibutes Ballots to the parties associated with the parties voted for
         audit.writeToAudit("\nDistributing Seats to Parties: ");
         distributeSeats(); // distributes seats to parties
+        audit.outputAudit(); // output audit file to file named "audit" once the election is completed
 
     }
 
@@ -86,7 +87,12 @@ public class CPL {
             audit.writeToAudit(parties[i].getName() + "Seats: " + parties[i].getSeats());
     
     }
-    audit.outputAudit();
+    audit.writeToAudit("Party Seat Distrubution Completed!");
+    audit.writeToAudit("Candidate Seat Distrubtion");
+    for(int i = 0; i < numParties; i++){ //distrbutes seats to candidates in every party
+        parties[i].distributeSeats(audit);
+    }
+   
 }
 
     public void firstRound(int seatsRemaining, int quota){

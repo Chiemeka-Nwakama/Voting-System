@@ -96,6 +96,7 @@ public void initilizeBallotCapacity(int totalBallots){
     public void distributeSeats(CPL_Audit_File audit){
         int remainingSeats = seats;
         audit.writeToAudit("First Round of Distribution:");
+        audit.writeToAudit(remainingSeats + "Seats Remaining");
         for(int i = 0; i < candidates.length && remainingSeats > 0; i++){ // goes in order of candidates to give seats
             candidates[i].addSeat(); // adds seat to candidate
             audit.writeToAudit("Adding seat to " + candidates[i].getName());
@@ -103,15 +104,32 @@ public void initilizeBallotCapacity(int totalBallots){
         }
         
         for(CPL_Candidate candidate: candidates){
-            audit.writeToAudit("Candidates ");
+            audit.writeToAudit(candidate.getName() + "'s Seats: " + candidate.getSeats());
         }
         if(remainingSeats > 0){
+            audit.writeToAudit("Second Rounds of Distrubution");
+            audit.writeToAudit(remainingSeats + "Seats Remaining");
             while(remainingSeats > 0){
                 
-
+                audit.writeToAudit("Pool Selection:");
+                audit.writeToAudit("Participants:");
+                for(CPL_Candidate candidate: candidates){
+                    audit.writeToAudit(candidate.getName());
+                }
+                int winner = poolselect(candidates.length); //perfoms pull select to give out seat
+               
+                candidates[winner].addSeat();
+                audit.writeToAudit(candidates[winner].getName() + "has won a seat!");
+                audit.writeToAudit("Seat Standings after Pool Selection:");
+                for(CPL_Candidate candidate: candidates){
+                    audit.writeToAudit(candidate.getName() + "'s Seats: " + candidate.getSeats());
+                }
+                remainingSeats--;
+                audit.writeToAudit(remainingSeats + "Seats Remaining");
 
             }
         }
+        audit.writeToAudit("Candidate Seat Distrubution for " + name + " Completed!");
 
 
     }
