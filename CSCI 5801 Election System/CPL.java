@@ -369,6 +369,13 @@ public void populateBallots(File file, Scanner sc) {
    * @param ties how many parties tied
    * @return The number of the indivdaul in the pooled selection that was the closest to the random number (the winner)
    */
+
+/* SUMMARY: 
+partiesTemp stores the duplicate parties only
+assignedNumbers should be the same length and stores the assigned random numbers
+Two while loops. While there are no more seats to give, for the first round we find a winner based on the random numbers, give it a seat, and remove it. The next round we repeat with the remaining parties until there are no more seats
+*/
+
     public int poolselect(int ties, int begin){
 
         System.out.println("\n\n\n\n\nPOOL\n\n");
@@ -381,9 +388,11 @@ public void populateBallots(File file, Scanner sc) {
         System.out.println("begin: " + begin);
         System.out.println("ties: " + ties);
 
+        // Copy over parties to arraylist
         for(int i = begin; i < (begin + (ties-1)); i++) {
             partiesTemp.add(parties[i]);
         }
+
         System.out.println("\n\nOriginal Listing");
         for(int i = 0; i < partiesTemp.size(); i++) {
             System.out.println(i + ": " + partiesTemp.get(i).getName());
@@ -391,15 +400,17 @@ public void populateBallots(File file, Scanner sc) {
 
         System.out.println();
 
-
+       // while there are seats to give
         while(seatsRemaining > 0) {
 
+           // participating parties for the current round of choosing 1 winner
             System.out.println("Participating Parties:");
             for(int i = 0; i < partiesTemp.size(); i++) {
                 System.out.println(i + ": " + partiesTemp.get(i).getName());
             }
 
             System.out.println("\n\nSeats remaining: " + seatsRemaining);
+            // whie we have not choosen a winner to give 1 seat to based on random numbers
             while(winner == false) {
                 winner = true;
                 System.out.println("In winner loop: Winner = " + winner);
@@ -422,7 +433,8 @@ public void populateBallots(File file, Scanner sc) {
                 
                 int leastDifference = Math.abs(genNum - assignedNumbers.get(0));
                 System.out.println("Original least difference: " + leastDifference);
-
+                
+                // compare differences until a winner is found
                 for(int i = 1; i < ties && winner; i++){
 
                     int currDifference = Math.abs(genNum - assignedNumbers.get(i));
@@ -445,6 +457,7 @@ public void populateBallots(File file, Scanner sc) {
                 System.out.println();
         
             }
+            // index+begin might not be the correct index into the original party array, have to check
             parties[index+begin].addSeats(1);
             seatsRemaining--;
             partiesTemp.remove(index);
