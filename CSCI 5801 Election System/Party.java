@@ -58,6 +58,13 @@ public void initilizeBallotCapacity(int totalBallots){
 
     // WOULD RETURN MEMORY ADDRESS SO I DONT THINK WE EVEN NEED THIS
 
+        /**
+   * This method returns the candidates a party has
+   * @param void 
+   * @return Candidates
+   */
+
+
     public CPL_Ballot[] getBallots(){
         return partyBallots;
 
