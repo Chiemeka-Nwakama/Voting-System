@@ -18,7 +18,6 @@ public class IR {
 
     public IR(File  file){
         inputFile = file;
-        //TODO: Create audit file
         audit = new IR_Audit_File();
         audit.writeToAudit("Instant Runoff Voting Election\n");
         
@@ -30,17 +29,18 @@ public class IR {
         populateData(); //add all ballots to ballot array and assign IDs
         assignBallots(); //assign ballot IDs to candidate's ballot array
         remainingCandidates = numCandidates;
+        //**need to defind this function?? **/
         while (!getElectionStatus()){ //rank all candidates and check for winner
-            int numTied = checkForWinnerTie;
+            int numTied = checkForWinnerTie();
             if (numTied == remainingCandidates){
                 if (numTied == 2){
                     winner = ranking[coinToss() - 1]; //declare a winner and end process
                     break;
                 }else{
-                    makeLoser(ranking[poolselect(numTied) - 1]); //redistribute losing candidate's votes
+                    makeLoser(ranking[poolSelect(numTied) - 1]); //redistribute losing candidate's votes
                 }
             }else{
-                numTied = checkForLoserTie;
+                numTied = checkForLoserTie();
                 if (numTied == 2){
                     makeLoser(ranking[remainingCandidates - coinToss()]);
                 }else if (numTied > 2){
@@ -160,7 +160,7 @@ public class IR {
         Random randomNum = new Random();
         int result = 0;
         for(int i = 0; i < randomConstant; i++){
-            result = randomNum.nextInt(1, 2);
+            result = randomNum.nextInt(2);
         }
         return result;      
 
@@ -170,7 +170,7 @@ public class IR {
         Random randomNum = new Random();
         int result = 0;
         for(int i = 0; i < randomConstant; i++){
-            result = randomNum.nextInt(1, numTied);
+            result = randomNum.nextInt((numTied - 1) + 1) + 1;
         }
         
         return result;
@@ -188,7 +188,6 @@ public class IR {
         }
 
         result = "-----Instant Runoff Election Results-----\n" +
-                        "Ballot ID: " + ballot.getBallotID() + "\n" + 
                         "***The winner is: \n" + 
                         "--Information on the Election--\n" +
                         "Number of Candidates: " + numCandidates + "\n" +
@@ -202,7 +201,7 @@ public class IR {
     }
 
     public boolean setElectionStatus(){ //rank all candidates highest to lowest, find winner if there is one
-        curRanking = new IR_Candidate[numCandidates];
+        IR_Candidate[] curRanking = new IR_Candidate[numCandidates];
         curRanking = candidates;
         for (int i = 0; i < numCandidates; i++){ //insertion sort modified from geeksforgeeks
             IR_Candidate key = ranking[i];
@@ -211,7 +210,7 @@ public class IR {
             /* Move elements of arr[0..i-1], that are
                greater than key, to one position ahead
                of their current position */
-            while (j >= 0 && (ranking[j].getVotes()) > key.getVotes) {
+            while (j >= 0 && (ranking[j].getVotes()) > key.getVotes()) {
                 ranking[j + 1] = ranking[j];
                 j = j - 1;
             }
