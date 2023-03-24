@@ -1,7 +1,9 @@
 import java.io.*;
 import java.util.Arrays;
+import java.io.IOException;
 public class IR_Audit_File {
     private File auditFile;
+    private FileWriter writer;
     private String result;
     
     /** 
@@ -11,7 +13,12 @@ public class IR_Audit_File {
     public IR_Audit_File(){
         this.auditFile = new File("result");
         result = "";
-        FileWriter writer = new FileWriter(auditFile);
+        try{
+            writer = new FileWriter(auditFile);
+        } catch (IOException e) {
+            System.out.println("Cannot write IR results to audit file.");
+            e.printStackTrace();
+        }
     }
 
     /** 
@@ -24,16 +31,28 @@ public class IR_Audit_File {
     }
 
     public void writeBallot(IR_Ballot ballot){
-        writer.write("%i: %s\n", ballot.getBallotID(), Arrays.toString(ballot.getBallot()));
+        try{
+            // writer.write("%i: %s\n", ballot.getBallotID(), Arrays.toString(ballot.getBallot()));
+            writer.write(Integer.toString(ballot.getBallotID()) + ": " + Arrays.toString(ballot.getBallot()) + "\n");
+
+        } catch (IOException e) {
+            System.out.println("Cannot write IR results to audit file.");
+            e.printStackTrace();
+        }
     }
 
     public void writeCandidateBallots(IR_Candidate candidate){
-        writer.write("%s: ", candidate.getName());
-        int[] ballots = candidate.getBallots();
-        for (a = 0; a < IR_Candidate.getVotes; a++){
-            writer.write("%i ", ballots[a]);
+        try{
+            writer.write(candidate.getName() + ": ");
+            int[] ballots = candidate.getBallots();
+            for (int a = 0; a < candidate.getVotes(); a++){
+                writer.write(Integer.toString(ballots[a]));
+            }
+            writer.write("\n");
+        } catch (IOException e) {
+            System.out.println("Cannot write IR results to audit file.");
+            e.printStackTrace();
         }
-        writer.write("\n");
     }
 
     /** 
