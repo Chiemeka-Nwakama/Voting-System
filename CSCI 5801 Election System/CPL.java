@@ -2,6 +2,8 @@ import java.util.Scanner;
 import java.io.*;
 import java.util.Arrays;
 import java.util.Random;
+import java.util.ArrayList;
+
 public class CPL {
     private int numParties;
     private int numCandidates;
@@ -162,7 +164,7 @@ public class CPL {
         sortParties(parties);
 
         for(int i = 0; i < numParties-1 && seatsRemaining > 0; i++) {
-            //System.out.println("i: " + i);   
+            System.out.println("i: " + i);   
             int dups = duplicates(i); // num duplicates
             //System.out.println("Dups: " + dups);
             if(seatsRemaining < dups) {
@@ -182,11 +184,8 @@ public class CPL {
  
                 }else{
                     audit.writeToAudit("Pool select between 3 or more parties is initiated");
-                    int winner = poolselect(dups) + i; // adds what index currently on to winner index to scale with which parties got pooled
-                    //System.out.println("WINNER " + winner);
-                    //System.out.println(parties[i].getName() + " won a seat");
-                    audit.writeToAudit(parties[winner].getName() + " has won a seat!");
-                    parties[winner].addSeats(1);
+                    poolselect(dups, i); // adds what index currently on to winner index to scale with which parties got pooled
+         
                     
                 }
                 i = i + (dups-1); // subtract 1 as the loop increases by 1
@@ -370,52 +369,97 @@ public void populateBallots(File file, Scanner sc) {
    * @param ties how many parties tied
    * @return The number of the indivdaul in the pooled selection that was the closest to the random number (the winner)
    */
-    public int poolselect(int ties){
-        System.out.println("POOLSELECT----------------------------------");
-        System.out.println("Ties: " + ties);
-        int[] assignedNumbers = new int[ties]; // stores assigned a random number to each candidate
+    public int poolselect(int ties, int begin){
+
+        System.out.println("\n\n\n\n\nPOOL\n\n");
+
+        ArrayList<Party> partiesTemp = new ArrayList<Party>(); // Create an ArrayList object
+        ArrayList<Integer> assignedNumbers = new ArrayList<Integer>();
         Random randomNum = new Random();
         boolean winner = false;
         int index = 0;
-        while(!winner){ //while no winner of the seat is selected
-            System.out.println("winner: " + winner);
-        winner = true; //sets winner to true
+        System.out.println("begin: " + begin);
+        System.out.println("ties: " + ties);
 
-        for(int i = 0; i < randomConstant; i++){ // generates 1000 times to make the random generator truly random
-            randomNum.nextInt(randomConstant);
+        for(int i = begin; i < (begin + (ties-1)); i++) {
+            partiesTemp.add(parties[i]);
         }
-        System.out.println("Assigned numberes:");
-        for(int i = 0; i < ties; i++){
-            assignedNumbers[i] = randomNum.nextInt(randomConstant); //assigns a random number to each candidate
-            System.out.println(assignedNumbers[i]);
+        System.out.println("\n\nOriginal Listing");
+        for(int i = 0; i < partiesTemp.size(); i++) {
+            System.out.println(i + ": " + partiesTemp.get(i).getName());
         }
 
-        int genNum = randomNum.nextInt(randomConstant); // generates a number to see which number assigned to a candidate is the closest
-        System.out.println("genNum: " + genNum);
-        index = 0;
-        int leastDifference = Math.abs(genNum - assignedNumbers[0]);
+        System.out.println();
 
 
-        for(int i = 1; i < ties && winner; i++){
-            System.out.println("Determining Ties i: " + i);
-            System.out.println("Least Difference: " + leastDifference);
+        while(seatsRemaining > 0) {
 
-            int currDifference = Math.abs(genNum - assignedNumbers[i]);
-            System.out.println("Current Difference: " + currDifference);
-            if(leastDifference == currDifference){ //if there are two candidates with the same assigned rand number, winner is set to false loop is exited and the pool selection is restarted
-                winner = false; //sets winner to false since winner has not been selected start over
+            System.out.println("Participating Parties:");
+            for(int i = 0; i < partiesTemp.size(); i++) {
+                System.out.println(i + ": " + partiesTemp.get(i).getName());
             }
-            else if(leastDifference > currDifference){ // leastDiffeence is greater than the curr candidates  assigned number difference
-                leastDifference = currDifference; // makes the candidate a candidate to be the new winner
-                index = i;
 
+            System.out.println("\n\nSeats remaining: " + seatsRemaining);
+            while(winner == false) {
+                winner = true;
+                System.out.println("In winner loop: Winner = " + winner);
+
+                for(int i = 0; i < randomConstant; i++){ // generates 1000 times to make the random generator truly random
+                    randomNum.nextInt(randomConstant);
+                }
+
+                // chosen random number
+                int genNum = randomNum.nextInt(randomConstant);
+                System.out.println("genNum: " + genNum);
+
+
+                // assign the random numbers to the parties
+                for(int i = 0; i < ties; i++){
+                    assignedNumbers.add(randomNum.nextInt(randomConstant)); //assigns a random number to each candidate
+                    System.out.println(i + ": Assigned number = " + assignedNumbers.get(i));
+                }
+        
+                
+                int leastDifference = Math.abs(genNum - assignedNumbers.get(0));
+                System.out.println("Original least difference: " + leastDifference);
+
+                for(int i = 1; i < ties && winner; i++){
+
+                    int currDifference = Math.abs(genNum - assignedNumbers.get(i));
+                    System.out.println("Least difference: " + leastDifference);
+                    System.out.println("CurrDifference: " + currDifference);
+
+                    if(leastDifference == currDifference){ //if there are two candidates with the same assigned rand number, winner is set to false loop is exited and the pool selection is restarted
+                        winner = false; //sets winner to false since winner has not been selected start over
+                    }
+                    else if(leastDifference > currDifference){ // leastDiffeence is greater than the curr candidates  assigned number difference
+                        leastDifference = currDifference; // makes the candidate a candidate to be the new winner
+                        index = i;
+        
+                    }
+
+                    System.out.println("index: " + index);
+                    System.out.println();
+                }
+                System.out.println();
+                System.out.println();
+        
             }
-            System.out.println("Index: " + index);
-        }
-    }
-    return index; //returns the index of the winner
+            parties[index+begin].addSeats(1);
+            seatsRemaining--;
+            partiesTemp.remove(index);
+            winner = false;
 
-    }
+            System.out.println("Winner selected");
+            System.out.println(parties[index+begin].getName() + " won a seat"); 
+
+        }
+
+
+       
+    return 0; //returns the index of the winner
+
+     }
 
       /**
    * This method sorts parties using Insertion sort by remainder of votes
