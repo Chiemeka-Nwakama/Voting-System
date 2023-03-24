@@ -100,8 +100,12 @@ public class CPL {
         sortParties(parties);
 
         System.out.println();
-        for(int i =numParties; i >= 0 || seatsRemaining == 0; i--) {
-            if(seatsRemaining < (numParties-i)){
+        int duplicates = 0;
+        for(int i =0; i < numParties && seatsRemaining > 0; i++) {
+            if(duplicates > 0 ){
+                
+            }
+            if((seatsRemaining < (numParties-i)) && i + 1 < numParties && parties[i].getRemainderVotes() == parties[i+1].getRemainderVotes()){
                 int tiedParties = 0;
                 
                 for(int j = i - 1; parties[j+1] == parties[j]; j--){
@@ -291,7 +295,14 @@ public void populateBallots(File file, Scanner sc) {
     result =  randomNum.nextInt(2);
     return result;
 }
-    public int poolselect(){
+    public int poolselect(int amountParties, Party[] parties){
+
+        if(more duplicates than seatsRemaining){
+            redo
+        }
+        else{
+
+        }
         return 0;
 
     }
@@ -313,6 +324,22 @@ public void populateBallots(File file, Scanner sc) {
             parties[i+1] = key;  
     }
 }
+
+
+//  /**
+//    * This method sorts parties using Insertion sort by remainder of votes
+//    * @param parties an array of the parties to be sorted
+//    * @return void
+//    */
+//   public void removeParty(Party[] sortedParties, Party party) // removes party from remainder list
+//   {
+//     int i;
+//       for (i = 0; party == parties[i]; i++) {  
+          
+//   }
+//   for(int j = i; j <)
+// }
+
 
 
     
