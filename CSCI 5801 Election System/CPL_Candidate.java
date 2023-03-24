@@ -27,6 +27,17 @@ public class CPL_Candidate {
        return seats;
     }
 
+           /**
+   * This method add the seats to candiate
+   * @return void
+   */
+
+   public void addSeat(){
+     seats++;
+ }
+
+
+
 
      /**
    * This method gets the name of the candidate and returns 
