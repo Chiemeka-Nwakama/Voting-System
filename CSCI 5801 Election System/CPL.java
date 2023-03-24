@@ -145,7 +145,7 @@ public class CPL {
  
                 }else{
                     audit.writeToAudit("Pool select between 3 or more parties is initiated");
-                    int winner = poolselect(dups) + i;
+                    int winner = poolselect(dups) + i; // adds what index currently on to winner index to scale with which parties got pooled
                     //System.out.println("WINNER " + winner);
                     //System.out.println(parties[i].getName() + " won a seat");
                     audit.writeToAudit(parties[winner].getName() + " has won a seat!");
