@@ -5,10 +5,11 @@ public class IR_Ballot {
     private int ballotID;
 
     /** 
-    *This constructor create rankings array to store the ranking of candidates
+    *@brief This constructor create rankings array to store the ranking of candidates
     @param rankings stores the ranking of the candidates in the elction
+    @param ID stores the ID (index in array) for each candidates
     **/
-    public IR_Ballot(int[] rankings){
+    public IR_Ballot(int[] rankings, int ID){
         ballot = rankings;
         for (int a = 0; a <= ballot.length; a++){ //parse through ballot for first vote
             if (ballot[a] == 1){
@@ -17,13 +18,12 @@ public class IR_Ballot {
             }
         }
         currentVote = 1;
-        ballotID = index;
+        ballotID = ID;
     }
 
     /** 
-    *updateCurrentVote() method is called when candidate is eliminated, and update vote to the next rank
-    @param void
-    @return void
+    *@brief The method is updating the current voting status.
+    It will get called when candidate is eliminated, and update vote to the next rank
     **/
     public void updateCurrentVote(){ //called when candidate is eliminated, updates vote to next rank
         currentVote += 1;
@@ -43,16 +43,20 @@ public class IR_Ballot {
     }
 
     /** 
-    *getCurrentVote() method return index of currently voted for candidate
-    @param void
-    @return currentCandidate
+    *@brief method return index of currently voted for candidate
+    *@return currentCandidate
     **/
     public int getCurrentVote(){return currentCandidate;} //returns index of currently voted for candidate
 
     /** 
-    *getBallotID() method return current ballotID of the election
-    @param void
-    @return ballotID
+    *@brief The method return current ballotID of the election
+    *@return ballotID
     **/
     public int getBallotID(){return ballotID;}
+
+    /** 
+    *@brief Get the ballot array from the election
+    *@return The ballot array from the election
+    **/
+    public int[] getBallot(){return ballot;}
 }

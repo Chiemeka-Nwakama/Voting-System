@@ -14,12 +14,13 @@ public class IR {
     private string result; //use to write each step into the audit file
     private final int randomConstant = 1000;
     private int remainingCandidates;
+    private IR_Candidate winner;
 
     public IR(File  file){
         inputFile = file;
         //TODO: Create audit file
         audit = new IR_Audit_File();
-        audit.writeToAudit("Instant Runoff Voting Election");
+        audit.writeToAudit("Instant Runoff Voting Election\n");
         
 
     }
@@ -33,20 +34,24 @@ public class IR {
             int numTied = checkForWinnerTie;
             if (numTied == remainingCandidates){
                 if (numTied == 2){
-                    coinToss(); //declare a winner and end process
+                    winner = ranking[coinToss() - 1]; //declare a winner and end process
+                    break;
                 }else{
-                    poolselect(numTied); //redistribute losing candidate's votes
+                    makeLoser(ranking[poolselect(numTied) - 1]); //redistribute losing candidate's votes
                 }
             }else{
                 numTied = checkForLoserTie;
                 if (numTied == 2){
-                    coinToss();
+                    makeLoser(ranking[remainingCandidates - coinToss()]);
                 }else if (numTied > 2){
-                    poolselect(numTied);
+                    makeLoser(ranking[remainingCandidates - poolSelect(numTied)]);
                 }else{
-                    ranking[remainingCandidates - 1]
+                    makeLoser(ranking[remainingCandidates - 1]); //eliminate last place candidate and redistribute their votes
                 }
             }
+        }
+        if (winner == null && ranking[0].isWinner()){
+            winner = ranking[0];
         }
     }
 
@@ -59,27 +64,28 @@ public class IR {
         while (scanner.hasNextLine()) {
             String data = scanner.nextLine();
             if (counter == 0){
-            }else if (counter == 1){ //get numCandidates
+            }else if (counter == 1){                  //get numCandidates
                 numCandidates = Integer.parseInt(data);
                 candidates = new IR_Candidate[numCandidates];
-            }else if (counter == 2){ //get candidates
+            }else if (counter == 2){                    //get candidates
                 String tempCandidates[] = data.split(",");
                 for (int a = 0; a < numCandidates; a++){
                     candidates[a] = new IR_Candidate(tempCandidates[a], a);
                 }
-            }else if (counter == 3){ //get numBallots
+            }else if (counter == 3){                        //get numBallots
                 numBallots = Integer.parseInt(data);
                 ballots = new IR_Ballot[numBallots];
                 for (int a = 0; a < numCandidates; a++){
                     candidates[a].setCandidateBallots(numBallots);
                 }
-            }else{ //parse ballots
+            }else{                                   //parse ballots
                 finalBallot = new int[numCandidates];
                 tempBallot = data.split(",");
                 for (int a = 0; a < numCandidates; a++){
                     finalBallot[a] = Integer.parseInt(tempBallot[a]);
                 }
                 ballots[curBallot] = new IR_Ballot(finalBallot, curBallot); //add ballot to ballots array
+                audit.writeBallot(ballots[curBallot]); //write ballot to audit file 
                 curBallot++;
             }
             counter++;
@@ -92,6 +98,9 @@ public class IR {
         for (int a = 0; a < numBallots; a++){
             currentCandidate = ballots[a].getCurrentVote();
             candidates[currentCandidate].addBallot(a);
+        }
+        for (int a = 0; a < numCandidates; a++){
+            audit.writeCandidateBallots(candidates[a]); //write all candidates and their ballots to the audit file
         }
     }
 
@@ -151,17 +160,17 @@ public class IR {
         Random randomNum = new Random();
         int result = 0;
         for(int i = 0; i < randomConstant; i++){
-            result = randomNum.nextInt(2);
+            result = randomNum.nextInt(1, 2);
         }
         return result;      
 
     }
 
-    public int poolselect(int numTied){
+    public int poolSelect(int numTied){
         Random randomNum = new Random();
         int result = 0;
         for(int i = 0; i < randomConstant; i++){
-            result = randomNum.nextInt(numTied);
+            result = randomNum.nextInt(1, numTied);
         }
         
         return result;
@@ -170,7 +179,6 @@ public class IR {
     public void displayResults(){
         System.out.println("-----Instant Runoff Election Results-----");
         System.out.print("***   The winner is: ");
-        //getElectionStatus();
         System.out.println("--Information on the Election--");
         System.out.println("Number of Candidates: " + numCandidates);
         System.out.println("Number of Ballots cast: " + numBallots);
@@ -197,34 +205,39 @@ public class IR {
         curRanking = new IR_Candidate[numCandidates];
         curRanking = candidates;
         for (int i = 0; i < numCandidates; i++){ //insertion sort modified from geeksforgeeks
-            IR_Candidate key = curRanking[i];
+            IR_Candidate key = ranking[i];
             int j = i - 1;
  
             /* Move elements of arr[0..i-1], that are
                greater than key, to one position ahead
                of their current position */
             while (j >= 0 && (ranking[j].getVotes()) > key.getVotes) {
-                curRanking[j + 1] = curRanking[j];
+                curRanking[j + 1] = ranking[j];
                 j = j - 1;
             }
-            curRanking[j + 1] = key;
+            ranking[j + 1] = key;
         }
-        if (curRanking[0].getWinner()){
+        if (curRanking[0].isWinner()){
             return true;
         }else{
             return false;
         }
     }
    
+    /** 
+    *@brief Clean the IR_Candidate array
+    *@param candidates The array that stores all candidates in the election
+    **/
     public void clearCandidates(IR_Candidate[] candidates){
-        for (int i = 0; i < candidates.length; i++){
-            candidates[i] = null;
-        }
+        Arrays.fill(candidates, null);
     }
-    public void clearBallots(CPL_Ballot[] ballots){
-        for(int i = 0; i < ballots.length; i++){
-            ballots[i] = null;
-        }
+
+    /** 
+    *@brief Clean the IR_Ballot array
+    *@param ballots The array that stores all ballots in the election
+    **/
+    public void clearBallots(IR_Ballot[] ballots){
+        Arrays.fill(ballots, null);
     }
 }
 
