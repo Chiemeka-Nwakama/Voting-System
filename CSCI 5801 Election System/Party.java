@@ -1,4 +1,5 @@
 import java.util.Arrays;
+import java.util.Random;
 
 public class Party {
     private CPL_Candidate[] candidates;
@@ -9,6 +10,7 @@ public class Party {
     private String name;
     private static int count = 0;
     private int id;
+    private final int randomConstant = 1000;
  
 
     public Party(String name){
@@ -96,11 +98,17 @@ public void initilizeBallotCapacity(int totalBallots){
         audit.writeToAudit("First Round of Distribution:");
         for(int i = 0; i < candidates.length && remainingSeats > 0; i++){ // goes in order of candidates to give seats
             candidates[i].addSeat(); // adds seat to candidate
+            audit.writeToAudit("Adding seat to " + candidates[i].getName());
             remainingSeats--; //removes a seat
         }
-
+        
+        for(CPL_Candidate candidate: candidates){
+            audit.writeToAudit("Candidates ");
+        }
         if(remainingSeats > 0){
             while(remainingSeats > 0){
+                
+
 
             }
         }
@@ -108,7 +116,49 @@ public void initilizeBallotCapacity(int totalBallots){
 
     }
 
-    public int poolselect(int amountParties, Party[] parties){
+    public int poolselect(int numCandidates){
+        int[] assignedNumbers = new int[numCandidates]; // stores assigned a random number to each candidate
+        Random randomNum = new Random();
+        boolean winner = false;
+        int index;
+        while(!winner){ //while no winner of the seat is selected
+        winner = true; //sets winner to true
+
+        for(int i = 0; i < randomConstant; i++){ // generates 1000 times to make the random generator truly random
+
+
+        randomNum.nextInt(randomConstant);
+        }
+   
+        for(int i = 0; i < numCandidates; i++){
+            assignedNumbers[i] = randomNum.nextInt(randomConstant); //assigns a random number to each candidate
+
+        }
+
+        int genNum = randomNum.nextInt(randomConstant); // generates a number to see which number assigned to a candidate is the closest
+
+        index = 0;
+        int leastDifference = Math.abs(genNum - assignedNumbers[0]);
+
+        for(int i = 1; i < numCandidates && winner; i++){
+            int currDifference = Math.abs(genNum - assignedNumbers[i]);
+            if(leastDifference == currDifference){ //if there are two candidates with the same assigned rand number, winner is set to false loop is exited and the pool selection is restarted
+                winner = false; //sets winner to false since winner has not been selected start over
+            }
+            else if(leastDifference > currDifference){ // leastDiffeence is greater than the curr candidates  assigned number difference
+                leastDifference = currDifference; // makes the candidate a candidate to be the new winner
+                index = i;
+
+            }
+        }
+    }
+    return index; //returns the index of the winner
+}
+
+
+
+
+
 
         if(more duplicates than seatsRemaining){
             redo
