@@ -23,9 +23,6 @@ public class CPL_Candidate {
    * @return the seats that a candidate has
    */
 
-   public void addSeat() {
-    seats += 1;
-   }
 
     public int getSeats(){
        return seats;

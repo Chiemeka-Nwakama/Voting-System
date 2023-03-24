@@ -120,7 +120,7 @@ public void initilizeBallotCapacity(int totalBallots){
         int[] assignedNumbers = new int[numCandidates]; // stores assigned a random number to each candidate
         Random randomNum = new Random();
         boolean winner = false;
-        int index;
+        int index = 0;
         while(!winner){ //while no winner of the seat is selected
         winner = true; //sets winner to true
 
@@ -153,10 +153,8 @@ public void initilizeBallotCapacity(int totalBallots){
         }
     }
     return index; //returns the index of the winner
-
-}
-
-
+    }
+    
 
 
 
