@@ -13,6 +13,11 @@ public class Party {
     private final int randomConstant = 1000;
  
 
+        /**
+   * This constructor makes a new party with a give name
+   * @param name the name of the party
+   */
+
     public Party(String name){
         this.name = name;
         totalVotes = 0;
@@ -23,6 +28,14 @@ public class Party {
 
     } 
 
+        /**
+   * This method populates the Candidates within each party. called in the CPL constructor
+   * @param candidateNames an array of the candidate names
+   *  @param numCandidates the number of candidates 
+   * @return void
+   */
+
+
     public void populateCandidates(String[] candidateNames, int numCandidates){
         candidates = new CPL_Candidate[numCandidates]; // intitalizes candidate list
         for(int i = 0; i < numCandidates; i++){ //creates candidates inaccordance to how many there are
@@ -30,6 +43,13 @@ public class Party {
     }
     
 }
+
+        /**
+   * This method intiazlizes the array that each candidate can contain to the size of the total amount of ballots
+   * @param totalBallots the total number of ballots in the election
+   * @return void
+   */
+
 
 public void initilizeBallotCapacity(int totalBallots){
     partyBallots = new CPL_Ballot[totalBallots]; // makes the ballot array as big as there are ballots in the election
@@ -65,40 +85,90 @@ public void initilizeBallotCapacity(int totalBallots){
    */
 
 
+           /**
+   * This method gets the ballots a party has and returns the array
+   * @param void
+   * @return The ballots the party has been assigned
+   */
+
     public CPL_Ballot[] getBallots(){
         return partyBallots;
 
     }
+
+
+              /**
+   * This method gets the name of the party and returns it
+   * @return name of the party
+   */
     public String getName(){
         return name;
 
     }
+
+    /**
+   * This method adds a vote to a party by adding the ballot to the ballot list and incrementing total votes
+   * @param ballot the CPL ballot being assigned to the party
+   * @return void
+   */
     public void addVote(CPL_Ballot ballot){
         partyBallots[totalVotes] = ballot; //gives voter's ballot to party
         totalVotes++; //adds to total votes party has
 
     }
+
+                  /**
+   * This method gets number of votes the party has and returns it
+   * @return votes party has 
+   */
     public int getVotes(){
         return totalVotes;
 
     }
+
+                   /**
+   * This method adds a given amount of seats to a Parties seat total
+   * @param amountOfSeats the amount of seats to be added
+   * @return void
+   */
     public void addSeats(int amountOfSeats){
         seats = seats + amountOfSeats;
 
     }
+
+                   /**
+   * This method returns the amount of seats a party has
+   * @return party seats
+   */
     public int getSeats(){
 
         return seats;
     }
 
+                    /**
+   * This method returns the remainder votes a party has
+   * @return party remainder votes after first round
+   */
     public int getRemainderVotes(){
         return remainderVotes;
 
     }
+
+                    /**
+   * This method sets the remainder votes of the party
+   * @param votes the remainder votes
+   * @return void
+   */
     public void setRemainderVotes(int votes){
         remainderVotes = votes;
         
     }
+
+                    /**
+   * This method distributes the Seats to each candidate after a party has been distrbuted their seats
+   * @param audit passes the audit object to be written to
+   * @return void
+   */
 
     public void distributeSeats(CPL_Audit_File audit){
         int remainingSeats = seats;
@@ -141,6 +211,12 @@ public void initilizeBallotCapacity(int totalBallots){
 
     }
 
+                    /**
+   * This method performs a pool select given a number of candidates. Which candidate has the closer random number to another random number wins the seat
+   * @param numCandidates the number of candidates being pool selected
+   * @return the index of the candidate that won
+   */
+
     public int poolselect(int numCandidates){
         int[] assignedNumbers = new int[numCandidates]; // stores assigned a random number to each candidate
         Random randomNum = new Random();
@@ -182,7 +258,11 @@ public void initilizeBallotCapacity(int totalBallots){
     
 
 
-
+                /**
+   * This method returns the party id
+   * @param void
+   * @return party id
+   */
     public int getId(){
         return id;
     }
