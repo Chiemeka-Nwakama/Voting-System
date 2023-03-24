@@ -7,11 +7,9 @@ public class CPL {
     private int numCandidates;
     private int totalSeats;
     private int numBallots;
-    private int[] Partyballot;
     private Party[] parties;
     private CPL_Ballot[] ballots;
     private CPL_Audit_File audit;
-    private File election_file;
     private final int randomConstant = 1000;
     public Scanner sc;
     
@@ -24,12 +22,12 @@ public class CPL {
         audit = new CPL_Audit_File(); // intitalzies the audit file
         audit.writeToAudit("CPL Election found");
         audit.writeToAudit("Audit file initialized");
-        audit.writeToAudit("Populating Data from CPL election file...");
+        audit.writeToAudit("Populating Data from CPL election file...\n");
         sc = new Scanner(file);
         populateParties(file, sc);
         populateCandidates(file, sc);
         populateBallots(file, sc);
-        audit.writeToAudit("Data Succesfully Populated!");
+        audit.writeToAudit("Data Succesfully Populated!\n");
         
         sc.close();
     }
@@ -42,7 +40,7 @@ public class CPL {
         audit.writeToAudit("Start of CPL Election");
         audit.writeToAudit("Assigning Ballots to Parties: ");
         assignBallots(); // distibutes Ballots to the parties associated with the parties voted for
-        audit.writeToAudit("Distributing Seats to Parties: ");
+        audit.writeToAudit("\nDistributing Seats to Parties: ");
         distributeSeats(); // distributes seats to parties
 
     }
@@ -77,79 +75,102 @@ public class CPL {
         audit.writeToAudit("Calculating Quota: total Votes / total Seats");
         audit.writeToAudit("Quota =  " + quota);
         int seatsRemaining = totalSeats;
-        audit.writeToAudit("First Round of Seat Distrubution:");
+        firstRound(seatsRemaining, quota);
+        Party temp[] = parties.clone();
+        secondRound(seatsRemaining, quota);
+
+        
+        parties = temp.clone(); // corrects parties back to orginal order
+
+        for(int i =0; i < numParties; i++) {
+            audit.writeToAudit(parties[i].getName() + "Seats: " + parties[i].getSeats());
+    
+    }
+    audit.outputAudit();
+}
+
+    public void firstRound(int seatsRemaining, int quota){
+        audit.writeToAudit("\nFirst Round of Seat Distrubution:");
         audit.writeToAudit("Seats Remaining: " + seatsRemaining);
         for(int i = 0; i < numParties; i++){
            int seats =  parties[i].getVotes()/quota; //calculates the seats the a part will be granted before remainder
            parties[i].addSeats(seats);
-           audit.writeToAudit("Allocating " + seats + "seats to " + parties[i].getName());
+           audit.writeToAudit("Allocating " + seats + " seats to " + parties[i].getName());
            seatsRemaining = seatsRemaining - seats;
-           audit.writeToAudit(parties[i].getName() + "Seats: " + seats); // writes to audit how many seats each party was givin in frist round
+           audit.writeToAudit(parties[i].getName() + " Seats: " + seats); // writes to audit how many seats each party was givin in frist round
 
 
         }
-        audit.writeToAudit("Second Round of Seat Distrubution:");
+    }
+
+    public void secondRound(int seatsRemaining, int quota){
+        audit.writeToAudit("\nSecond Round of Seat Distrubution:");
         audit.writeToAudit("Seats Remaining: " + seatsRemaining);
         audit.writeToAudit("Votes Remaining: ");
         calculateRemainingVotes(quota); // calculates the remaining votes left to distribute seats
         for(int i = 0; i < numParties; i++) {
             audit.writeToAudit(parties[i].getName() + ": " + parties[i].getRemainderVotes());
         }
-        Party temp[] = parties.clone();
 
         sortParties(parties);
 
         System.out.println();
-        int duplicates = 0;
-        for(int i =0; i < numParties && seatsRemaining > 0; i++) {
-            if(duplicates > 0 ){
-                
-            }
-            if((seatsRemaining < (numParties-i)) && i + 1 < numParties && parties[i].getRemainderVotes() == parties[i+1].getRemainderVotes()){
-                int tiedParties = 0;
-                
-                for(int j = i - 1; parties[j+1] == parties[j]; j--){
-                    tiedParties++;
-                }
-                tiedParties++;
-                if(tiedParties == 2){ // two way tie
-                    int winner = coinToss();
-                    if(winner == 0){
-                        audit.writeToAudit(parties[i].getName() + " Won the coin toss!");
-                        audit.writeToAudit("Allocating " + 1 + "seat" +  " to " + parties[i].getName());
-
-                    }
-                    else{
-                        audit.writeToAudit(parties[i-1].getName() + " Won the coin toss!");
-                        audit.writeToAudit("Allocating " + 1 + "seat" +  " to " + parties[i-1].getName());
-
-                    }
-                }
-                else{
-
-
-                }
-                
-
-               
-            }  
-            else{
-            parties[i].addSeats(1);
-            seatsRemaining--;
-            }
-           
+        System.out.println();
+        System.out.println();
+        for(int i = 0; i < numParties; i++) {
+            System.out.println(parties[i].getName() + " votes " + parties[i].getRemainderVotes());
         }
-    
+        System.out.println();
+        System.out.println();
+        int b = 0;
 
-        parties = temp.clone(); // corrects parties back to orginal order
-
-        for(int i =0; i < numParties; i++) {
-            audit.writeToAudit(parties[i].getName() + "Seats: " + parties[i].getSeats());
-        
-
-    
+        for(int i = 0; i < numParties-1 && seatsRemaining > 0; i++) {
+            System.out.println("i: " + i);   
+            int dups = duplicates(i); // num duplicates
+            System.out.println("Dups: " + dups);
+            if(seatsRemaining < dups) {
+                if(dups == 2){
+                    System.out.println("TIE");
+                    // get the random value
+                    int coin = coinToss();
+       
+                    if(coin == 0) {
+                        parties[i].addSeats(1);
+                                        
+                    }else{
+                        parties[i+1].addSeats(1);
+                    }
+ 
+                }else{
+                    System.out.println("Pool");
+                    
+                }
+            }
+            i = i + (dups-1); // subtract 1 as the loop increases by 1
+            
+            b++;
+            if(b == 2){
+                break;
+            }
+        }
+        System.out.println();
     }
-}
+
+    public int duplicates(int index){
+        int numDups = 0;
+
+        for(int i = index; i < numParties-1; i++) {
+            if(parties[i].getRemainderVotes() == parties[i+1].getRemainderVotes()) {
+                numDups++;
+            }else{
+                break;
+            }
+        }
+        numDups++;
+        return numDups;
+
+    }
+
     
 /**
    * This method calculates the remaining votes that a party has left after the first round allocation via the modulous of votes by the quota to get the remainder
@@ -178,8 +199,8 @@ public class CPL {
             audit.writeToAudit("Assigning " +  ballot + " to " + parties[partyVote].getName());
         }
         Arrays.fill(ballots, null); // clears ballots since no longer need since they are in the parties now
-        audit.writeToAudit("Ballots Assignment and Vote Count Complete");
-        audit.writeToAudit("Results: ");
+        audit.writeToAudit("Ballots Assignment and Vote Count Complete!\n");
+        audit.writeToAudit("Results:\n ");
         for(Party party: parties){ //iterates through each party
             audit.writeToAudit(party.getName() + ":");
             int partyVotes = party.getVotes(); //uses total votes to know when to stop looking for ballots since the rest will be null
@@ -189,7 +210,7 @@ public class CPL {
             for(int i = 0; i < partyVotes; i++){ //iterates through the ballot array in each party after distrubtion
                 audit.writeToAudit(partyBallots[i].toString());  // writes the each ballot the party earned to audit
             }
-            //audit.writeToAudit("\n");
+            audit.writeToAudit("");
         }
 
 
@@ -216,9 +237,7 @@ public class CPL {
             partyNames[i] = partyNames[i].trim(); // remove leading space between comma and name : , green party = green party
             parties[i] = new Party(partyNames[i]);
             audit.writeToAudit("Party " + i  + ": " + parties[i].getName());
-        
-
-    }
+        }   
     
 }
 /**
@@ -230,7 +249,7 @@ public class CPL {
 
 
 public void populateCandidates(File file, Scanner sc){ //split into poluate parties, candidates, ballot methods  
-  
+    audit.writeToAudit("\nCandidates:");
     for(int i = 0; i < numParties; i++){ //reads candidates until all parties are populated
         String[] Candidate_names =  sc.nextLine().split(",");
         parties[i].populateCandidates(Candidate_names, Candidate_names.length);
@@ -243,6 +262,7 @@ public void populateCandidates(File file, Scanner sc){ //split into poluate part
         }
         candidateList = candidateList.substring(0, candidateList.length()-2);
         audit.writeToAudit(candidateList);
+        audit.writeToAudit("");
 
           
     }    
@@ -273,11 +293,8 @@ public void populateBallots(File file, Scanner sc) {
         String ballot = sc.nextLine();
         int partyVote = ballot.indexOf("1"); // gets the pos of the vote
         ballots[i] = new CPL_Ballot(partyVote, numParties); //intializes a new ballot
-        audit.writeToAudit(ballots[i].toString()); //prints out the ballots by id and their integer array repesentation
-                
+        audit.writeToAudit(ballots[i].toString()); //prints out the ballots by id and their integer array repesentation         
     }  
-   
-            
     
 }
      /**
@@ -295,14 +312,7 @@ public void populateBallots(File file, Scanner sc) {
     result =  randomNum.nextInt(2);
     return result;
 }
-    public int poolselect(int amountParties, Party[] parties){
-
-        if(more duplicates than seatsRemaining){
-            redo
-        }
-        else{
-
-        }
+    public int poolselect(){
         return 0;
 
     }
@@ -326,32 +336,17 @@ public void populateBallots(File file, Scanner sc) {
 }
 
 
-//  /**
-//    * This method sorts parties using Insertion sort by remainder of votes
-//    * @param parties an array of the parties to be sorted
-//    * @return void
-//    */
-//   public void removeParty(Party[] sortedParties, Party party) // removes party from remainder list
-//   {
-//     int i;
-//       for (i = 0; party == parties[i]; i++) {  
-          
-//   }
-//   for(int j = i; j <)
-// }
-
-
-
     
     public void displayResults(){
 
     }
    
     public void clearParties(Party[] parties){
+        Arrays.fill(parties, null);
 
     }
     public void clearBallots(CPL_Ballot[] ballots){
-
+        Arrays.fill(ballots, null);
     }
 
     

@@ -153,22 +153,11 @@ public void initilizeBallotCapacity(int totalBallots){
         }
     }
     return index; //returns the index of the winner
+
 }
 
 
 
-
-
-
-        if(more duplicates than seatsRemaining){
-            redo
-        }
-        else{
-
-        }
-        return 0;
-
-    }
 
 
     public int getId(){
