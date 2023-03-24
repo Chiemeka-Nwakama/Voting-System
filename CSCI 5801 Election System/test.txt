@@ -1,20 +1,21 @@
 CPL
-6
-Democratic, Republican, New Wave, Reform, Green, Independent
+7
+Democratic, Republican, New Wave, Reform, Green, Independent, Test
 Foster, Volz, Pike
 Green, Xu, Wang
 Jacks, Rosen
 McClure, Berg
 Zheng, Melvin
 Peters
-3
+Tester
+1
 9
-1,,,,,
-1,,,,,
-,1,,,,
-,,,,1,
-,,,,,1
-,,,1,,
-,,,1,,
-1,,,,,
-,1,,,,
+1,,,,,,
+,,,,,,1
+,1,,,,,
+,,,,1,,
+,,,,,1,
+,,,1,,,
+,,1,,,,
+1,,,,,,
+,1,,,,,

@@ -91,6 +91,36 @@ public void initilizeBallotCapacity(int totalBallots){
         
     }
 
+    public void distributeSeats(CPL_Audit_File audit){
+        int remainingSeats = seats;
+        audit.writeToAudit("First Round of Distribution:");
+        for(int i = 0; i < candidates.length && remainingSeats > 0; i++){ // goes in order of candidates to give seats
+            candidates[i].addSeat(); // adds seat to candidate
+            remainingSeats--; //removes a seat
+        }
+
+        if(remainingSeats > 0){
+            while(remainingSeats > 0){
+
+            }
+        }
+
+
+    }
+
+    public int poolselect(int amountParties, Party[] parties){
+
+        if(more duplicates than seatsRemaining){
+            redo
+        }
+        else{
+
+        }
+        return 0;
+
+    }
+
+
     public int getId(){
         return id;
     }
