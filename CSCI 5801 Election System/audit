@@ -1,9 +1,10 @@
-CPL Election found
-Audit file initialized
-Populating Data from CPL election file...
+CPL ELECTION
+AUDIT FILE INITIALIZED
+POPULATING DATA FROM CPL ELECTION FILE...
 
 Number of Parties: 7
-Parties: 
+
+PARTIES: 
 Party 0: Democratic
 Party 1: Republican
 Party 2: New Wave
@@ -12,7 +13,7 @@ Party 4: Green
 Party 5: Independent
 Party 6: Test
 
-Candidates:
+CANDIDATES:
 Democratic: 
 Foster, Volz, Pike
 
@@ -34,9 +35,10 @@ Peters
 Test: 
 Tester
 
-Total Seats: 1
+Total Seats: 4
 Number of Ballots: 9
-Ballots:
+
+BALLOTS:
 Ballot 0: 1,,,,,,
 Ballot 1: ,,,,,,1
 Ballot 2: ,1,,,,,
@@ -46,10 +48,11 @@ Ballot 5: ,,,1,,,
 Ballot 6: ,,1,,,,
 Ballot 7: 1,,,,,,
 Ballot 8: ,1,,,,,
-Data Succesfully Populated!
+DATA SUCCESSFULLY POPULATED!
 
-Start of CPL Election
-Assigning Ballots to Parties: 
+START OF CPL ELECTION
+
+ASSIGNING BALLOTS TO PARTIES: 
 Assigning Ballot 0: 1,,,,,, to Democratic
 Assigning Ballot 1: ,,,,,,1 to Test
 Assigning Ballot 2: ,1,,,,, to Republican
@@ -59,7 +62,7 @@ Assigning Ballot 5: ,,,1,,, to Reform
 Assigning Ballot 6: ,,1,,,, to New Wave
 Assigning Ballot 7: 1,,,,,, to Democratic
 Assigning Ballot 8: ,1,,,,, to Republican
-Ballots Assignment and Vote Count Complete!
+BALLOT ASSIGNMENT AND VOTE COUNT COMPLETE!
 
 Results:
  
@@ -101,41 +104,101 @@ Ballots Earned:
 Ballot 1: ,,,,,,1
 
 
-Distributing Seats to Parties: 
+DISTRIBUTING SEATS TO PARTIES: 
 Calculating Quota: total Votes / total Seats
-Quota =  9
+Quota = 2
 
-First Round of Seat Distrubution:
-Seats Remaining: 1
-Allocating 0 seats to Democratic
-Democratic Seats: 0
-Allocating 0 seats to Republican
-Republican Seats: 0
+FIRST ROUND OF SEAT DISTRIBUTION:
+Seats Remaining: 4
+Allocating 1 seats to Democratic
+Allocating 1 seats to Republican
 Allocating 0 seats to New Wave
-New Wave Seats: 0
 Allocating 0 seats to Reform
-Reform Seats: 0
 Allocating 0 seats to Green
-Green Seats: 0
 Allocating 0 seats to Independent
-Independent Seats: 0
 Allocating 0 seats to Test
+
+Results:
+Democratic Seats: 1
+Republican Seats: 1
+New Wave Seats: 0
+Reform Seats: 0
+Green Seats: 0
+Independent Seats: 0
 Test Seats: 0
 
-Second Round of Seat Distrubution:
-Seats Remaining: 1
+
+SECOND ROUND OF SEAT DISTRIBUTION:
+Seats Remaining: 2
 Votes Remaining: 
-Democratic: 2
-Republican: 2
+Democratic: 0
+Republican: 0
 New Wave: 1
 Reform: 1
 Green: 1
 Independent: 1
 Test: 1
-DemocraticSeats: 1
-RepublicanSeats: 0
-New WaveSeats: 0
-ReformSeats: 0
-GreenSeats: 0
-IndependentSeats: 0
-TestSeats: 0
+
+A tie has occurred
+Pool select between 3 or more parties is initiated
+Reform has won a seat!
+Democratic has won a seat!
+
+Final Results:
+Democratic Seats: 2
+Republican Seats: 1
+New Wave Seats: 0
+Reform Seats: 1
+Green Seats: 0
+Independent Seats: 0
+Test Seats: 0
+PARTY SEAT DISTRIBUTION COMPLETED!
+
+CANDIDATE SEAT DISTRIBUTION:
+
+First Round of Distribution:
+Seats Remaining2
+Adding seat to Foster
+Adding seat to Volz
+Foster's Seats: 1
+Volz's Seats: 1
+Pike's Seats: 0
+Candidate Seat Distrubution for Democratic Completed!
+
+First Round of Distribution:
+Seats Remaining1
+Adding seat to Green
+Green's Seats: 1
+Xu's Seats: 0
+Wang's Seats: 0
+Candidate Seat Distrubution for Republican Completed!
+
+First Round of Distribution:
+Seats Remaining0
+Jacks's Seats: 0
+Rosen's Seats: 0
+Candidate Seat Distrubution for New Wave Completed!
+
+First Round of Distribution:
+Seats Remaining1
+Adding seat to McClure
+McClure's Seats: 1
+Berg's Seats: 0
+Candidate Seat Distrubution for Reform Completed!
+
+First Round of Distribution:
+Seats Remaining0
+Zheng's Seats: 0
+Melvin's Seats: 0
+Candidate Seat Distrubution for Green Completed!
+
+First Round of Distribution:
+Seats Remaining0
+Peters's Seats: 0
+Candidate Seat Distrubution for Independent Completed!
+
+First Round of Distribution:
+Seats Remaining0
+Tester's Seats: 0
+Candidate Seat Distrubution for Test Completed!
+

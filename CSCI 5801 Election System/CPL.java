@@ -8,6 +8,7 @@ public class CPL {
     private int totalSeats;
     private int numBallots;
     private Party[] parties;
+    private int seatsRemaining;
     private CPL_Ballot[] ballots;
     private CPL_Audit_File audit;
     private final int randomConstant = 1000;
@@ -45,20 +46,46 @@ public class CPL {
         audit.outputAudit(); // output audit file to file named "audit" once the election is completed
 
     }
+    
+     /**
+   * This method returns the number of Parties in election
+   * @param void 
+   * @return A number of parties
+   */
 
     public int getNumParties(){
         return numParties;
 
     }
+      
+     /**
+   * This method returns the number of candidates in election
+   * @param void 
+   * @return A number of candidates
+   */
 
     public int getNumCandidates(){
         return numCandidates;
 
     }
+
+        /**
+   * This method returns the total number of seats in election
+   * @param void 
+   * @return A number of seats
+   */
+
     public int getTotalSeats(){
         return totalSeats;
 
     }
+
+        /**
+   * This method returns the number of ballots in election
+   * @param void 
+   * @return A number of ballots
+   */
+
     public int getNumBallots(){
         return numBallots;
 
@@ -73,14 +100,14 @@ public class CPL {
     
     public void distributeSeats(){
         int quota = numBallots / totalSeats; //calculates the quotes to be used to determine seats handed out
-        int seatsRemaining = totalSeats;
-        Party temp[] = parties.clone();
+        seatsRemaining = totalSeats; //sets remaining seats to the total seats to give out in the election
+        Party temp[] = parties.clone(); // party list since they will be reordered by their remainders in descending order later
         audit.writeToAudit("Calculating Quota: total Votes / total Seats");
         audit.writeToAudit("Quota = " + quota);
 
         audit.writeToAudit("\nFIRST ROUND OF SEAT DISTRIBUTION:");
         audit.writeToAudit("Seats Remaining: " + seatsRemaining);
-        firstRound(seatsRemaining, quota);
+        firstRound(quota);
 
         audit.writeToAudit("\nSECOND ROUND OF SEAT DISTRIBUTION:");
         audit.writeToAudit("Seats Remaining: " + seatsRemaining);
@@ -90,7 +117,7 @@ public class CPL {
             audit.writeToAudit(parties[i].getName() + ": " + parties[i].getRemainderVotes());
         }
         audit.writeToAudit("");
-        secondRound(seatsRemaining);
+        secondRound(); // begins the second round which involves giving out the remaining seats based on the remainder
 
 
         audit.writeToAudit("\nFinal Results:");
@@ -107,7 +134,13 @@ public class CPL {
    
 }
 
-    public void firstRound(int seatsRemaining, int quota){
+    /**
+   * This method distributes the seats of in the election in the first round allocations to the parties based on votes and the quota, remainders seats are distributed in round 2
+   * @param quota the quota of the election used to determine how many seats to give out based on the votes a party got
+   * @return void
+   */
+
+    public void firstRound(int quota){
         String results = "\nResults:\n";
         for(int i = 0; i < numParties; i++){
            int seats =  parties[i].getVotes()/quota; //calculates the seats the a part will be granted before remainder
@@ -120,8 +153,12 @@ public class CPL {
 
         audit.writeToAudit(results);
     }
-
-    public void secondRound(int seatsRemaining){
+   /**
+   * This method distributes the seats of in the election in the second round allocations based on remainder on votes  based on who has the highest remainder gets priority for remainder seats
+   * @param void
+   * @return void
+   */
+    public void secondRound(){
         sortParties(parties);
 
         for(int i = 0; i < numParties-1 && seatsRemaining > 0; i++) {
@@ -145,7 +182,7 @@ public class CPL {
  
                 }else{
                     audit.writeToAudit("Pool select between 3 or more parties is initiated");
-                    int winner = poolselect(dups) + i;
+                    int winner = poolselect(dups) + i; // adds what index currently on to winner index to scale with which parties got pooled
                     //System.out.println("WINNER " + winner);
                     //System.out.println(parties[i].getName() + " won a seat");
                     audit.writeToAudit(parties[winner].getName() + " has won a seat!");
@@ -164,6 +201,11 @@ public class CPL {
         System.out.println();
    
     }
+    /**
+   * This method checks for how many parties of a give party with a remainder votes has that same amount of remainder votes
+   * @param index the index of the party that we are checking for duplicate remainder votes
+   * @return void
+   */
 
     public int duplicates(int index){
         int numDups = 0;
@@ -321,6 +363,13 @@ public void populateBallots(File file, Scanner sc) {
     result =  randomNum.nextInt(2);
     return result;
 }
+
+
+     /**
+   * This method pools parties together assigns a random number, and see who's rand number is closest to another generated random number.
+   * @param ties how many parties tied
+   * @return The number of the indivdaul in the pooled selection that was the closest to the random number (the winner)
+   */
     public int poolselect(int ties){
         System.out.println("POOLSELECT----------------------------------");
         System.out.println("Ties: " + ties);
