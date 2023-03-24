@@ -2,14 +2,14 @@ import java.io.*;
 import java.util.Arrays;
 public class IR_Audit_File {
     private File auditFile;
-    private string result;
+    private String result;
     
     /** 
     *@brief This is a constructor initializer for IR audit file
     *@param void
     **/
     public IR_Audit_File(){
-        this.auditFile = new File();
+        this.auditFile = new File("result");
         result = "";
         FileWriter writer = new FileWriter(auditFile);
     }
@@ -44,6 +44,7 @@ public class IR_Audit_File {
     public void outputAudit(){
         System.out.print(auditFile);
          try{
+            FileWriter writer = new FileWriter(auditFile);
             writer.write(result);
             writer.close();
         } catch (IOException e) {

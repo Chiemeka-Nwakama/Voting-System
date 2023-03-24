@@ -11,7 +11,7 @@ public class IR {
     private IR_Ballot[] ballots;
     private IR_Audit_File audit;
     private IR_Candidate[] ranking;
-    private string result; //use to write each step into the audit file
+    private String result; //use to write each step into the audit file
     private final int randomConstant = 1000;
     private int remainingCandidates;
     private IR_Candidate winner;
@@ -135,7 +135,7 @@ public class IR {
     public int checkForWinnerTie(){
         int tieCounter = 1; //set tieCounter to 1 if no candidates are tied
         for (int a = 1; a < numCandidates; a++){ //check if there's a tie, start with second candidate
-            if (ranking[0].getVotes == ranking[a].getVotes){
+            if (ranking[0].getVotes() == ranking[a].getVotes()){
                 tieCounter++; //increament 
             }else{
                 break;
@@ -147,7 +147,7 @@ public class IR {
     public int checkForLoserTie(){
         int tieCounter = 1; //set tieCounter to 1 if no candidates are tied
         for (int a = numCandidates - 2; a >= 0; a--){ //check if there's a tie 
-            if (ranking[numCandidates - 1].getVotes == ranking[a].getVotes){
+            if (ranking[numCandidates - 1].getVotes() == ranking[a].getVotes()){
                 tieCounter++;
             }else{
                 break;
@@ -212,7 +212,7 @@ public class IR {
                greater than key, to one position ahead
                of their current position */
             while (j >= 0 && (ranking[j].getVotes()) > key.getVotes) {
-                curRanking[j + 1] = ranking[j];
+                ranking[j + 1] = ranking[j];
                 j = j - 1;
             }
             ranking[j + 1] = key;
