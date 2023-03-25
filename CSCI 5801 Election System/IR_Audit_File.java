@@ -30,6 +30,10 @@ public class IR_Audit_File {
        result = result + thing + "\n";
     }
 
+    /** 
+    *@brief Write the information on the ballot to audit file
+    *@param ballot IR_Ballot of the election
+    **/
     public void writeBallot(IR_Ballot ballot){
         try{
             // writer.write("%i: %s\n", ballot.getBallotID(), Arrays.toString(ballot.getBallot()));
@@ -41,6 +45,10 @@ public class IR_Audit_File {
         }
     }
 
+    /** 
+    *@brief Write the Candidate votes for each stage in the election
+    *@param candidates Each candidates information will be writing in audit file
+    **/
     public void writeCandidateBallots(IR_Candidate candidate){
         try{
             writer.write(candidate.getName() + ": ");
