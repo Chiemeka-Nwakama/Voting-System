@@ -1,5 +1,8 @@
 import java.util.Arrays;
 import java.util.Scanner;
+
+import static org.junit.Assert.assertEquals;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -30,10 +33,18 @@ public class ElectionTest {
   
 @Test 
 public void testPopulateParties(){ //test the populate parties that is used in the constructor to see if it populated the data correctly
-    int expectedPartyNumber =  cpl.getNumParties();
-    int actualPartyNumber = 7;
-    String expectedParties;
-    for()
+    String expectedPartyNumber = "7";
+    String actualPartyNumber = cpl.getNumParties() + "";
+    String ExpectedParties = "Democratic Republican New Wave Reform Green Independent Test ";
+    String actualParties = "";
+    Party[] parties = cpl.getParties();
+    for(Party party: parties){
+        actualParties = actualParties + party.getName() + " ";
+
+    }
+    assertEquals(ExpectedParties, actualParties);
+    assertEquals(expectedPartyNumber, actualPartyNumber);
+
 }
 
 }
