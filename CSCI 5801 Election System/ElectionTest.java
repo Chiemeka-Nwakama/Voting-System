@@ -35,15 +35,16 @@ public class ElectionTest {
 public void testPopulateParties(){ //test the populate parties that is used in the constructor to see if it populated the data correctly
     String expectedPartyNumber = "7";
     String actualPartyNumber = cpl.getNumParties() + "";
-    String ExpectedParties = "Democratic Republican New Wave Reform Green Independent Test ";
+    String expectedParties = "Democratic Republican New Wave Reform Green Independent Test ";
     String actualParties = "";
     Party[] parties = cpl.getParties();
     for(Party party: parties){
         actualParties = actualParties + party.getName() + " ";
 
     }
-    assertEquals(ExpectedParties, actualParties);
-    assertEquals(expectedPartyNumber, actualPartyNumber);
+    assertEquals("Testing to see if reads in the right number of Parties", expectedPartyNumber, actualPartyNumber);
+    assertEquals("Testing to see if parties read in match", expectedParties, actualParties);
+   
 
 }
 
