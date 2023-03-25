@@ -19,7 +19,7 @@ public class ElectionTest {
     @Before
     public void setUp(){
 
-    
+        //C:\\Users\\chiem\\OneDrive - Marshall Public Schools\\Desktop\\repo-Team3\\CSCI 5801 Election System\\test.txt
     try{
         File file = new File("C:\\Users\\chiem\\OneDrive - Marshall Public Schools\\Desktop\\repo-Team3\\CSCI 5801 Election System\\test.txt");
          cpl = new CPL(file);
@@ -73,19 +73,33 @@ public void testPopulateCandidate(){ //test the populate candidates that is used
 
 public void testPopulateBallots(){ //test the populate ballots that is used in the constructor to see if it populated the data correctly
 
-   String[] expectedBallots = {"Ballot 0: 1,,,,,,", "Ballot 1: ,,,,,,1", "Ballot 2: ,1,,,,,", " Ballot 3: ,,,,1,,", "Ballot 4: ,,,,,1,", " Ballot 5: ,,,1,,,", " Ballot 6: ,,1,,,,", " Ballot 7: 1,,,,,,", " Ballot 8: ,1,,,,, "};
+   String[] expectedBallots = {"Ballot 0: 1,,,,,,", "Ballot 1: ,,,,,,1", "Ballot 2: ,1,,,,,", "Ballot 3: ,,,,1,,", "Ballot 4: ,,,,,1,", "Ballot 5: ,,,1,,,", "Ballot 6: ,,1,,,,", "Ballot 7: 1,,,,,,", "Ballot 8: ,1,,,,,"};
    CPL_Ballot[] ballots = cpl.getBallots();
+  
    for(int i = 0; i < expectedBallots.length; i++){
 
     assertEquals("Testing to see if read in ballots",expectedBallots[i], ballots[i].toString());
 
    }
     //.asdsa
-    String expectedSeats = "4";
+    String expectedSeats = "6";
     String actualSeats = cpl.getTotalSeats() + "";
 
     assertEquals("Testing to see if read total number of seats",expectedSeats, actualSeats);
 
+
+
+
+}
+
+@Test 
+
+public void testgetNumParties(){ //test to see if num parties get works
+
+   String expectedNumber = 7 + "";
+   String actualNumber = cpl.getNumParties() + "";
+
+   assertEquals("Testing to see if getter works",expectedNumber, actualNumber);
 
 
 

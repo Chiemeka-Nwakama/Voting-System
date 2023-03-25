@@ -54,28 +54,14 @@ public class Party {
 public void initilizeBallotCapacity(int totalBallots){
     partyBallots = new CPL_Ballot[totalBallots]; // makes the ballot array as big as there are ballots in the election
 }
-    public void clearCandidates(){
-        // MAY NOT BE NECESSARY
-        // deference ballots by setting them to null
-
-        candidates = null;
-
-    }
-
+   
     // WOULD RETURN MEMORY ADDRESS SO I DONT THINK WE EVEN NEED THIS
     public CPL_Candidate[] getCandidates(){
 
         return candidates;
 
     }
-    public void clearBallots(){
-        // MAY NOT BE NECESSARY
-        // deference ballots by setting them to null
-
-        partyBallots = null;
-
-    }
-
+    
     // WOULD RETURN MEMORY ADDRESS SO I DONT THINK WE EVEN NEED THIS
 
         /**
