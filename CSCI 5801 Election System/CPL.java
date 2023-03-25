@@ -130,7 +130,9 @@ public class CPL {
 
     
     public void distributeSeats(){
-        int quota = numBallots / totalSeats; //calculates the quotes to be used to determine seats handed out
+        double numBallotsDec = numBallots;
+        double q = numBallotsDec / totalSeats; //calculates the quotes to be used to determine seats handed out
+        int quota = (int) Math.round(q);
         seatsRemaining = totalSeats; //sets remaining seats to the total seats to give out in the election
         Party temp[] = parties.clone(); // party list since they will be reordered by their remainders in descending order later
         audit.writeToAudit("Calculating Quota: total Votes / total Seats");
@@ -173,7 +175,7 @@ public class CPL {
 
     public void firstRound(int quota){
         String results = "\nResults:\n";
-        for(int i = 0; i < numParties; i++){
+        for(int i = 0; i < numParties && seatsRemaining > 0; i++){
            int seats =  parties[i].getVotes()/quota; //calculates the seats the a part will be granted before remainder
            parties[i].addSeats(seats);
            audit.writeToAudit("Allocating " + seats + " seats to " + parties[i].getName());
@@ -453,7 +455,7 @@ Two while loops. While there are no more seats to give, for the first round we f
                 int leastDifference = Math.abs(genNum - assignedNumbers.get(0));
                 
                 // compare differences until a winner is found
-                for(int i = 1; i < ties && winner; i++){
+                for(int i = 1; i < ties-1 && winner; i++){
 
                     int currDifference = Math.abs(genNum - assignedNumbers.get(i));
 
