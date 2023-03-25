@@ -96,6 +96,19 @@ public class CPL {
 
 }
 
+
+
+  /**
+   * This method returns the ballots in election
+   * @param void 
+   * @return ballots
+   */
+
+   public CPL_Ballot[] getBallots(){
+    return ballots;
+
+}
+
         /**
    * This method returns the number of ballots in election
    * @param void 
@@ -106,6 +119,9 @@ public class CPL {
         return numBallots;
 
     }
+
+
+    
 
     /**
    * This method distributes the seats of in the election in two round allocations to the parties based on votes and the quota, ran after assigning ballots
