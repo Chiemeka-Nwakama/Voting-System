@@ -167,9 +167,7 @@ public class CPL {
         sortParties(parties);
 
         for(int i = 0; i < numParties-1 && seatsRemaining > 0; i++) {
-            System.out.println("i: " + i);   
             int dups = duplicates(i); // num duplicates
-            //System.out.println("Dups: " + dups);
             if(seatsRemaining < dups) {
                 audit.writeToAudit("A tie has occurred");
                 if(dups == 2){
@@ -194,13 +192,11 @@ public class CPL {
                 i = i + (dups-1); // subtract 1 as the loop increases by 1
 
             }else{
-                //System.out.println(parties[i].getName() + " won a seat");
                 audit.writeToAudit(parties[i].getName() + " has won a seat!");
                 parties[i].addSeats(1);
             }
             
         }
-        System.out.println();
    
     }
     /**
@@ -380,43 +376,35 @@ Two while loops. While there are no more seats to give, for the first round we f
 */
 
     public int poolselect(int ties, int begin){
-
-        System.out.println("\n\n\n\n\nPOOL\n\n");
-
         ArrayList<Party> partiesTemp = new ArrayList<Party>(); // Create an ArrayList object
         ArrayList<Integer> assignedNumbers = new ArrayList<Integer>();
         Random randomNum = new Random(); //create random object where we will produce our random numbers
         boolean winner = false;
         int index = 0;
-        System.out.println("begin: " + begin);
-        System.out.println("ties: " + ties);
 
         // Copy over parties to arraylist
-        for(int i = begin; i < (begin + (ties-1)); i++) {
+        for(int i = begin; i < (begin + ties); i++) {
             partiesTemp.add(parties[i]);
         }
 
-        System.out.println("\n\nOriginal Listing");
         for(int i = 0; i < partiesTemp.size(); i++) {
-            System.out.println(i + ": " + partiesTemp.get(i).getName());
+           // System.out.println(i + ": " + partiesTemp.get(i).getName());
         }
-
-        System.out.println();
 
        // while there are seats to give
         while(seatsRemaining > 0) {
 
            // participating parties for the current round of choosing 1 winner
-            System.out.println("Participating Parties:");
+           // System.out.println("Participating Parties:");
             for(int i = 0; i < partiesTemp.size(); i++) {
-                System.out.println(i + ": " + partiesTemp.get(i).getName());
+               // System.out.println(i + ": " + partiesTemp.get(i).getName());
             }
 
-            System.out.println("\n\nSeats remaining: " + seatsRemaining);
+           // System.out.println("\n\nSeats remaining: " + seatsRemaining);
             // whie we have not choosen a winner to give 1 seat to based on random numbers
             while(winner == false) {
                 winner = true;
-                System.out.println("In winner loop: Winner = " + winner);
+             //   System.out.println("In winner loop: Winner = " + winner);
 
                 for(int i = 0; i < randomConstant; i++){ // generates 1000 times to make the random generator truly random
                     randomNum.nextInt(randomConstant);
@@ -424,25 +412,25 @@ Two while loops. While there are no more seats to give, for the first round we f
 
                 // chosen random number
                 int genNum = randomNum.nextInt(randomConstant);
-                System.out.println("genNum: " + genNum);
+               // System.out.println("genNum: " + genNum);
 
 
                 // assign the random numbers to the parties
                 for(int i = 0; i < ties; i++){
                     assignedNumbers.add(randomNum.nextInt(randomConstant)); //assigns a random number to each candidate
-                    System.out.println(i + ": Assigned number = " + assignedNumbers.get(i));
+                  //  System.out.println(i + ": Assigned number = " + assignedNumbers.get(i));
                 }
         
                 
                 int leastDifference = Math.abs(genNum - assignedNumbers.get(0));
-                System.out.println("Original least difference: " + leastDifference);
+              //  System.out.println("Original least difference: " + leastDifference);
                 
                 // compare differences until a winner is found
                 for(int i = 1; i < ties && winner; i++){
 
                     int currDifference = Math.abs(genNum - assignedNumbers.get(i));
-                    System.out.println("Least difference: " + leastDifference);
-                    System.out.println("CurrDifference: " + currDifference);
+                   // System.out.println("Least difference: " + leastDifference);
+                   // System.out.println("CurrDifference: " + currDifference);
 
                     if(leastDifference == currDifference){ //if there are two candidates with the same assigned rand number, winner is set to false loop is exited and the pool selection is restarted
                         winner = false; //sets winner to false since winner has not been selected start over
@@ -453,21 +441,22 @@ Two while loops. While there are no more seats to give, for the first round we f
         
                     }
 
-                    System.out.println("index: " + index);
-                    System.out.println();
+                    //System.out.println("index: " + index);
                 }
-                System.out.println();
-                System.out.println();
         
             }
             // index+begin might not be the correct index into the original party array, have to check
             parties[index+begin].addSeats(1);
             seatsRemaining--;
             partiesTemp.remove(index);
+            assignedNumbers.remove(index);
             winner = false;
+            ties--;
 
-            System.out.println("Winner selected");
-            System.out.println(parties[index+begin].getName() + " won a seat"); 
+          //  System.out.println("Winner selected");
+          //  System.out.println(parties[index+begin].getName() + " won a seat"); 
+
+            
 
         }
 
@@ -504,25 +493,28 @@ Two while loops. While there are no more seats to give, for the first round we f
     public void displayResults(){
         //displays results exactly as they are being print below 
         //we are displaying information about the election such as number of candidates, ballots, party names along with votes recieved and seats earned and caniddate names along with seats they earned
-        
-        System.out.println("-----Closed Party List Election Results-----");
-       
-        System.out.println("--Information on the Election--");
-        System.out.println("Number of Candidates: " + numCandidates);
-        System.out.println("Number of Ballots cast: " + numBallots);
-        System.out.println("Total Number of Seats to in Election: " + totalSeats); // total number of seats
-        
-        System.out.println("Party names, number of votes received, and how many seats earned:");
+        String results = "";
+         
+        results += "-----CLOSED PARTY LIST ELECTION RESULTS-----\n\n";
+        results += "GENERAL INFORMATION ABOUT THE ELECTION\n";
+        results += "Number of Candidates: " + numCandidates + "\n";
+        results += "Number of Ballots cast: " + numBallots + "\n";
+        results += "Total Number of Seats to in Election: " + totalSeats + "\n";
+        results += "Party names, number of votes received, and how many seats earned:\n\n"; 
         for(int i = 0; i < numParties; i++){
-            System.out.println(parties[i].getName() + " Votes: " + parties[i].getVotes() + " Seats: " + parties[i].getSeats());
-            CPL_Candidate[] candiates = parties[i].getCandidates()
-            int numCandidates =candiates.length;
-            System.out.println("Candidates name and number of seats received:");
+            results += parties[i].getName() + " \nVotes: " + parties[i].getVotes() + "  Seats: " + parties[i].getSeats();
+            CPL_Candidate[] candiates = parties[i].getCandidates();
+            results += "Candidates name and number of seats received:\n";
+
         
-            for(int j = 0; j < numCandidates; j++){
-                System.out.println(candiates[i].getName() + " " + "Seats: " + candiates[i].getSeats());
+            for(int j = 0; j < candiates.length; j++){
+                results += candiates[j].getName() + " " + "Seats: " + candiates[j].getSeats() + "\n";
+            }
+            results += "\n";
+        
         }
-    }
+
+        System.out.println(results);
     
 
     }
