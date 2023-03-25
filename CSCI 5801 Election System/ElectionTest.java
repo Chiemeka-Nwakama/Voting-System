@@ -129,17 +129,12 @@ public void testgetParty(){ //test to see if num parties get works
 
 @Test 
 
-public void testgetP(){ //test to see if num parties get works
-    String expectedParties = "Democratic Republican New Wave Reform Green Independent Test ";
-    String actualParties = "";
+public void testgetNumCandidates(){ //test to see if num parties get works
+    String expectedNum = "14";
+    String actualNum = cpl.getNumCandidates() + "";
 
-    Party[] parties = cpl.getParties();
-    for(Party party: parties){
-        actualParties = actualParties + party.getName() + " ";
-
-    }
-
-    assertEquals("Testing getter", expectedParties, actualParties);
+    
+    assertEquals("Testing getter", expectedNum, actualNum);
 
 
 }
