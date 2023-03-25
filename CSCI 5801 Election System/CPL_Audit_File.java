@@ -32,7 +32,7 @@ public class CPL_Audit_File {
             FileWriter myWriter = new FileWriter(auditFile);
             myWriter.write(audit);
             myWriter.close();
-            System.out.println("AUDIT FILE \"audit\" SUCESSFULLY OUTPUTTED TO ROOT DIRECTORY")
+            System.out.println("AUDIT FILE \"audit\" SUCESSFULLY OUTPUTTED TO ROOT DIRECTORY");
             
           } catch (IOException e) {
             System.out.println("An error occurred.");
