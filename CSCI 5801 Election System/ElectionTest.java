@@ -71,6 +71,8 @@ public void testPopulateCandidate(){ //test the populate candidates that is used
 
 @Test 
 
+//potential bug, only passes test when ran individual not with the rest of the tests
+
 public void testPopulateBallots(){ //test the populate ballots that is used in the constructor to see if it populated the data correctly
 
    String[] expectedBallots = {"Ballot 0: 1,,,,,,", "Ballot 1: ,,,,,,1", "Ballot 2: ,1,,,,,", "Ballot 3: ,,,,1,,", "Ballot 4: ,,,,,1,", "Ballot 5: ,,,1,,,", "Ballot 6: ,,1,,,,", "Ballot 7: 1,,,,,,", "Ballot 8: ,1,,,,,"};
