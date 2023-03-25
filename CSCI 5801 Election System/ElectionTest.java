@@ -80,7 +80,7 @@ public void testPopulateBallots(){ //test the populate ballots that is used in t
     assertEquals("Testing to see if read in ballots",expectedBallots[i], ballots[i].toString());
 
    }
-
+    //.asdsa
     String expectedSeats = "4";
     String actualSeats = cpl.getTotalSeats() + "";
 
