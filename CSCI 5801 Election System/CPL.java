@@ -85,6 +85,17 @@ public class CPL {
 
     }
 
+     /**
+   * This method returns the parties
+   * @param void 
+   * @return parties
+   */
+
+   public Party[] getParties(){
+    return parties;
+
+}
+
         /**
    * This method returns the number of ballots in election
    * @param void 
