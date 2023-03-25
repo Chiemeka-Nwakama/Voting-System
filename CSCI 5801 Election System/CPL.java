@@ -39,7 +39,7 @@ public class CPL {
    * @param file
    * @return void
    */
-    void run(File file){
+    public void run(File file){
         audit.writeToAudit("START OF CPL ELECTION\n");
         audit.writeToAudit("ASSIGNING BALLOTS TO PARTIES: ");
         assignBallots(); // distibutes Ballots to the parties associated with the parties voted for
