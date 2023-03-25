@@ -48,11 +48,10 @@ public class CPL {
         audit.writeToAudit("END OF ELECTION"); // writes that the election is over to audit
         audit.outputAudit(); // output audit file to file named "audit" once the election is completed
         displayResults(); //displays results since election has been completed
-      
 
     }
     
-     /**
+    /**
    * This method returns the number of Parties in election
    * @param void 
    * @return A number of parties
@@ -119,7 +118,7 @@ public class CPL {
         seatsRemaining = totalSeats; //sets remaining seats to the total seats to give out in the election
         Party temp[] = parties.clone(); // party list since they will be reordered by their remainders in descending order later
         audit.writeToAudit("Calculating Quota: total Votes / total Seats");
-        audit.writeToAudit("Quota = " + quota);
+        audit.writeToAudit("Quota = " + numBallots + " / " + totalSeats + " = "  + quota + " (rounded)");
 
         audit.writeToAudit("\nFIRST ROUND OF SEAT DISTRIBUTION:");
         audit.writeToAudit("Seats Remaining: " + seatsRemaining);
@@ -136,7 +135,7 @@ public class CPL {
         secondRound(); // begins the second round which involves giving out the remaining seats based on the remainder
 
 
-        audit.writeToAudit("\nFinal Results:");
+        audit.writeToAudit("\nFINAL RESULTS:");
         parties = temp.clone(); // corrects parties back to orginal order
         for(int i =0; i < numParties; i++) {
             audit.writeToAudit(parties[i].getName() + " Seats: " + parties[i].getSeats());
@@ -195,7 +194,7 @@ public class CPL {
                     }
  
                 }else{
-                    audit.writeToAudit("Pool select between 3 or more parties is initiated");
+                    audit.writeToAudit("Pool select between 3 or more parties is initiated\n");
                     poolselect(dups, i); // adds what index currently on to winner index to scale with which parties got pooled
          
                     
@@ -313,6 +312,7 @@ public void populateCandidates(File file, Scanner sc){ //split into poluate part
     for(int i = 0; i < numParties; i++){ //reads candidates until all parties are populated
         String[] Candidate_names =  sc.nextLine().split(",");
         parties[i].populateCandidates(Candidate_names, Candidate_names.length);
+        numCandidates += Candidate_names.length;
         
         audit.writeToAudit(parties[i].getName() + ": "); //writes party name to audit
         String candidateList = "";
@@ -398,24 +398,24 @@ Two while loops. While there are no more seats to give, for the first round we f
             partiesTemp.add(parties[i]);
         }
 
+        audit.writeToAudit("Parties in the pooling:");
         for(int i = 0; i < partiesTemp.size(); i++) {
-           // System.out.println(i + ": " + partiesTemp.get(i).getName());
+            audit.writeToAudit(i + ": " + partiesTemp.get(i).getName());
         }
 
        // while there are seats to give
         while(seatsRemaining > 0) {
 
            // participating parties for the current round of choosing 1 winner
-           // System.out.println("Participating Parties:");
+            audit.writeToAudit("\nParticipating parties in current round of choosing a winner:");
             for(int i = 0; i < partiesTemp.size(); i++) {
-               // System.out.println(i + ": " + partiesTemp.get(i).getName());
+                audit.writeToAudit(i + ": " + partiesTemp.get(i).getName());
             }
 
-           // System.out.println("\n\nSeats remaining: " + seatsRemaining);
+            audit.writeToAudit("\nSeats remaining: " + seatsRemaining);
             // whie we have not choosen a winner to give 1 seat to based on random numbers
             while(winner == false) {
                 winner = true;
-             //   System.out.println("In winner loop: Winner = " + winner);
 
                 for(int i = 0; i < randomConstant; i++){ // generates 1000 times to make the random generator truly random
                     randomNum.nextInt(randomConstant);
@@ -423,25 +423,23 @@ Two while loops. While there are no more seats to give, for the first round we f
 
                 // chosen random number
                 int genNum = randomNum.nextInt(randomConstant);
-               // System.out.println("genNum: " + genNum);
+                audit.writeToAudit("Choosen randomized number: " + genNum);
 
 
+                audit.writeToAudit("\nGenerating and assigning random numbers to parties:");
                 // assign the random numbers to the parties
                 for(int i = 0; i < ties; i++){
                     assignedNumbers.add(randomNum.nextInt(randomConstant)); //assigns a random number to each candidate
-                  //  System.out.println(i + ": Assigned number = " + assignedNumbers.get(i));
+                    audit.writeToAudit(partiesTemp.get(i).getName() + ": Assigned number = " + assignedNumbers.get(i));
                 }
         
                 
                 int leastDifference = Math.abs(genNum - assignedNumbers.get(0));
-              //  System.out.println("Original least difference: " + leastDifference);
                 
                 // compare differences until a winner is found
                 for(int i = 1; i < ties && winner; i++){
 
                     int currDifference = Math.abs(genNum - assignedNumbers.get(i));
-                   // System.out.println("Least difference: " + leastDifference);
-                   // System.out.println("CurrDifference: " + currDifference);
 
                     if(leastDifference == currDifference){ //if there are two candidates with the same assigned rand number, winner is set to false loop is exited and the pool selection is restarted
                         winner = false; //sets winner to false since winner has not been selected start over
@@ -452,11 +450,9 @@ Two while loops. While there are no more seats to give, for the first round we f
         
                     }
 
-                    //System.out.println("index: " + index);
                 }
         
             }
-            // index+begin might not be the correct index into the original party array, have to check
             parties[index+begin].addSeats(1);
             seatsRemaining--;
             partiesTemp.remove(index);
@@ -464,8 +460,9 @@ Two while loops. While there are no more seats to give, for the first round we f
             winner = false;
             ties--;
 
-          //  System.out.println("Winner selected");
-          //  System.out.println(parties[index+begin].getName() + " won a seat"); 
+            audit.writeToAudit("\nWinner selected");
+            audit.writeToAudit(parties[index+begin].getName() + " had the number closest to the choosen randomized number");
+            audit.writeToAudit(parties[index+begin].getName() + " won a seat!"); 
 
             
 
@@ -506,8 +503,9 @@ Two while loops. While there are no more seats to give, for the first round we f
         //we are displaying information about the election such as number of candidates, ballots, party names along with votes recieved and seats earned and caniddate names along with seats they earned
         String results = "";
          
-        results += "-----CLOSED PARTY LIST ELECTION RESULTS-----\n\n";
+        results += "-----CLOSED PARTY LIST ELECTION RESULTS AND SUMMARY-----\n\n";
         results += "GENERAL INFORMATION ABOUT THE ELECTION\n";
+        results += "Number of Parties: " + numParties + "\n";
         results += "Number of Candidates: " + numCandidates + "\n";
         results += "Number of Ballots cast: " + numBallots + "\n";
         results += "Total Number of Seats to in Election: " + totalSeats + "\n";
@@ -515,7 +513,7 @@ Two while loops. While there are no more seats to give, for the first round we f
         for(int i = 0; i < numParties; i++){
             results += parties[i].getName() + " \nVotes: " + parties[i].getVotes() + "  Seats: " + parties[i].getSeats();
             CPL_Candidate[] candiates = parties[i].getCandidates();
-            results += "Candidates name and number of seats received:\n";
+            results += "\nCandidates name and number of seats received:\n";
 
         
             for(int j = 0; j < candiates.length; j++){
@@ -526,6 +524,7 @@ Two while loops. While there are no more seats to give, for the first round we f
         }
 
         System.out.println(results);
+        audit.writeToAudit("\n" + results);
     
 
     }

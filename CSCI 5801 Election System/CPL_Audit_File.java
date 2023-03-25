@@ -26,7 +26,6 @@ public class CPL_Audit_File {
    * @return void
    */
     public void outputAudit(){
-        System.out.print(auditFile);
         try {
             FileWriter myWriter = new FileWriter(auditFile);
             myWriter.write(audit);
