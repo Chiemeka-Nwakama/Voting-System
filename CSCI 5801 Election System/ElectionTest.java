@@ -74,7 +74,7 @@ public void testPopulateCandidate(){ //test the populate candidates that is used
 //potential bug, only passes test when ran individual not with the rest of the tests
 
 public void testPopulateBallots(){ //test the populate ballots that is used in the constructor to see if it populated the data correctly
-
+    
    String[] expectedBallots = {"Ballot 0: 1,,,,,,", "Ballot 1: ,,,,,,1", "Ballot 2: ,1,,,,,", "Ballot 3: ,,,,1,,", "Ballot 4: ,,,,,1,", "Ballot 5: ,,,1,,,", "Ballot 6: ,,1,,,,", "Ballot 7: 1,,,,,,", "Ballot 8: ,1,,,,,"};
    CPL_Ballot[] ballots = cpl.getBallots();
   
@@ -86,7 +86,6 @@ public void testPopulateBallots(){ //test the populate ballots that is used in t
    
     String expectedSeats = "6";
     String actualSeats = cpl.getTotalSeats() + "";
-
     assertEquals("Testing to see if read total number of seats",expectedSeats, actualSeats);
 
 
@@ -146,11 +145,43 @@ public void testgetTotalSeats(){ //test to see if num parties get works
     String expectedSeats = "6";
     String actualSeats = cpl.getTotalSeats() + "";
 
-    assertEquals("Testing to getter",expectedSeats, actualSeats);
+    assertEquals("Testing getter",expectedSeats, actualSeats);
 
 
 }
+
+@Test 
+
+public void testgetBallots(){ //test to see if num parties get works
+    String[] expectedBallots = {"Ballot 0: 1,,,,,,", "Ballot 1: ,,,,,,1", "Ballot 2: ,1,,,,,", "Ballot 3: ,,,,1,,", "Ballot 4: ,,,,,1,", "Ballot 5: ,,,1,,,", "Ballot 6: ,,1,,,,", "Ballot 7: 1,,,,,,", "Ballot 8: ,1,,,,,"};
+    CPL_Ballot[] ballots = cpl.getBallots();
+   
+    for(int i = 0; i < expectedBallots.length; i++){
+ 
+     assertEquals("Testing to see if read in ballots",expectedBallots[i], ballots[i].toString());
+ 
+    }
 }
+
+
+@Test 
+
+public void testAssignBallots(){ //test to see if ballots are assigned correctly to parties
+    String[] expectedBallots = {"Ballot 0: 1,,,,,,", "Ballot 1: ,,,,,,1", "Ballot 2: ,1,,,,,", "Ballot 3: ,,,,1,,", "Ballot 4: ,,,,,1,", "Ballot 5: ,,,1,,,", "Ballot 6: ,,1,,,,", "Ballot 7: 1,,,,,,", "Ballot 8: ,1,,,,,"};
+    CPL_Ballot[] ballots = cpl.getBallots();
+   
+    for(int i = 0; i < expectedBallots.length; i++){
+ 
+     assertEquals("Testing to see if read in ballots",expectedBallots[i], ballots[i].toString());
+ 
+    }
+
+}
+
+}
+
+
+
 
 
 
