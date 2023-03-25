@@ -16,14 +16,19 @@ public class IR {
     private int remainingCandidates;
     private IR_Candidate winner;
 
+    /** 
+    *@brief This constructor initialize the audit file and taking input file
+    *@param file The input file for IR election
+    **/
     public IR(File  file){
         inputFile = file;
         audit = new IR_Audit_File();
         audit.writeToAudit("Instant Runoff Voting Election\n");
-        
-
     }
     
+    /** 
+    *@brief The method run the entire election from start to finish using various methods
+    **/
     void run(){
         //write to audit file
         populateData(); //add all ballots to ballot array and assign IDs
@@ -55,6 +60,9 @@ public class IR {
         }
     }
 
+    /** 
+    *@brief This method will scan the given ballot file and read/store the informations to the election
+    **/
     public void populateData(){
         int counter = 0;
         int curBallot = 0;
@@ -93,6 +101,9 @@ public class IR {
         scanner.close();
     }
 
+    /** 
+    *@brief Assign the votes in each ballot for the candidates
+    **/
     public void assignBallots(){
         int currentCandidate = -1;
         for (int a = 0; a < numBallots; a++){
@@ -104,20 +115,34 @@ public class IR {
         }
     }
 
-
+    /** 
+    *@brief Get the array of the Candidates
+    *@return The IR_Candidate array
+    **/
     public IR_Candidate[] getCandidates(){
         return this.candidates;
     }
 
+    /** 
+    *@brief Get the number of candidates in the election
+    *@return The number of canidates
+    **/
     public int getNumCandidates(){
         return this.numCandidates;
     }
 
-   
+    /** 
+    *@brief Get the number of ballots in the election
+    *@return The total ballots in the election
+    **/
     public int getNumBallots(){
         return this.numBallots;
     }
     
+    /** 
+    *@brief The method is to make loser candidate with lowest votes
+    *@param loser IR_candidate of who will be the loser in the election
+    **/
     public void makeLoser(IR_Candidate loser){
         loser.setStatus();
         int curBallot;
@@ -132,6 +157,10 @@ public class IR {
         remainingCandidates--;
     }
 
+    /** 
+    *@brief The method check for how many cadidates tie in the election for winner
+    *@return The number of tie candidates in the election
+    **/
     public int checkForWinnerTie(){
         int tieCounter = 1; //set tieCounter to 1 if no candidates are tied
         for (int a = 1; a < numCandidates; a++){ //check if there's a tie, start with second candidate
@@ -144,6 +173,10 @@ public class IR {
         return tieCounter;
     }
 
+    /** 
+    *@brief The method check for how many candidates ties in votes 
+    *@return The number of loser candidates
+    **/
     public int checkForLoserTie(){
         int tieCounter = 1; //set tieCounter to 1 if no candidates are tied
         for (int a = numCandidates - 2; a >= 0; a--){ //check if there's a tie 
@@ -156,6 +189,10 @@ public class IR {
         return tieCounter;
     }
 
+    /** 
+    *@brief Determine the winning candidate in a tie by coin toss method
+    *@return A randomly generate number 0 or 1, 0 for heads, and 1 for tails
+    **/
     public int coinToss(){
         Random randomNum = new Random();
         int result = 0;
@@ -166,6 +203,11 @@ public class IR {
 
     }
 
+    /** 
+    *@brief Tie situation for more than 2 candidates
+    Assigned random number to all candidates, and generate a random selection 
+    *@return The number of the winning candidate
+    **/
     public int poolSelect(int numTied){
         Random randomNum = new Random();
         int result = 0;
@@ -176,6 +218,10 @@ public class IR {
         return result;
     }
 
+    /** 
+    *@brief Display the result of the lection
+    *Also, write the result into the audit file
+    **/
     public void displayResults(){
         System.out.println("-----Instant Runoff Election Results-----");
         System.out.print("***   The winner is: ");
@@ -197,9 +243,12 @@ public class IR {
             result += "  " + candidates[i] + "  " + ballots[i].getCurrentVote() + "\n";
         }
         audit.writeToAudit(result);
-
     }
 
+    /** 
+    *@brief Set the election status for all the candidates from highest to lowest
+    *@return True for candidate with highest ranking is sorted in right position
+    **/
     public boolean setElectionStatus(){ //rank all candidates highest to lowest, find winner if there is one
         IR_Candidate[] curRanking = new IR_Candidate[numCandidates];
         curRanking = candidates;
