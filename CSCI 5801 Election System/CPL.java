@@ -45,8 +45,10 @@ public class CPL {
         assignBallots(); // distibutes Ballots to the parties associated with the parties voted for
         audit.writeToAudit("\nDISTRIBUTING SEATS TO PARTIES: ");
         distributeSeats(); // distributes seats to parties
-        displayResults(); //displays results since election has been completed
+        audit.writeToAudit("END OF ELECTION"); // writes that the election is over to audit
         audit.outputAudit(); // output audit file to file named "audit" once the election is completed
+        displayResults(); //displays results since election has been completed
+      
 
     }
     
@@ -340,7 +342,7 @@ public void populateBallots(File file, Scanner sc) {
     }
 
     audit.writeToAudit("BALLOTS:");
-    for(int i = 0; i < numBallots; i++){
+    for(int i = 0; i < numBallots; i++){ //iterates reading in all ballot lines
         String ballot = sc.nextLine();
         int partyVote = ballot.indexOf("1"); // gets the pos of the vote
         ballots[i] = new CPL_Ballot(partyVote, numParties); //intializes a new ballot
@@ -383,7 +385,7 @@ Two while loops. While there are no more seats to give, for the first round we f
 
         ArrayList<Party> partiesTemp = new ArrayList<Party>(); // Create an ArrayList object
         ArrayList<Integer> assignedNumbers = new ArrayList<Integer>();
-        Random randomNum = new Random();
+        Random randomNum = new Random(); //create random object where we will produce our random numbers
         boolean winner = false;
         int index = 0;
         System.out.println("begin: " + begin);
@@ -476,11 +478,11 @@ Two while loops. While there are no more seats to give, for the first round we f
      }
 
       /**
-   * This method sorts parties using Insertion sort by remainder of votes
+   * This method sorts parties using Insertion sort by remainder of votes in descending order
    * @param parties an array of the parties to be sorted
    * @return void
    */
-    public void sortParties(Party[] parties) // sorts party by their remainder votes
+    public void sortParties(Party[] parties) // sorts party by their remainder votes 
     {
         for (int j = 1; j < parties.length; j++) {  
             Party key = parties[j];
@@ -494,15 +496,22 @@ Two while loops. While there are no more seats to give, for the first round we f
 }
 
 
-    
+         /**
+   * This method prints out all of the important results that the election judge and public would want to see from the election
+   * @param void
+   * @return void
+   */
     public void displayResults(){
+        //displays results exactly as they are being print below 
+        //we are displaying information about the election such as number of candidates, ballots, party names along with votes recieved and seats earned and caniddate names along with seats they earned
         
         System.out.println("-----Closed Party List Election Results-----");
        
         System.out.println("--Information on the Election--");
         System.out.println("Number of Candidates: " + numCandidates);
         System.out.println("Number of Ballots cast: " + numBallots);
-       
+        System.out.println("Total Number of Seats to in Election: " + totalSeats); // total number of seats
+        
         System.out.println("Party names, number of votes received, and how many seats earned:");
         for(int i = 0; i < numParties; i++){
             System.out.println(parties[i].getName() + " Votes: " + parties[i].getVotes() + " Seats: " + parties[i].getSeats());
@@ -517,11 +526,23 @@ Two while loops. While there are no more seats to give, for the first round we f
     
 
     }
+
+            /**
+   * This method clears out the parties setting all vals to null
+   * @param parties parties to clear
+   * @return void
+   */
    
     public void clearParties(Party[] parties){
         Arrays.fill(parties, null);
 
     }
+
+               /**
+   * This method clears out the ballots setting all values in array to null
+   * @param ballots to clear
+   * @return void
+   */
     public void clearBallots(CPL_Ballot[] ballots){
         Arrays.fill(ballots, null);
     }
