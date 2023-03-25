@@ -21,8 +21,7 @@ public class ElectionTest {
 
         //C:\\Users\\chiem\\OneDrive - Marshall Public Schools\\Desktop\\repo-Team3\\CSCI 5801 Election System\\test.txt
     try{
-        File file = new File("C:\\Users\\chiem\\OneDrive - Marshall Public Schools\\Desktop\\repo-Team3\\CSCI 5801 Election System\\test.txt");
-         cpl = new CPL(file);
+        File file = new File("C:\\Users\\Sidney\\OneDrive\\Desktop\\UMN Classes\\New folder\\repo-Team3\\CSCI 5801 Election System>");         cpl = new CPL(file);
     }
     catch(IOException e){ 
         System.out.println("Error File not found!");
