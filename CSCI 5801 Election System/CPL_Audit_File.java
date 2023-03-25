@@ -35,7 +35,7 @@ public class CPL_Audit_File {
             System.out.println("AUDIT FILE \"audit\" SUCESSFULLY OUTPUTTED TO ROOT DIRECTORY");
             
           } catch (IOException e) {
-            System.out.println("An error occurred.");
+            System.out.println("An error occurred. AUDIT FILE UNABLE TO BE OUTPUTTED");
             e.printStackTrace();
         }
 
