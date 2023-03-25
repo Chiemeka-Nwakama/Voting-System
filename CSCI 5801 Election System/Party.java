@@ -173,7 +173,7 @@ public void initilizeBallotCapacity(int totalBallots){
     public void distributeSeats(CPL_Audit_File audit){
         int remainingSeats = seats;
         audit.writeToAudit("First Round of Distribution:");
-        audit.writeToAudit("Seats Remaining" + remainingSeats);
+        audit.writeToAudit("Seats Remaining ss" + remainingSeats);
         for(int i = 0; i < candidates.length && remainingSeats > 0; i++){ // goes in order of candidates to give seats
             candidates[i].addSeat(); // adds seat to candidate
             audit.writeToAudit("Adding seat to " + candidates[i].getName());
