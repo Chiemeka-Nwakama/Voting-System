@@ -185,7 +185,7 @@ public void initilizeBallotCapacity(int totalBallots){
         }
         if(remainingSeats > 0){
             audit.writeToAudit("Second Rounds of Distrubution");
-            audit.writeToAudit("Seats Remaining" + remainingSeats);
+            audit.writeToAudit("Seats Remaining: " + remainingSeats);
             while(remainingSeats > 0){
                 
                 audit.writeToAudit("Pool Selection:");

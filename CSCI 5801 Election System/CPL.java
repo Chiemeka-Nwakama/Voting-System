@@ -45,6 +45,7 @@ public class CPL {
         assignBallots(); // distibutes Ballots to the parties associated with the parties voted for
         audit.writeToAudit("\nDISTRIBUTING SEATS TO PARTIES: ");
         distributeSeats(); // distributes seats to parties
+        displayResults(); //displays results since election has been completed
         audit.outputAudit(); // output audit file to file named "audit" once the election is completed
 
     }
@@ -243,7 +244,7 @@ public class CPL {
 
     public void assignBallots(){
 
-        for(CPL_Ballot ballot: ballots){
+        for(CPL_Ballot ballot: ballots){ //loops through ballots finding out where to assign the ballot
             int partyVote = ballot.getPartyVote();
             parties[partyVote].addVote(ballot);
             audit.writeToAudit("Assigning " +  ballot + " to " + parties[partyVote].getName());
@@ -495,6 +496,25 @@ Two while loops. While there are no more seats to give, for the first round we f
 
     
     public void displayResults(){
+        
+        System.out.println("-----Closed Party List Election Results-----");
+       
+        System.out.println("--Information on the Election--");
+        System.out.println("Number of Candidates: " + numCandidates);
+        System.out.println("Number of Ballots cast: " + numBallots);
+       
+        System.out.println("Party names, number of votes received, and how many seats earned:");
+        for(int i = 0; i < numParties; i++){
+            System.out.println(parties[i].getName() + " Votes: " + parties[i].getVotes() + " Seats: " + parties[i].getSeats());
+            CPL_Candidate[] candiates = parties[i].getCandidates()
+            int numCandidates =candiates.length;
+            System.out.println("Candidates name and number of seats received:");
+        
+            for(int j = 0; j < numCandidates; j++){
+                System.out.println(candiates[i].getName() + " " + "Seats: " + candiates[i].getSeats());
+        }
+    }
+    
 
     }
    
