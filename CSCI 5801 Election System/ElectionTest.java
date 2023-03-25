@@ -83,7 +83,7 @@ public void testPopulateBallots(){ //test the populate ballots that is used in t
     assertEquals("Testing to see if read in ballots",expectedBallots[i], ballots[i].toString());
 
    }
-    //.asdsa
+   
     String expectedSeats = "6";
     String actualSeats = cpl.getTotalSeats() + "";
 
@@ -135,6 +135,18 @@ public void testgetNumCandidates(){ //test to see if num parties get works
 
     
     assertEquals("Testing getter", expectedNum, actualNum);
+
+
+}
+
+@Test 
+
+public void testgetTotalSeats(){ //test to see if num parties get works
+   
+    String expectedSeats = "6";
+    String actualSeats = cpl.getTotalSeats() + "";
+
+    assertEquals("Testing to getter",expectedSeats, actualSeats);
 
 
 }
