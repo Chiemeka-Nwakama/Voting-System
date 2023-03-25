@@ -24,12 +24,15 @@ public class IR_Audit_File {
     /** 
     *@brief Write the result steps of the IR election to the audit file
     *@param thing A string that will store all of the information of each step in IR election
-    *@return void
     **/
     public void writeToAudit(String thing){
        result = result + thing + "\n";
     }
 
+    /** 
+    *@brief Write the information on the ballot to audit file
+    *@param ballot IR_Ballot of the election
+    **/
     public void writeBallot(IR_Ballot ballot){
         try{
             // writer.write("%i: %s\n", ballot.getBallotID(), Arrays.toString(ballot.getBallot()));
@@ -41,6 +44,10 @@ public class IR_Audit_File {
         }
     }
 
+    /** 
+    *@brief Write the Candidate votes for each stage in the election
+    *@param candidates Each candidates information will be writing in audit file
+    **/
     public void writeCandidateBallots(IR_Candidate candidate){
         try{
             writer.write(candidate.getName() + ": ");
@@ -58,7 +65,6 @@ public class IR_Audit_File {
     /** 
     *@brief The method is where information write to the file will be output to the actual IR audit file
     *@param void
-    *@return void
     **/
     public void outputAudit(){
         System.out.print(auditFile);
