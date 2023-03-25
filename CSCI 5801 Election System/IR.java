@@ -63,7 +63,7 @@ public class IR {
     /** 
     *@brief This method will scan the given ballot file and read/store the informations to the election
     **/
-    public void populateData(){
+    public void populateData(){ 
         int counter = 0;
         int curBallot = 0;
         String tempBallot[];
