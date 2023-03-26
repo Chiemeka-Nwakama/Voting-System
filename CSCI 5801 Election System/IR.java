@@ -36,7 +36,7 @@ public class IR {
     /** 
     *@brief The method run the entire election from start to finish using various methods
     **/
-    void run(){
+    public void run(){
         //write to audit file
         populateData(); //add all ballots to ballot array and assign IDs
         assignBallots(); //assign ballot IDs to candidate's ballot array
