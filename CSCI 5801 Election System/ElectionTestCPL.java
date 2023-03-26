@@ -181,9 +181,64 @@ public void testAssignBallots(){ //test to see if ballots are assigned correctly
 
 @Test 
 
-public void testdistrubuteSeats(){ //test to see if seats distribute correctly
+public void testdistrubuteSeatsCoinToss(){ //test to see if seats distribute correctly with tie breaker too. Tests the first and second rounds
     CPL cpltest = null;
     String expected = "fair around 50-50";
+    String actual = "";
+    
+    int count = 0; //how many times extra seat is given to one of the two parties
+    for(int i = 0; i < 1000; i++){
+    try{
+        File file = new File("C:\\Users\\chiem\\OneDrive - Marshall Public Schools\\Desktop\\repo-Team3\\CSCI 5801 Election System\\testDistrubuteSeatCoinToss.txt");         
+        cpltest = new CPL(file);
+
+        //Paths.get("");
+      
+    }
+    
+    catch(IOException e){ 
+        System.out.println("Error File not found!");   //cpltest.distributeSeats(); // has an error 
+    }
+    cpltest.assignBallots();
+    cpltest.distributeSeats();
+
+
+    
+
+   
+        Party[] parties = cpltest.getParties();
+        int seats = parties[0].getSeats();
+        System.out.print(seats);
+        if(seats == 2){
+            count++;
+        }
+
+    }
+ 
+    double percent = count/1000.0;
+    if(percent >= .475 && percent <=.525){ // sees if it falls within .5 with  a margin of error of .025 +/-
+        actual = "fair around 50-50";
+
+    }
+    else{
+        actual = "not fair";
+    }
+  
+    assertEquals(expected, actual);
+
+
+
+
+    
+  
+}
+
+
+@Test 
+
+public void testdistrubuteSeatsPoolSelect(){ //test to see if seats distribute correctly with tie breaker too. Tests the first and second rounds
+    CPL cpltest = null;
+    String expected = "fair around 33-33-33";
     String actual = "";
     
     int count = 0; //how many times extra seat is given to one of the two parties
