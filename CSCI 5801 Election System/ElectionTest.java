@@ -20,8 +20,10 @@ public class ElectionTest {
     public void setUp(){
 
         //C:\\Users\\chiem\\OneDrive - Marshall Public Schools\\Desktop\\repo-Team3\\CSCI 5801 Election System\\test.txt
+        //"C:\\Users\\Sidney\\OneDrive\\Desktop\\UMN Classes\\New folder\\repo-Team3\\CSCI 5801 Election System>"
     try{
-        File file = new File("C:\\Users\\Sidney\\OneDrive\\Desktop\\UMN Classes\\New folder\\repo-Team3\\CSCI 5801 Election System>");         cpl = new CPL(file);
+        File file = new File("C:\\Users\\chiem\\OneDrive - Marshall Public Schools\\Desktop\\repo-Team3\\CSCI 5801 Election System\\test.txt");         
+        cpl = new CPL(file);
     }
     catch(IOException e){ 
         System.out.println("Error File not found!");
@@ -166,6 +168,20 @@ public void testgetBallots(){ //test to see if num parties get works
 @Test 
 
 public void testAssignBallots(){ //test to see if ballots are assigned correctly to parties
+    String[] expectedBallots = {"Ballot 0: 1,,,,,,", "Ballot 1: ,,,,,,1", "Ballot 2: ,1,,,,,", "Ballot 3: ,,,,1,,", "Ballot 4: ,,,,,1,", "Ballot 5: ,,,1,,,", "Ballot 6: ,,1,,,,", "Ballot 7: 1,,,,,,", "Ballot 8: ,1,,,,,"};
+    CPL_Ballot[] ballots = cpl.getBallots();
+   
+    for(int i = 0; i < expectedBallots.length; i++){
+ 
+     assertEquals("Testing to see if read in ballots",expectedBallots[i], ballots[i].toString());
+ 
+    }
+
+}
+
+@Test 
+
+public void testdistrubuteSeats(){ //test to see if seats distirbute correctly
     String[] expectedBallots = {"Ballot 0: 1,,,,,,", "Ballot 1: ,,,,,,1", "Ballot 2: ,1,,,,,", "Ballot 3: ,,,,1,,", "Ballot 4: ,,,,,1,", "Ballot 5: ,,,1,,,", "Ballot 6: ,,1,,,,", "Ballot 7: 1,,,,,,", "Ballot 8: ,1,,,,,"};
     CPL_Ballot[] ballots = cpl.getBallots();
    
