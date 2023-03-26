@@ -30,7 +30,7 @@ public class ElectionTest {
 
   
 @Test 
-public void testPopulateData(){ //test the populate parties that is used in the constructor to see if it populated the data correctly
+public void testInitialData(){ //test the populate parties that is used in the constructor to see if it populated the data correctly
     String expectednumCandidates = "4";
     System.out.println("Test started");
     String actualnumCandidates = ir.getNumCandidates() + "";
@@ -49,6 +49,17 @@ public void testPopulateData(){ //test the populate parties that is used in the 
     assertEquals("Testing to see if reads in the right name of Candidates", expectedCandidates, actualCandidtates);
     assertEquals("Testing to see if reads in the right number of ballots", expectedBallots, actualBallots);
    
+
+}
+
+@Test
+public void testpopulateData(){
+    String[] expectedBallots = {"1,3,4,2", "1,0,2,0", "1,2,3,0", "3,2,1,4", "0,0,1,2", "0,0,0,1"};
+    IR_Ballot[] ballots = ir.populateData();
+
+    for(int i = 0; i < expectedBallots.length; i++){
+        assertEquals("Testing for correct votes stored: ", expectedBallots[i], ballots[i]);
+    }
 
 }
 
