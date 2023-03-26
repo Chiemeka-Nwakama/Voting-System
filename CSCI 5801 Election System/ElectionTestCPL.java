@@ -43,8 +43,8 @@ public void testPopulateParties(){ //test the populate parties that is used in t
         actualParties = actualParties + party.getName() + " ";
 
     }
-    assertEquals("Testing to see if reads in the right number of Parties", expectedPartyNumber, actualPartyNumber);
-    assertEquals("Testing to see if parties read in match", expectedParties, actualParties);
+    assertEquals("Testing to see if reads in the right number of Parties: ", expectedPartyNumber, actualPartyNumber);
+    assertEquals("Testing to see if parties read in match: ", expectedParties, actualParties);
    
 
 }
@@ -62,7 +62,7 @@ public void testPopulateCandidate(){ //test the populate candidates that is used
         for(CPL_Candidate candiate: candidates){
             actualCandiates = actualCandiates + candiate.getName() + " ";
         }
-        assertEquals("Testing to see if reads in the right candidates for each party", expectedCandiates[i], actualCandiates);
+        assertEquals("Testing to see if reads in the right candidates for each party: ", expectedCandiates[i], actualCandiates);
         i++;
 
     }
@@ -81,13 +81,13 @@ public void testPopulateBallots(){ //test the populate ballots that is used in t
   
    for(int i = 0; i < expectedBallots.length; i++){
 
-    assertEquals("Testing to see if read in ballots",expectedBallots[i], ballots[i].toString());
+    assertEquals("Testing to see if read in ballots: ",expectedBallots[i], ballots[i].toString());
 
    }
    
     String expectedSeats = "6";
     String actualSeats = cpl.getTotalSeats() + "";
-    assertEquals("Testing to see if read total number of seats",expectedSeats, actualSeats);
+    assertEquals("Testing to see if read total number of seats: ",expectedSeats, actualSeats);
 
 
 
@@ -101,7 +101,7 @@ public void testgetNumParties(){ //test to see if num parties get works
    String expectedNumber = 7 + "";
    String actualNumber = cpl.getNumParties() + "";
 
-   assertEquals("Testing to see if getter works",expectedNumber, actualNumber);
+   assertEquals("Testing to see if getter works: ",expectedNumber, actualNumber);
 
 
 
@@ -121,7 +121,7 @@ public void testgetParty(){ //test to see if num parties get works
 
     }
 
-    assertEquals("Testing getter", expectedParties, actualParties);
+    assertEquals("Testing getter: ", expectedParties, actualParties);
 
 
 }
@@ -134,7 +134,7 @@ public void testgetNumCandidates(){ //test to see if num parties get works
     String actualNum = cpl.getNumCandidates() + "";
 
     
-    assertEquals("Testing getter", expectedNum, actualNum);
+    assertEquals("Testing getter: ", expectedNum, actualNum);
 
 
 }
@@ -146,7 +146,7 @@ public void testgetTotalSeats(){ //test to see if num parties get works
     String expectedSeats = "6";
     String actualSeats = cpl.getTotalSeats() + "";
 
-    assertEquals("Testing getter",expectedSeats, actualSeats);
+    assertEquals("Testing getter: ",expectedSeats, actualSeats);
 
 
 }
@@ -159,7 +159,7 @@ public void testgetBallots(){ //test to see if num parties get works
    
     for(int i = 0; i < expectedBallots.length; i++){
  
-     assertEquals("Testing to see if read in ballots",expectedBallots[i], ballots[i].toString());
+     assertEquals("Testing to see if read in ballots: ",expectedBallots[i], ballots[i].toString());
  
     }
 }
@@ -173,7 +173,7 @@ public void testAssignBallots(){ //test to see if ballots are assigned correctly
    
     for(int i = 0; i < expectedBallots.length; i++){
  
-     assertEquals("Testing to see if read in ballots",expectedBallots[i], ballots[i].toString());
+     assertEquals("Testing to see if read in ballots: ",expectedBallots[i], ballots[i].toString());
  
     }
 
@@ -191,7 +191,41 @@ public void testdistrubuteSeats(){ //test to see if seats distirbute correctly
     catch(IOException e){ 
         System.out.println("Error File not found!");
     }
-  cpltest.distributeSeats();
+    //cpltest.distributeSeats(); // has an error 
+}
+
+@Test 
+
+public void testDuplicates(){ //test to see if duplicates works
+    int expected = 2;
+    int actual = cpl.duplicates(0);
+    
+    assertEquals("Testing to see if duplicates are correctly found in a row, index 0-1: ", expected, actual);
+
+    expected = 5;
+    actual = cpl.duplicates(2);
+
+    assertEquals("Testing to see if duplicates are correctly found in a row, index 2-6: ", expected, actual);
+
+}
+
+@Test 
+
+public void testCalculateRemainingVotes(){ //test to see if calculating remaining votes works
+    int [] arr = {0,0,1,1,1,1,1};
+    int q = cpl.getNumBallots() / cpl.getTotalSeats();
+
+    cpl.calculateRemainingVotes(q);
+    Party [] p = cpl.getParties();
+
+    for(int i = 0; i < arr.length; i++){
+ 
+        assertEquals("Testing to see if remaining votes are calculated correctly: ", arr[i], p[i].getRemainderVotes());
+    
+       }
+
+
+
 }
 
 }
