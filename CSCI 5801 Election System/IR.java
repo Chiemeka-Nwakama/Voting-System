@@ -166,10 +166,8 @@ public class IR {
         for (int a = 0; a < loser.getVotes(); a++){ //reassign ballots
             curBallot = loserBallots[a];
             ballots[curBallot].updateCurrentVote();
-            while (ballots[curBallot].getCurrentVote() != -1){ 
-                if (!candidates[ballots[curBallot].getCurrentVote()].getStatus()){
-                    ballots[curBallot].updateCurrentVote();
-                }
+            while (ballots[curBallot].getCurrentVote() != -1 && !candidates[ballots[curBallot].getCurrentVote()].getStatus()){ 
+                ballots[curBallot].updateCurrentVote();
             }
             if (ballots[curBallot].getCurrentVote() != -1){
                 candidates[ballots[curBallot].getCurrentVote()].addBallot(curBallot); //add ballot to new candidate's array
@@ -252,7 +250,7 @@ public class IR {
         System.out.println("Number of Ballots cast: " + numBallots);
         System.out.println("Candidates name and number of votes received:");
         for(int i = 0; i < numCandidates; i++){
-            System.out.println("  " + candidates[i] + "  " + ballots[i].getCurrentVote());
+            System.out.println("  " + candidates[i] + "  " + candidates[i].getVotes());
         }
 
         result = "-----Instant Runoff Election Results-----\n" +
