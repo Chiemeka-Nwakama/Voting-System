@@ -157,41 +157,14 @@ Participating parties in current round of choosing a winner:
 4: Test
 
 Seats remaining: 4
-<<<<<<< HEAD
-Choosen randomized number: 437
+Choosen randomized number: 371
 
 Generating and assigning random numbers to parties:
-New Wave: Assigned number = 594
-Reform: Assigned number = 782
-Green: Assigned number = 29
-Independent: Assigned number = 25
-Test: Assigned number = 199
-=======
-Choosen randomized number: 930
-
-Generating and assigning random numbers to parties:
-New Wave: Assigned number = 200
-Reform: Assigned number = 85
-Green: Assigned number = 541
-Independent: Assigned number = 699
-
-Winner selected
-Independent had the number closest to the choosen randomized number
-Independent won a seat!
-
-Participating parties in current round of choosing a winner:
-0: New Wave
-1: Reform
-2: Green
-3: Test
-
-Seats remaining: 3
-Choosen randomized number: 847
-
-Generating and assigning random numbers to parties:
-New Wave: Assigned number = 200
-Reform: Assigned number = 85
-Green: Assigned number = 541
+New Wave: Assigned number = 418
+Reform: Assigned number = 339
+Green: Assigned number = 381
+Independent: Assigned number = 149
+Test: Assigned number = 903
 
 Winner selected
 Green had the number closest to the choosen randomized number
@@ -200,15 +173,34 @@ Green won a seat!
 Participating parties in current round of choosing a winner:
 0: New Wave
 1: Reform
-2: Test
+2: Independent
+3: Test
 
-Seats remaining: 2
-Choosen randomized number: 721
+Seats remaining: 3
+Choosen randomized number: 876
 
 Generating and assigning random numbers to parties:
-New Wave: Assigned number = 200
-Reform: Assigned number = 85
->>>>>>> 3b021de875944780e41aef0ec2f9c26bc8f49aba
+New Wave: Assigned number = 418
+Reform: Assigned number = 339
+Independent: Assigned number = 149
+Test: Assigned number = 903
+
+Winner selected
+Test had the number closest to the choosen randomized number
+Test won a seat!
+
+Participating parties in current round of choosing a winner:
+0: New Wave
+1: Reform
+2: Independent
+
+Seats remaining: 2
+Choosen randomized number: 432
+
+Generating and assigning random numbers to parties:
+New Wave: Assigned number = 418
+Reform: Assigned number = 339
+Independent: Assigned number = 149
 
 Winner selected
 New Wave had the number closest to the choosen randomized number
@@ -216,76 +208,27 @@ New Wave won a seat!
 
 Participating parties in current round of choosing a winner:
 0: Reform
-<<<<<<< HEAD
-1: Green
-2: Independent
-3: Test
-
-Seats remaining: 3
-Choosen randomized number: 54
-
-Generating and assigning random numbers to parties:
-Reform: Assigned number = 782
-Green: Assigned number = 29
-Independent: Assigned number = 25
-Test: Assigned number = 199
-
-Winner selected
-Green had the number closest to the choosen randomized number
-Green won a seat!
-
-Participating parties in current round of choosing a winner:
-0: Reform
 1: Independent
-2: Test
-
-Seats remaining: 2
-Choosen randomized number: 587
-
-Generating and assigning random numbers to parties:
-Reform: Assigned number = 782
-Independent: Assigned number = 25
-Test: Assigned number = 199
-=======
-1: Test
 
 Seats remaining: 1
-Choosen randomized number: 960
+Choosen randomized number: 70
 
 Generating and assigning random numbers to parties:
-Reform: Assigned number = 85
->>>>>>> 3b021de875944780e41aef0ec2f9c26bc8f49aba
-
-Winner selected
-Reform had the number closest to the choosen randomized number
-Reform won a seat!
-<<<<<<< HEAD
-
-Participating parties in current round of choosing a winner:
-0: Independent
-1: Test
-
-Seats remaining: 1
-Choosen randomized number: 52
-
-Generating and assigning random numbers to parties:
-Independent: Assigned number = 25
-Test: Assigned number = 199
+Reform: Assigned number = 339
+Independent: Assigned number = 149
 
 Winner selected
 Independent had the number closest to the choosen randomized number
 Independent won a seat!
-=======
->>>>>>> 3b021de875944780e41aef0ec2f9c26bc8f49aba
 
 FINAL RESULTS:
 Democratic Seats: 1
 Republican Seats: 1
 New Wave Seats: 1
-Reform Seats: 1
+Reform Seats: 0
 Green Seats: 1
 Independent Seats: 1
-Test Seats: 0
+Test Seats: 1
 PARTY SEAT DISTRIBUTION COMPLETED!
 
 CANDIDATE SEAT DISTRIBUTION:
@@ -314,9 +257,8 @@ Rosen's Seats: 0
 Candidate Seat Distrubution for New Wave Completed!
 
 First Round of Distribution:
-Seats Remaining: 1
-Adding seat to McClure
-McClure's Seats: 1
+Seats Remaining: 0
+McClure's Seats: 0
 Berg's Seats: 0
 Candidate Seat Distrubution for Reform Completed!
 
@@ -334,8 +276,9 @@ Peters's Seats: 1
 Candidate Seat Distrubution for Independent Completed!
 
 First Round of Distribution:
-Seats Remaining: 0
-Tester's Seats: 0
+Seats Remaining: 1
+Adding seat to Tester
+Tester's Seats: 1
 Candidate Seat Distrubution for Test Completed!
 
 END OF ELECTION

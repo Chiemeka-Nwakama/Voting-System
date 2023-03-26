@@ -177,6 +177,8 @@ public void testAssignBallots(){ //test to see if ballots are assigned correctly
 
 }
 
+
+
 }
 
 
@@ -184,10 +186,7 @@ public void testAssignBallots(){ //test to see if ballots are assigned correctly
 
 
 
-<<<<<<< HEAD
-=======
 
 
 
 
->>>>>>> 3b021de875944780e41aef0ec2f9c26bc8f49aba
