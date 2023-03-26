@@ -18,7 +18,7 @@ import java.util.Scanner;
 public class ElectionTestCPL {
 
     CPL cpl;
-    String path = "C:\\Users\\chiem\\OneDrive - Marshall Public Schools\\Desktop\\repo-Team3\\CSCI 5801 Election System";
+    String path = "C:\\Users\\chiem\\OneDrive - Marshall Public Schools\\Desktop\\repo-Team3\\CSCI 5801 Election System"; // need to edit for your machine
     
     @Before
     public void setUp(){
@@ -29,7 +29,7 @@ public class ElectionTestCPL {
         
         
        
-        File file = new File(path +"\\testCPL.txt");
+        File file = new File(path +"\\testCPL.csv");
     
        
         cpl = new CPL(file);
@@ -199,7 +199,7 @@ public void testdistrubuteSeatsCoinToss(){ //test to see if seats distribute cor
     int count = 0; //how many times extra seat is given to one of the two parties
     for(int i = 0; i < 1000; i++){
     try{
-        File file = new File(path + "\\testDistrubuteSeatCoinToss.txt");         
+        File file = new File(path + "\\testDistrubuteSeatCoinToss.csv");         
         cpltest = new CPL(file);
 
         //Paths.get("");
@@ -254,7 +254,7 @@ public void testdistrubuteSeatsPoolSelect(){ //test to see if seats distribute c
     int count = 0; //how many times extra seat is given to one of the two parties
     for(int i = 0; i < 500; i++){
     try{
-        File file = new File(path + "\\testDistrubuteSeatPool.txt");         
+        File file = new File(path + "\\testDistrubuteSeatPool.csv");         
         cpltest = new CPL(file);
       
     }
@@ -350,7 +350,7 @@ public void testPartyGetName(){
 
 }
 @Test 
-public void testAddSeat(){
+public void testAddSeatParty(){
     Party party = new Party("Obama");
     String expected = "1";
     party.addSeats(1);
@@ -399,7 +399,7 @@ public void testDistributeSeatCandidatePool(){
     int count = 0; //how many times extra seat is given to one of the two parties
     for(int i = 0; i < 1000; i++){
         try{
-        File file = new File(path + "\\testDistrubuteSeatPoolCandidates.txt");         
+        File file = new File(path + "\\testDistrubuteSeatPoolCandidates.csv");         
         cpltest = new CPL(file);
       }
     catch(IOException e){ 
@@ -441,7 +441,30 @@ public void testDistributeSeatCandidatePool(){
 
 
 }
+
+@Test 
+public void testAddSeatCandidate(){
+    CPL_Candidate candidate = new CPL_Candidate("Bob", "Democrats");
+    String expected = "1";
+    candidate.addSeat();
+    String actual =  candidate.getSeats()+ "";
+
+    assertEquals("Test candidate add seats/getter", expected, actual);
+
 }
+
+@Test 
+public void testgetCandidateName(){
+    CPL_Candidate candidate = new CPL_Candidate("Bob", "Democrats");
+    String expected = "Bob";
+    
+    String actual =  candidate.getName();
+
+    assertEquals("Test candidate getName", expected, actual);
+
+}
+}
+
 
 
 
