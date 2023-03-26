@@ -446,7 +446,7 @@ Two while loops. While there are no more seats to give, for the first round we f
 
                 audit.writeToAudit("\nGenerating and assigning random numbers to parties:");
                 // assign the random numbers to the parties
-                for(int i = 0; i < ties; i++){
+                for(int i = 0; i < ties-1; i++){
                     assignedNumbers.add(randomNum.nextInt(randomConstant)); //assigns a random number to each candidate
                     audit.writeToAudit(partiesTemp.get(i).getName() + ": Assigned number = " + assignedNumbers.get(i));
                 }
@@ -471,16 +471,19 @@ Two while loops. While there are no more seats to give, for the first round we f
                 }
         
             }
-            parties[index+begin].addSeats(1);
+            partiesTemp.get(index).addSeats(1);
             seatsRemaining--;
-            partiesTemp.remove(index);
-            assignedNumbers.remove(index);
-            winner = false;
-            ties--;
+           
+           
 
             audit.writeToAudit("\nWinner selected");
-            audit.writeToAudit(parties[index+begin].getName() + " had the number closest to the choosen randomized number");
-            audit.writeToAudit(parties[index+begin].getName() + " won a seat!"); 
+            audit.writeToAudit(partiesTemp.get(index).getName() + " had the number closest to the choosen randomized number");
+            audit.writeToAudit(partiesTemp.get(index).getName() + " won a seat!"); 
+            partiesTemp.remove(index);
+            assignedNumbers.remove(index);
+            index = 0;
+            winner = false;
+            ties--;
 
             
 
