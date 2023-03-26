@@ -106,101 +106,179 @@ Ballot 1: ,,,,,,1
 
 DISTRIBUTING SEATS TO PARTIES: 
 Calculating Quota: total Votes / total Seats
-Quota = 9 / 6 = 1 (rounded)
+Quota = 9 / 6 = 2 (rounded)
 
 FIRST ROUND OF SEAT DISTRIBUTION:
 Seats Remaining: 6
-Allocating 2 seats to Democratic
-Allocating 2 seats to Republican
-Allocating 1 seats to New Wave
-Allocating 1 seats to Reform
-Allocating 1 seats to Green
-Allocating 1 seats to Independent
-Allocating 1 seats to Test
+Allocating 1 seats to Democratic
+Allocating 1 seats to Republican
+Allocating 0 seats to New Wave
+Allocating 0 seats to Reform
+Allocating 0 seats to Green
+Allocating 0 seats to Independent
+Allocating 0 seats to Test
 
 Results:
-Democratic Seats: 2
-Republican Seats: 2
-New Wave Seats: 1
-Reform Seats: 1
-Green Seats: 1
-Independent Seats: 1
-Test Seats: 1
+Democratic Seats: 1
+Republican Seats: 1
+New Wave Seats: 0
+Reform Seats: 0
+Green Seats: 0
+Independent Seats: 0
+Test Seats: 0
 
 
 SECOND ROUND OF SEAT DISTRIBUTION:
-Seats Remaining: -3
+Seats Remaining: 4
 Votes Remaining: 
 Democratic: 0
 Republican: 0
-New Wave: 0
-Reform: 0
-Green: 0
-Independent: 0
-Test: 0
+New Wave: 1
+Reform: 1
+Green: 1
+Independent: 1
+Test: 1
 
+A tie has occurred
+Pool select between 3 or more parties is initiated
+
+Parties in the pooling:
+0: New Wave
+1: Reform
+2: Green
+3: Independent
+4: Test
+
+Participating parties in current round of choosing a winner:
+0: New Wave
+1: Reform
+2: Green
+3: Independent
+4: Test
+
+Seats remaining: 4
+Choosen randomized number: 437
+
+Generating and assigning random numbers to parties:
+New Wave: Assigned number = 594
+Reform: Assigned number = 782
+Green: Assigned number = 29
+Independent: Assigned number = 25
+Test: Assigned number = 199
+
+Winner selected
+New Wave had the number closest to the choosen randomized number
+New Wave won a seat!
+
+Participating parties in current round of choosing a winner:
+0: Reform
+1: Green
+2: Independent
+3: Test
+
+Seats remaining: 3
+Choosen randomized number: 54
+
+Generating and assigning random numbers to parties:
+Reform: Assigned number = 782
+Green: Assigned number = 29
+Independent: Assigned number = 25
+Test: Assigned number = 199
+
+Winner selected
+Green had the number closest to the choosen randomized number
+Green won a seat!
+
+Participating parties in current round of choosing a winner:
+0: Reform
+1: Independent
+2: Test
+
+Seats remaining: 2
+Choosen randomized number: 587
+
+Generating and assigning random numbers to parties:
+Reform: Assigned number = 782
+Independent: Assigned number = 25
+Test: Assigned number = 199
+
+Winner selected
+Reform had the number closest to the choosen randomized number
+Reform won a seat!
+
+Participating parties in current round of choosing a winner:
+0: Independent
+1: Test
+
+Seats remaining: 1
+Choosen randomized number: 52
+
+Generating and assigning random numbers to parties:
+Independent: Assigned number = 25
+Test: Assigned number = 199
+
+Winner selected
+Independent had the number closest to the choosen randomized number
+Independent won a seat!
 
 FINAL RESULTS:
-Democratic Seats: 2
-Republican Seats: 2
+Democratic Seats: 1
+Republican Seats: 1
 New Wave Seats: 1
 Reform Seats: 1
 Green Seats: 1
 Independent Seats: 1
-Test Seats: 1
+Test Seats: 0
 PARTY SEAT DISTRIBUTION COMPLETED!
 
 CANDIDATE SEAT DISTRIBUTION:
 
 First Round of Distribution:
-Seats Remaining ss2
+Seats Remaining: 1
 Adding seat to Foster
-Adding seat to Volz
 Foster's Seats: 1
-Volz's Seats: 1
+Volz's Seats: 0
 Pike's Seats: 0
 Candidate Seat Distrubution for Democratic Completed!
 
 First Round of Distribution:
-Seats Remaining ss2
+Seats Remaining: 1
 Adding seat to Green
-Adding seat to Xu
 Green's Seats: 1
-Xu's Seats: 1
+Xu's Seats: 0
 Wang's Seats: 0
 Candidate Seat Distrubution for Republican Completed!
 
 First Round of Distribution:
-Seats Remaining ss1
+Seats Remaining: 1
 Adding seat to Jacks
 Jacks's Seats: 1
 Rosen's Seats: 0
 Candidate Seat Distrubution for New Wave Completed!
 
 First Round of Distribution:
-Seats Remaining ss1
+Seats Remaining: 1
 Adding seat to McClure
 McClure's Seats: 1
 Berg's Seats: 0
 Candidate Seat Distrubution for Reform Completed!
 
 First Round of Distribution:
-Seats Remaining ss1
+Seats Remaining: 1
 Adding seat to Zheng
 Zheng's Seats: 1
 Melvin's Seats: 0
 Candidate Seat Distrubution for Green Completed!
 
 First Round of Distribution:
-Seats Remaining ss1
+Seats Remaining: 1
 Adding seat to Peters
 Peters's Seats: 1
 Candidate Seat Distrubution for Independent Completed!
 
 First Round of Distribution:
-Seats Remaining ss1
-Adding seat to Tester
-Tester's Seats: 1
+Seats Remaining: 0
+Tester's Seats: 0
 Candidate Seat Distrubution for Test Completed!
 
 END OF ELECTION
