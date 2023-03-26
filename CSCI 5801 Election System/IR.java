@@ -64,6 +64,8 @@ public class IR {
         if (winner == null && ranking[0].isWinner()){
             winner = ranking[0];
         }
+
+        displayResults();
     }
 
     
@@ -235,7 +237,7 @@ public class IR {
     **/
     public void displayResults(){
         System.out.println("-----Instant Runoff Election Results-----");
-        System.out.print("***   The winner is: ");
+        System.out.print("***   The winner is: " + ranking[0]);
         System.out.println("--Information on the Election--");
         System.out.println("Number of Candidates: " + numCandidates);
         System.out.println("Number of Ballots cast: " + numBallots);
@@ -245,7 +247,7 @@ public class IR {
         }
 
         result = "-----Instant Runoff Election Results-----\n" +
-                        "***The winner is: \n" + 
+                        "***The winner is: \n" + ranking[0] +
                         "--Information on the Election--\n" +
                         "Number of Candidates: " + numCandidates + "\n" +
                         "Number of Ballots cast: " + numBallots + "\n" +
