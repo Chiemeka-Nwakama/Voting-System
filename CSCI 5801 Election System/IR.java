@@ -35,7 +35,7 @@ public class IR {
         assignBallots(); //assign ballot IDs to candidate's ballot array
         remainingCandidates = numCandidates;
         //**need to defind this function?? **/
-        while (!getElectionStatus()){ //rank all candidates and check for winner
+        while (!setElectionStatus()){ //rank all candidates and check for winner
             int numTied = checkForWinnerTie();
             if (numTied == remainingCandidates){
                 if (numTied == 2){
