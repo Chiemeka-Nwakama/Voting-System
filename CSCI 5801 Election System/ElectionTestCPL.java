@@ -271,7 +271,7 @@ public void testdistrubuteSeatsPoolSelect(){ //test to see if seats distribute c
    
         Party[] parties = cpltest.getParties();
         int seats = parties[0].getSeats();
-        System.out.print(seats);
+    
         if(seats == 2){
             count++;
         }
@@ -389,22 +389,60 @@ public void testaddVote(){
 }
 
 @Test 
-public void testDistributeSeatPartyPool(){
-    Party party = new Party("Obama");
-    String expectedNum = "1";
-    String expectedBallot = "Ballot 9: 1,"; // ballot 9 becaause static varaible modified from cpl object made for class
-    party.initilizeBallotCapacity(1);
-    CPL_Ballot ballot = new CPL_Ballot(0, 2);
-    party.addVote(ballot);
-    CPL_Ballot[] ballots = party.getBallots();
-    String actualNum =  party.getVotes() + "";
-    String actualBallot = ballots[0].toString();
+public void testDistributeSeatCandidatePool(){
+   
 
-    assertEquals("Test party add vote number", expectedNum, actualNum);
-    assertEquals("Test party ballot to see if was added", expectedBallot, actualBallot);
+    CPL cpltest = null;
+    String expected = "fair around 50-50";
+    String actual = "";
+    
+    int count = 0; //how many times extra seat is given to one of the two parties
+    for(int i = 0; i < 1000; i++){
+        try{
+        File file = new File(path + "\\testDistrubuteSeatPoolCandidates.txt");         
+        cpltest = new CPL(file);
+      }
+    catch(IOException e){ 
+        System.out.println("Error File not found!");   //cpltest.distributeSeats(); // has an error 
+    }
+    cpltest.assignBallots();
+    cpltest.distributeSeats();
+
+
+    
+
+   
+        Party[] parties = cpltest.getParties();
+        CPL_Candidate[] candidates = parties[0].getCandidates();
+        int seats = candidates[0].getSeats();
+        
+        if(seats == 2){
+            count++;
+        }
+    }
+ 
+    double percent = count/1000.0;
+    if(percent >= .475 && percent <=.525){ // sees if it falls within .5 with  a margin of error of .025 +/-
+        actual = "fair around 50-50";
+
+    }
+    else{
+        actual = "not fair";
+  
+    
+    }
+
+    assertEquals("testing the fairness of pool select for candidates", expected, actual);
+
+
+
+    
+  
+
 
 }
 }
+
 
 
 

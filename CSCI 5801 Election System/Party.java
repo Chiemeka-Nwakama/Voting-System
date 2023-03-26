@@ -244,16 +244,6 @@ public void initilizeBallotCapacity(int totalBallots){
     
 
 
-                /**
-   * This method returns the party id
-   * @param void
-   * @return party id
-   */
-    public int getId(){
-        return id;
-    }
-
-    
 
     
 }
