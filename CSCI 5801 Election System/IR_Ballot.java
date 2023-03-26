@@ -26,6 +26,7 @@ public class IR_Ballot {
     It will get called when candidate is eliminated, and update vote to the next rank
     **/
     public void updateCurrentVote(){ //called when candidate is eliminated, updates vote to next rank
+        boolean changed = false;
         currentVote += 1;
         if (currentVote >= ballot.length){ //check if ballot has any votes left
             currentVote = -1;
@@ -34,11 +35,13 @@ public class IR_Ballot {
             for (int a = 0; a < ballot.length; a++){ //parse through ballot for next vote
                 if (ballot[a] == currentVote){
                     currentCandidate = a; //assign candidate index to currentCandidate
+                    changed = true;
                     break;
-                }else{
-                    currentCandidate = -1; //if ballot only didn't rank all candidates
                 }
             }
+        }
+        if (!changed){
+            currentCandidate = -1;
         }
     }
 

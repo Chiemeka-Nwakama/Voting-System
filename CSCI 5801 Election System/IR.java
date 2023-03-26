@@ -28,7 +28,7 @@ public class IR {
         scanner = new Scanner(inputFile);
         initializeData();
         populateData(); //add all ballots to ballot array and assign IDs
-
+        assignBallots(); //assign ballot IDs to candidate's ballot array
         scanner.close();
     }
     
@@ -39,10 +39,9 @@ public class IR {
     public void run(){
         //write to audit file
         
-        assignBallots(); //assign ballot IDs to candidate's ballot array
         remainingCandidates = numCandidates;
         //**need to defind this function?? **/
-        while (!setElectionStatus()){ //rank all candidates and check for winner
+        while (!setElectionStatus() || remainingCandidates != 1){ //rank all candidates and check for winner
             int numTied = checkForWinnerTie();
             if (numTied == remainingCandidates){
                 if (numTied == 2){
@@ -51,8 +50,8 @@ public class IR {
                 }else{
                     makeLoser(ranking[poolSelect(numTied) - 1]); //redistribute losing candidate's votes
                 }
-            }else{
-                numTied = checkForLoserTie();
+            numTied = checkForLoserTie();
+            }else if (numTied < remainingCandidates){
                 if (numTied == 2){
                     makeLoser(ranking[remainingCandidates - coinToss()]);
                 }else if (numTied > 2){
@@ -152,6 +151,8 @@ public class IR {
     public int getNumBallots(){
         return numBallots;
     }
+
+    public IR_Ballot[] getBallots(){return ballots;}
     
     /** 
     *@brief The method is to make loser candidate with lowest votes
@@ -165,8 +166,10 @@ public class IR {
         for (int a = 0; a < loser.getVotes(); a++){ //reassign ballots
             curBallot = loserBallots[a];
             ballots[curBallot].updateCurrentVote();
-            while (ballots[curBallot].getCurrentVote() != -1 || !candidates[ballots[curBallot].getCurrentVote()].getStatus()){
-                ballots[curBallot].updateCurrentVote();
+            while (ballots[curBallot].getCurrentVote() != -1){ 
+                if (!candidates[ballots[curBallot].getCurrentVote()].getStatus()){
+                    ballots[curBallot].updateCurrentVote();
+                }
             }
             if (ballots[curBallot].getCurrentVote() != -1){
                 candidates[ballots[curBallot].getCurrentVote()].addBallot(curBallot); //add ballot to new candidate's array
@@ -259,7 +262,7 @@ public class IR {
                         "Number of Ballots cast: " + numBallots + "\n" +
                         "Candidates name and number of votes received:\n";
         for(int i = 0; i < numCandidates; i++){
-            result += "  " + candidates[i] + "  " + ballots[i].getCurrentVote() + "\n";
+            result += "  " + candidates[i].getName() + ": " + candidates[i].getVotes() + "\n";
         }
         audit.writeToAudit(result);
     }

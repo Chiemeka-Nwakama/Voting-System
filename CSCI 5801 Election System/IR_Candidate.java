@@ -100,7 +100,13 @@ public class IR_Candidate {
     *@brief Get the name of the candidate in the election
     *@return The name of the candidate
     **/
-    public String getName(){return name;}
+    public String getName(){return name;} 
+
+    /**
+     * @brief Get the candidate ID number
+     * @return the candidate's ID number
+     */
+    public int getCandidateID(){return ID;}
 
     /** 
     *@brief Set the array for each candidate to hold their votes for the ballots
