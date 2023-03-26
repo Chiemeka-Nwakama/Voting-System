@@ -18,6 +18,8 @@ import java.util.Scanner;
 public class ElectionTestCPL {
 
     CPL cpl;
+    String path = "C:\\Users\\chiem\\OneDrive - Marshall Public Schools\\Desktop\\repo-Team3\\CSCI 5801 Election System";
+    
     @Before
     public void setUp(){
 
@@ -26,7 +28,7 @@ public class ElectionTestCPL {
     try{
         
         
-       String path = "C:\\Users\\chiem\\OneDrive - Marshall Public Schools\\Desktop\\repo-Team3\\CSCI 5801 Election System";
+       
         File file = new File(path +"\\testCPL.txt");
     
        
@@ -197,7 +199,7 @@ public void testdistrubuteSeatsCoinToss(){ //test to see if seats distribute cor
     int count = 0; //how many times extra seat is given to one of the two parties
     for(int i = 0; i < 1000; i++){
     try{
-        File file = new File("C:\\Users\\chiem\\OneDrive - Marshall Public Schools\\Desktop\\repo-Team3\\CSCI 5801 Election System\\testDistrubuteSeatCoinToss.txt");         
+        File file = new File(path + "\\testDistrubuteSeatCoinToss.txt");         
         cpltest = new CPL(file);
 
         //Paths.get("");
@@ -252,7 +254,7 @@ public void testdistrubuteSeatsPoolSelect(){ //test to see if seats distribute c
     int count = 0; //how many times extra seat is given to one of the two parties
     for(int i = 0; i < 500; i++){
     try{
-        File file = new File("C:\\Users\\chiem\\OneDrive - Marshall Public Schools\\Desktop\\repo-Team3\\CSCI 5801 Election System\\testDistrubuteSeatPool.txt");         
+        File file = new File(path + "\\testDistrubuteSeatPool.txt");         
         cpltest = new CPL(file);
       
     }
