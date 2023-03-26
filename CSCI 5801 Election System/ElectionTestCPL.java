@@ -339,7 +339,73 @@ public void testCalculateRemainingVotes(){ //test to see if calculating remainin
 
 }
 
+@Test 
+
+public void testPartyGetName(){
+    Party party = new Party("Obama");
+    String expected = "Obama";
+    String actual = party.getName();
+
+    assertEquals("Test party getter", expected, actual);
+
 }
+@Test 
+public void testAddSeat(){
+    Party party = new Party("Obama");
+    String expected = "1";
+    party.addSeats(1);
+    String actual =  party.getSeats()+ "";
+
+    assertEquals("Test party add seats/getter", expected, actual);
+
+}
+@Test 
+public void testremainderSeats(){
+    Party party = new Party("Obama");
+    String expected = "1";
+    party.addSeats(1);
+    party.setRemainderVotes(1);
+    String actual =  party.getRemainderVotes()+ "";
+
+    assertEquals("Test party remainder votes setter/getter", expected, actual);
+
+}
+
+@Test 
+public void testaddVote(){
+    Party party = new Party("Obama");
+    String expectedNum = "1";
+    String expectedBallot = "Ballot 9: 1,"; // ballot 9 becaause static varaible modified from cpl object made for class
+    party.initilizeBallotCapacity(1);
+    CPL_Ballot ballot = new CPL_Ballot(0, 2);
+    party.addVote(ballot);
+    CPL_Ballot[] ballots = party.getBallots();
+    String actualNum =  party.getVotes() + "";
+    String actualBallot = ballots[0].toString();
+
+    assertEquals("Test party add vote number", expectedNum, actualNum);
+    assertEquals("Test party ballot to see if was added", expectedBallot, actualBallot);
+
+}
+
+@Test 
+public void testDistributeSeatPartyPool(){
+    Party party = new Party("Obama");
+    String expectedNum = "1";
+    String expectedBallot = "Ballot 9: 1,"; // ballot 9 becaause static varaible modified from cpl object made for class
+    party.initilizeBallotCapacity(1);
+    CPL_Ballot ballot = new CPL_Ballot(0, 2);
+    party.addVote(ballot);
+    CPL_Ballot[] ballots = party.getBallots();
+    String actualNum =  party.getVotes() + "";
+    String actualBallot = ballots[0].toString();
+
+    assertEquals("Test party add vote number", expectedNum, actualNum);
+    assertEquals("Test party ballot to see if was added", expectedBallot, actualBallot);
+
+}
+}
+
 
 
 
