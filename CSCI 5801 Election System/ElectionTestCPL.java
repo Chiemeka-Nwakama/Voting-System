@@ -242,9 +242,9 @@ public void testdistrubuteSeatsPoolSelect(){ //test to see if seats distribute c
     String actual = "";
     
     int count = 0; //how many times extra seat is given to one of the two parties
-    for(int i = 0; i < 1000; i++){
+    for(int i = 0; i < 500; i++){
     try{
-        File file = new File("C:\\Users\\chiem\\OneDrive - Marshall Public Schools\\Desktop\\repo-Team3\\CSCI 5801 Election System\\testDistrubuteSeat.txt");         
+        File file = new File("C:\\Users\\chiem\\OneDrive - Marshall Public Schools\\Desktop\\repo-Team3\\CSCI 5801 Election System\\testDistrubuteSeatPool.txt");         
         cpltest = new CPL(file);
       
     }
@@ -268,9 +268,9 @@ public void testdistrubuteSeatsPoolSelect(){ //test to see if seats distribute c
 
     }
  
-    double percent = count/1000.0;
-    if(percent >= .475 && percent <=.525){ // sees if it falls within .5 with  a margin of error of .025 +/-
-        actual = "fair around 50-50";
+    double percent = count/500.0;
+    if(percent >= .28 && percent <=.38){ // sees if it falls within .33 with  a margin of error of .05 +/-
+        actual = "fair around 33-33-33";
 
     }
     else{
