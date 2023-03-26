@@ -224,7 +224,7 @@ public void testdistrubuteSeatsCoinToss(){ //test to see if seats distribute cor
         actual = "not fair";
     }
   
-    assertEquals(expected, actual);
+    assertEquals("testing the fairness of coin toss", expected, actual);
 
 
 
@@ -277,7 +277,7 @@ public void testdistrubuteSeatsPoolSelect(){ //test to see if seats distribute c
         actual = "not fair";
     }
   
-    assertEquals(expected, actual);
+    assertEquals("testing the fairness of ppol select", expected, actual);
 
 
 
