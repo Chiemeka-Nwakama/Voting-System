@@ -182,15 +182,16 @@ public void testAssignBallots(){ //test to see if ballots are assigned correctly
 @Test 
 
 public void testdistrubuteSeats(){ //test to see if seats distirbute correctly
-    String[] expectedBallots = {"Ballot 0: 1,,,,,,", "Ballot 1: ,,,,,,1", "Ballot 2: ,1,,,,,", "Ballot 3: ,,,,1,,", "Ballot 4: ,,,,,1,", "Ballot 5: ,,,1,,,", "Ballot 6: ,,1,,,,", "Ballot 7: 1,,,,,,", "Ballot 8: ,1,,,,,"};
-    CPL_Ballot[] ballots = cpl.getBallots();
-   
-    for(int i = 0; i < expectedBallots.length; i++){
- 
-     assertEquals("Testing to see if read in ballots",expectedBallots[i], ballots[i].toString());
- 
+    CPL cpltest;
+    try{
+        File file = new File("C:\\Users\\chiem\\OneDrive - Marshall Public Schools\\Desktop\\repo-Team3\\CSCI 5801 Election System\\testDistrubuteSeat.txt");         
+        cpltest = new CPL(file);
     }
-
+    
+    catch(IOException e){ 
+        System.out.println("Error File not found!");
+    }
+  cpltest.distributeSeats();
 }
 
 }
