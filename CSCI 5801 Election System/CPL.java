@@ -446,7 +446,7 @@ Two while loops. While there are no more seats to give, for the first round we f
 
                 audit.writeToAudit("\nGenerating and assigning random numbers to parties:");
                 // assign the random numbers to the parties
-                for(int i = 0; i < ties-1; i++){
+                for(int i = 0; i < ties; i++){
                     assignedNumbers.add(randomNum.nextInt(randomConstant)); //assigns a random number to each candidate
                     audit.writeToAudit(partiesTemp.get(i).getName() + ": Assigned number = " + assignedNumbers.get(i));
                 }
@@ -455,7 +455,7 @@ Two while loops. While there are no more seats to give, for the first round we f
                 int leastDifference = Math.abs(genNum - assignedNumbers.get(0));
                 
                 // compare differences until a winner is found
-                for(int i = 1; i < ties-1 && winner; i++){
+                for(int i = 1; i < ties && winner; i++){
 
                     int currDifference = Math.abs(genNum - assignedNumbers.get(i));
 
