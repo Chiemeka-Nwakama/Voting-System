@@ -133,6 +133,9 @@ public class CPL {
         double numBallotsDec = numBallots;
         double q = numBallotsDec / totalSeats; //calculates the quotes to be used to determine seats handed out
         int quota = (int) Math.round(q);
+        if(quota == 1){
+            quota = 2; // quota can never be 1 messes up how many seats
+        }
         seatsRemaining = totalSeats; //sets remaining seats to the total seats to give out in the election
         Party temp[] = parties.clone(); // party list since they will be reordered by their remainders in descending order later
         audit.writeToAudit("Calculating Quota: total Votes / total Seats");

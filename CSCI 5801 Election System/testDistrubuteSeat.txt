@@ -1,0 +1,11 @@
+CPL
+2
+Democratic, Republican
+Foster, Volz, Pike
+Green, Xu, Wang
+3
+4
+1,
+1,
+,1
+,1
