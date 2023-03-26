@@ -55,7 +55,7 @@ public class IR_Audit_File {
             for (int a = 0; a < candidate.getVotes(); a++){
                 writer.write(Integer.toString(ballots[a]));
             }
-            writer.write("\n");
+            writer.write("\nEnd of Round\n");
         } catch (IOException e) {
             System.out.println("Cannot write IR results to audit file.");
             e.printStackTrace();
