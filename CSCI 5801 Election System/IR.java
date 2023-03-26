@@ -26,6 +26,7 @@ public class IR {
         audit = new IR_Audit_File();
         audit.writeToAudit("Instant Runoff Voting Election\n");
         scanner = new Scanner(inputFile);
+        initializeData(inputFile, scanner);
         populateData(inputFile, scanner); //add all ballots to ballot array and assign IDs
 
         scanner.close();
@@ -72,43 +73,40 @@ public class IR {
     *@param file The file name of the input
     *@param scanner The scanner for file
     **/
-    public void populateData(File file, Scanner scanner){ 
-        int counter = 0;
+    public void initializeData(){       
+        scanner.nextLine();   //skip 1st line
+        numCandidates = scanner.nextInt();
+        scanner.nextLine();  //get numCandidates
+        String[] candidateNames = scanner.nextLine().split(", ");  //get candidates
+        candidates = new IR_Candidate[numCandidates];  
+        for (int a = 0; a < numCandidates; a++){
+            candidates[a] = new IR_Candidate(candidateNames[a], a); //add candidates to candidate array
+        }                      
+        numBallots = scanner.nextInt(); //get numBallots
+        scanner.nextLine(); //move to next line
+        ballots = new IR_Ballot[numBallots];   //initialize ballot array
+        for (int a = 0; a < numCandidates; a++){
+            candidates[a].setCandidateBallots(numBallots);   //initialize candidate ballot arrays
+        }     
+    } 
+
+    public void populateData(){
         int curBallot = 0;
-        String tempBallot[];
-        int finalBallot[];
+        String[] tempBallot;
+        int[] finalBallot;
         while (scanner.hasNextLine()) {
-            String data = scanner.nextLine();
-            if (counter == 0){
-            }else if (counter == 1){                  //get numCandidates
-                numCandidates = Integer.parseInt(data);
-                System.out.println("reached numCandidates");
-                System.out.println(getNumCandidates());
-                candidates = new IR_Candidate[numCandidates];
-            }else if (counter == 2){                    //get candidates
-                String[] tempCandidates = data.split(",");
-                for (int a = 0; a < numCandidates; a++){
-                    candidates[a] = new IR_Candidate(tempCandidates[a], a);
+            String data = scanner.nextLine();                                  //parse ballots
+            finalBallot = new int[numCandidates];
+            tempBallot = data.split(",");
+            for (int a = 0; a < tempBallot.length; a++){
+                if (!tempBallot[a].equals("")){
+                    finalBallot[a] = Integer.parseInt(tempBallot[a]); //add vote to vote array
                 }
-            }else if (counter == 3){                        //get numBallots
-                numBallots = Integer.parseInt(data);
-                ballots = new IR_Ballot[numBallots];
-                for (int a = 0; a < numCandidates; a++){
-                    candidates[a].setCandidateBallots(numBallots);
-                }
-            }else{                                   //parse ballots
-                finalBallot = new int[numCandidates];
-                tempBallot = data.split(",");
-                for (int a = 0; a < numCandidates; a++){
-                    finalBallot[a] = Integer.parseInt(tempBallot[a]);
-                }
-                ballots[curBallot] = new IR_Ballot(finalBallot, curBallot); //add ballot to ballots array
-                audit.writeBallot(ballots[curBallot]); //write ballot to audit file 
-                curBallot++;
             }
-            counter++;
-        }
-        scanner.close();
+            ballots[curBallot] = new IR_Ballot(finalBallot, curBallot); //add ballot to ballots array
+            audit.writeBallot(ballots[curBallot]); //write ballot to audit file 
+            curBallot++;
+            }
     }
 
    

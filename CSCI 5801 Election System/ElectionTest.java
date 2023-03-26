@@ -18,7 +18,7 @@ public class ElectionTest {
     @Before
     public void setUp(){    
         try{
-            File file = new File("/repo-Team3/CSCI 5801 Election System/IR_testFile.txt");
+            File file = new File("/home/casey526/CSCI/CSCI5801/repo-Team3/CSCI 5801 Election System/IR_testFile.txt");
             ir = new IR(file);
         }
         catch(Exception e) { 
