@@ -14,11 +14,9 @@ import java.util.Scanner;
 
 
 public class ElectionTest {
-
     IR ir;
     @Before
-    public void setUp(){
-    
+    public void setUp(){    
         try{
             File file = new File("/repo-Team3/CSCI 5801 Election System/IR_testFile.txt");
             ir = new IR(file);
