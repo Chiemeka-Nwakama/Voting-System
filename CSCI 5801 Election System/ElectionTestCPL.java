@@ -181,23 +181,65 @@ public void testAssignBallots(){ //test to see if ballots are assigned correctly
 
 @Test 
 
-public void testdistrubuteSeats(){ //test to see if seats distirbute correctly
-    CPL cpltest;
+public void testdistrubuteSeats(){ //test to see if seats distribute correctly
+    CPL cpltest = null;
+    String expected = "fair around 50-50";
+    String actual = "";
+    
+    int count = 0; //how many times extra seat is given to one of the two parties
+    for(int i = 0; i < 1000; i++){
     try{
         File file = new File("C:\\Users\\chiem\\OneDrive - Marshall Public Schools\\Desktop\\repo-Team3\\CSCI 5801 Election System\\testDistrubuteSeat.txt");         
         cpltest = new CPL(file);
+      
     }
     
     catch(IOException e){ 
-        System.out.println("Error File not found!");
+        System.out.println("Error File not found!");   //cpltest.distributeSeats(); // has an error 
     }
-    //cpltest.distributeSeats(); // has an error 
+    cpltest.assignBallots();
+    cpltest.distributeSeats();
+
+
+    
+
+   
+        Party[] parties = cpltest.getParties();
+        int seats = parties[0].getSeats();
+        System.out.print(seats);
+        if(seats == 2){
+            count++;
+        }
+
+    }
+ 
+    double percent = count/1000.0;
+    if(percent >= .475 && percent <=.525){ // sees if it falls within .5 with  a margin of error of .025 +/-
+        actual = "fair around 50-50";
+
+    }
+    else{
+        actual = "not fair";
+    }
+  
+    assertEquals(expected, actual);
+
+
+
+
+    
+  
 }
 
 @Test 
 
 public void testDuplicates(){ //test to see if duplicates works
     int expected = 2;
+    cpl.assignBallots();
+    double qd = cpl.getNumBallots() / (cpl.getTotalSeats() * 1.0);
+    qd = Math.round(qd); // rounds quota
+    int q = (int) qd;
+    cpl.calculateRemainingVotes(q);
     int actual = cpl.duplicates(0);
     
     assertEquals("Testing to see if duplicates are correctly found in a row, index 0-1: ", expected, actual);
@@ -213,7 +255,11 @@ public void testDuplicates(){ //test to see if duplicates works
 
 public void testCalculateRemainingVotes(){ //test to see if calculating remaining votes works
     int [] arr = {0,0,1,1,1,1,1};
-    int q = cpl.getNumBallots() / cpl.getTotalSeats();
+    cpl.assignBallots();
+    double qd = cpl.getNumBallots() / (cpl.getTotalSeats() * 1.0);
+    qd = Math.round(qd); // rounds quota
+    int q = (int) qd;
+
 
     cpl.calculateRemainingVotes(q);
     Party [] p = cpl.getParties();
