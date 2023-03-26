@@ -52,4 +52,40 @@ public void testPopulateData(){ //test the populate parties that is used in the 
 
 }
 
+@Test
+public void testgetCandidates(){
+    String expectedCandidates = "Rosen (D) Kleinberg (R) Chou (I) Royce (L) ";
+    String actualCandidtates = "";
+    IR_Candidate[] candidates = ir.getCandidates();
+    for(IR_Candidate candidate: candidates){
+        actualCandidtates = actualCandidtates + candidate.getName() + " ";
+    }
+
+    assertEquals("Testing getter: ", expectedCandidates, actualCandidtates);
+
+}
+
+@Test
+public void testgetNumCandidates(){
+    String expectednumCandidates = "4";
+    String actualnumCandidates = ir.getNumCandidates() + "";
+    
+    assertEquals("Testing getter: ", expectednumCandidates, actualnumCandidates);
+}
+
+@Test
+public void testgetNumBallots(){
+    String expectedBallots = "6";
+    String actualBallots = ir.getNumBallots() + "";
+
+    assertEquals("Testing getter: ", expectedBallots, actualBallots);   
+}
+
+// @Test
+// public void testmakeLoser(){
+
+// }
+
+
+
 }
