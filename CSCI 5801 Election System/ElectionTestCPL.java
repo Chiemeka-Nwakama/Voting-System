@@ -10,6 +10,8 @@ import java.io.IOException;
 import org.junit.*;
 import org.junit.runners.MethodSorters;
 import java.io.PrintWriter;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Scanner;
 
 
@@ -19,10 +21,15 @@ public class ElectionTestCPL {
     @Before
     public void setUp(){
 
-        //C:\\Users\\chiem\\OneDrive - Marshall Public Schools\\Desktop\\repo-Team3\\CSCI 5801 Election System\\test.txt
+        //C:\\Users\\chiem\\OneDrive - Marshall Public Schools\\Desktop\\repo-Team3\\CSCI 5801 Election System\\testCPL.txt
         //"C:\\Users\\Sidney\\OneDrive\\Desktop\\UMN Classes\\New folder\\repo-Team3\\CSCI 5801 Election System>"
     try{
-        File file = new File("C:\\Users\\chiem\\OneDrive - Marshall Public Schools\\Desktop\\repo-Team3\\CSCI 5801 Election System\\test.txt");         
+        
+        
+       String path = "C:\\Users\\chiem\\OneDrive - Marshall Public Schools\\Desktop\\repo-Team3\\CSCI 5801 Election System";
+        File file = new File(path +"\\testCPL.txt");
+    
+       
         cpl = new CPL(file);
     }
     catch(IOException e){ 
@@ -43,7 +50,8 @@ public void testPopulateParties(){ //test the populate parties that is used in t
         actualParties = actualParties + party.getName() + " ";
 
     }
-    assertEquals("Testing to see if reads in the right number of Parties: ", expectedPartyNumber, actualPartyNumber);
+    
+    assertEquals("Testing to see if reads in the right number of Parties: ",expectedPartyNumber, actualPartyNumber);
     assertEquals("Testing to see if parties read in match: ", expectedParties, actualParties);
    
 
