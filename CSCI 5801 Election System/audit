@@ -157,27 +157,7 @@ Participating parties in current round of choosing a winner:
 4: Test
 
 Seats remaining: 4
-Choosen randomized number: 341
-
-Generating and assigning random numbers to parties:
-New Wave: Assigned number = 631
-Reform: Assigned number = 954
-Green: Assigned number = 527
-Independent: Assigned number = 507
-Test: Assigned number = 474
-
-Winner selected
-Test had the number closest to the choosen randomized number
-Test won a seat!
-
-Participating parties in current round of choosing a winner:
-0: New Wave
-1: Reform
-2: Green
-3: Independent
-
-Seats remaining: 3
-Choosen randomized number: 355
+Choosen randomized number: 930
 
 Generating and assigning random numbers to parties:
 New Wave: Assigned number = 631
@@ -214,12 +194,26 @@ Seats remaining: 1
 Choosen randomized number: 98
 
 Generating and assigning random numbers to parties:
-New Wave: Assigned number = 631
-Reform: Assigned number = 954
+New Wave: Assigned number = 200
+Reform: Assigned number = 85
 
 Winner selected
 New Wave had the number closest to the choosen randomized number
 New Wave won a seat!
+
+Participating parties in current round of choosing a winner:
+0: Reform
+1: Test
+
+Seats remaining: 1
+Choosen randomized number: 960
+
+Generating and assigning random numbers to parties:
+Reform: Assigned number = 85
+
+Winner selected
+Reform had the number closest to the choosen randomized number
+Reform won a seat!
 
 FINAL RESULTS:
 Democratic Seats: 1

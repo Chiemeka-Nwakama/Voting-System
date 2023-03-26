@@ -200,7 +200,10 @@ public void testdistrubuteSeats(){ //test to see if seats distirbute correctly
 
 
 
+<<<<<<< HEAD
+=======
 
 
 
 
+>>>>>>> 3b021de875944780e41aef0ec2f9c26bc8f49aba
