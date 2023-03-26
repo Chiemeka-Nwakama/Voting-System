@@ -2,9 +2,13 @@
 
 ## General Team Information
 Team #3: 
+
 Ted Casey - casey526
+
 Phuong Lieu - lieu0009
+
 Sidney Nguyen - nguy4257
+
 Chiemeka Nwakama - nwaka013
 
 ## Project Overview
