@@ -1,3 +1,4 @@
+package testing;
 import java.util.Arrays;
 
 import static org.junit.Assert.assertEquals;
@@ -5,6 +6,11 @@ import static org.junit.Assert.assertEquals;
 import java.io.File;
 
 import org.junit.*;
+
+import src.IR;
+import src.IR_Ballot;
+import src.IR_Candidate;
+import src.IR_Make_Test_File;
 
 
 public class IR_ElectionTest {

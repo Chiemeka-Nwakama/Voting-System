@@ -1,3 +1,4 @@
+package src;
 public class IR_Ballot {
     private int[] ballot;
     private int currentVote; //holds the ranking of the current vote

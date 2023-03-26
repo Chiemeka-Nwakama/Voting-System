@@ -1,4 +1,5 @@
-import java.util.Arrays;
+package src;
+
 import java.util.Random;
 
 public class Party {

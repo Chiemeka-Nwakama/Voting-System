@@ -1,18 +1,17 @@
-import java.util.Arrays;
-import java.util.Scanner;
+package testing;
+
+import src.*;
 
 import static org.junit.Assert.assertEquals;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import org.junit.*;
-import org.junit.runners.MethodSorters;
-import java.io.PrintWriter;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.Scanner;
+
+import src.CPL;
+import src.CPL_Ballot;
+import src.CPL_Candidate;
 
 
 public class ElectionTestCPL {

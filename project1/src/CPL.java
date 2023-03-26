@@ -1,4 +1,6 @@
+package src;
 import java.util.Scanner;
+
 import java.io.*;
 import java.util.Arrays;
 import java.util.Random;

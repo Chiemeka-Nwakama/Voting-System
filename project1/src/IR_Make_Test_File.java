@@ -1,3 +1,4 @@
+package src;
 import java.io.*;
 import java.util.Random;
 public class IR_Make_Test_File {
@@ -51,7 +52,7 @@ public class IR_Make_Test_File {
             testWriter.write(toWrite);
             testWriter.close();
         } catch (IOException e) {
-            // TODO Auto-generated catch block
+            System.out.println("Cannot write to file");
             e.printStackTrace();
         }
     }

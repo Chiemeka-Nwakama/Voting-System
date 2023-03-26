@@ -1,3 +1,4 @@
+package src;
 public class IR_Candidate {
     private int[] ballots;
     private boolean status;
