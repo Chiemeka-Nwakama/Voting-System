@@ -360,7 +360,7 @@ public void testAddSeatParty(){
 
 }
 @Test 
-public void testremainderSeats(){
+public void testremainderVotes(){
     Party party = new Party("Obama");
     String expected = "1";
     party.addSeats(1);
