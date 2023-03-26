@@ -15,15 +15,20 @@ public class IR {
     private final int randomConstant = 1000;
     private int remainingCandidates;
     private IR_Candidate winner;
+    public Scanner scanner;
 
     /** 
     *@brief This constructor initialize the audit file and taking input file
     *@param file The input file for IR election
     **/
-    public IR(File  file){
+    public IR(File  file) throws FileNotFoundException{
         inputFile = file;
         audit = new IR_Audit_File();
         audit.writeToAudit("Instant Runoff Voting Election\n");
+        scanner = new Scanner(inputFile);
+        populateData(inputFile, scanner); //add all ballots to ballot array and assign IDs
+
+        scanner.close();
     }
     
     
@@ -32,7 +37,7 @@ public class IR {
     **/
     public void run(){
         //write to audit file
-        populateData(); //add all ballots to ballot array and assign IDs
+        
         assignBallots(); //assign ballot IDs to candidate's ballot array
         remainingCandidates = numCandidates;
         //**need to defind this function?? **/
@@ -64,21 +69,24 @@ public class IR {
     
     /** 
     *@brief This method will scan the given ballot file and read/store the informations to the election
+    *@param file The file name of the input
+    *@param scanner The scanner for file
     **/
-    public void populateData(){ 
+    public void populateData(File file, Scanner scanner){ 
         int counter = 0;
         int curBallot = 0;
         String tempBallot[];
         int finalBallot[];
-        Scanner scanner = new Scanner(inputFile);
         while (scanner.hasNextLine()) {
             String data = scanner.nextLine();
             if (counter == 0){
             }else if (counter == 1){                  //get numCandidates
                 numCandidates = Integer.parseInt(data);
+                System.out.println("reached numCandidates");
+                System.out.println(getNumCandidates());
                 candidates = new IR_Candidate[numCandidates];
             }else if (counter == 2){                    //get candidates
-                String tempCandidates[] = data.split(",");
+                String[] tempCandidates = data.split(",");
                 for (int a = 0; a < numCandidates; a++){
                     candidates[a] = new IR_Candidate(tempCandidates[a], a);
                 }
@@ -123,7 +131,7 @@ public class IR {
     *@return The IR_Candidate array
     **/
     public IR_Candidate[] getCandidates(){
-        return this.candidates;
+        return candidates;
     }
 
     /** 
@@ -131,7 +139,7 @@ public class IR {
     *@return The number of canidates
     **/
     public int getNumCandidates(){
-        return this.numCandidates;
+        return numCandidates;
     }
 
     /** 
@@ -139,7 +147,7 @@ public class IR {
     *@return The total ballots in the election
     **/
     public int getNumBallots(){
-        return this.numBallots;
+        return numBallots;
     }
     
     /** 
