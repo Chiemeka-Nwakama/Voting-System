@@ -11,7 +11,7 @@ public class IR_Audit_File {
     *@param void
     **/
     public IR_Audit_File(){
-        this.auditFile = new File("result");
+        auditFile = new File("audit");
         result = "";
         try{
             writer = new FileWriter(auditFile);
@@ -34,14 +34,7 @@ public class IR_Audit_File {
     *@param ballot IR_Ballot of the election
     **/
     public void writeBallot(IR_Ballot ballot){
-        try{
-            // writer.write("%i: %s\n", ballot.getBallotID(), Arrays.toString(ballot.getBallot()));
-            writer.write(Integer.toString(ballot.getBallotID()) + ": " + Arrays.toString(ballot.getBallot()) + "\n");
-
-        } catch (IOException e) {
-            System.out.println("Cannot write IR results to audit file.");
-            e.printStackTrace();
-        }
+        result = result + (Integer.toString(ballot.getBallotID()) + ": " + Arrays.toString(ballot.getBallot()) + "\n");
     }
 
     /** 
@@ -49,17 +42,16 @@ public class IR_Audit_File {
     *@param candidates Each candidates information will be writing in audit file
     **/
     public void writeCandidateBallots(IR_Candidate candidate){
-        try{
-            writer.write(candidate.getName() + ": ");
-            int[] ballots = candidate.getBallots();
-            for (int a = 0; a < candidate.getVotes(); a++){
-                writer.write(Integer.toString(ballots[a]));
-            }
-            writer.write("\nEnd of Round\n");
-        } catch (IOException e) {
-            System.out.println("Cannot write IR results to audit file.");
-            e.printStackTrace();
+        result = result + (candidate.getName() + ": ");
+        result = result + (candidate.getVotes() + " Votes\nBallot(s):\n");
+        int[] ballots = candidate.getBallots();
+        if (candidate.getVotes() > 0){
+            result = result + (Integer.toString(ballots[0]));
         }
+        for (int a = 1; a < candidate.getVotes(); a++){
+            result = result + ", " + (Integer.toString(ballots[a]));
+        }
+        result = result + "\n";
     }
 
     /** 
@@ -69,7 +61,6 @@ public class IR_Audit_File {
     public void outputAudit(){
         System.out.print(auditFile);
          try{
-            FileWriter writer = new FileWriter(auditFile);
             writer.write(result);
             writer.close();
         } catch (IOException e) {

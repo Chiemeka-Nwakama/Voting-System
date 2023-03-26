@@ -25,16 +25,15 @@ public class Election{
                 election = new File(fileName);
                 Scanner file_scan  = new Scanner(election);
                 String type = file_scan.nextLine(); // scans in the first line of the election file to see what type of election it is                
-                // if (type.equals("CPL")){
-                //     CPL cpl  = new CPL(election);
-                //     cpl.run(election);
+                if (type.equals("CPL")){
+                    CPL cpl  = new CPL(election);
+                    cpl.run(election);
                     
-                // }else{
-                    
+                }else{
                     IR ir = new IR(election);
                     ir.run();
                     
-                //}
+                }
                 
                 file_scan.close();
                 valid = true;

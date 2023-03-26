@@ -15,7 +15,7 @@ public class IR {
     private final int randomConstant = 1000;
     private int remainingCandidates;
     private IR_Candidate winner;
-    public Scanner scanner;
+    private Scanner scanner;
 
     /** 
     *@brief This constructor initialize the audit file and taking input file
@@ -24,10 +24,14 @@ public class IR {
     public IR(File  file) throws FileNotFoundException{
         inputFile = file;
         audit = new IR_Audit_File();
-        audit.writeToAudit("Instant Runoff Voting Election\n");
+        audit.writeToAudit("INSTANT RUNOFF (IR) VOTING ELECTION");
+        audit.writeToAudit("AUDIT FILE INITIALIZED");
+        audit.writeToAudit("POPULATING DATA FROM IR ELECTION FILE...\n");
+        audit.writeToAudit("Ballots:");
         scanner = new Scanner(inputFile);
         initializeData();
         populateData(); //add all ballots to ballot array and assign IDs
+        audit.writeToAudit("\nInitial Candidate Votes:");
         assignBallots(); //assign ballot IDs to candidate's ballot array
         scanner.close();
     }
@@ -37,35 +41,37 @@ public class IR {
     *@brief The method run the entire election from start to finish using various methods
     **/
     public void run(){
+        int rounds = 1;
         //write to audit file
-        
-        remainingCandidates = numCandidates;
-        //**need to defind this function?? **/
         while (!setElectionStatus() || remainingCandidates != 1){ //rank all candidates and check for winner
             int numTied = checkForWinnerTie();
             if (numTied == remainingCandidates){
                 if (numTied == 2){
-                    winner = ranking[coinToss() - 1]; //declare a winner and end process
+                    winner = ranking[coinToss()]; //declare a winner and end process
                     break;
                 }else{
-                    makeLoser(ranking[poolSelect(numTied) - 1]); //redistribute losing candidate's votes
+                    makeLoser(ranking[poolSelect(numTied)]); //redistribute losing candidate's votes
                 }
             numTied = checkForLoserTie();
             }else if (numTied < remainingCandidates){
                 if (numTied == 2){
-                    makeLoser(ranking[remainingCandidates - coinToss()]);
+                    makeLoser(ranking[(remainingCandidates - 1) - coinToss()]);
                 }else if (numTied > 2){
-                    makeLoser(ranking[remainingCandidates - poolSelect(numTied)]);
+                    makeLoser(ranking[(remainingCandidates - 1) - poolSelect(numTied)]);
                 }else{
                     makeLoser(ranking[remainingCandidates - 1]); //eliminate last place candidate and redistribute their votes
                 }
             }
+            audit.writeToAudit("\nRound " + rounds + ":");
+            rounds++;
         }
         if (winner == null){
             winner = ranking[0];
         }
 
         displayResults();
+        audit.writeToAudit("DATA SUCCESSFULLY POPULATED.\n");
+        audit.outputAudit();
     }
 
     
@@ -75,6 +81,7 @@ public class IR {
     public void initializeData(){       
         scanner.nextLine();   //skip 1st line
         numCandidates = scanner.nextInt();
+        remainingCandidates = numCandidates; //initialize remainingCanidates
         scanner.nextLine();  //get numCandidates
         String[] candidateNames = scanner.nextLine().split(", ");  //get candidates
         candidates = new IR_Candidate[numCandidates];  
@@ -123,9 +130,9 @@ public class IR {
                 candidates[currentCandidate].addBallot(a);
             }    
         }
-        for (int a = 0; a < numCandidates; a++){
-            audit.writeCandidateBallots(candidates[a]); //write all candidates and their ballots to the audit file
-        }
+        //for (int a = 0; a < numCandidates; a++){
+           // audit.writeCandidateBallots(candidates[a]); //write all candidates and their ballots to the audit file
+        //}
     }
 
     /** 
@@ -152,7 +159,17 @@ public class IR {
         return numBallots;
     }
 
+    /**
+     * @brief Get ballot array
+     * @return ballot array
+     */
     public IR_Ballot[] getBallots(){return ballots;}
+
+    /**
+     * @brief Get candidate 
+     * @return
+     */
+    public IR_Candidate[] getRankings(){return ranking;}
     
     /** 
     *@brief The method is to make loser candidate with lowest votes
@@ -172,6 +189,11 @@ public class IR {
             if (ballots[curBallot].getCurrentVote() != -1){
                 candidates[ballots[curBallot].getCurrentVote()].addBallot(curBallot); //add ballot to new candidate's array
             }
+        }
+        if (ranking[remainingCandidates - 1].getCandidateID() != loser.getCandidateID()){
+            IR_Candidate tempCandidate = ranking[remainingCandidates - 1];
+            ranking[remainingCandidates - 1] = loser;
+            ranking[loser.getRank()] = tempCandidate;
         }
         loser.removeVotes(); //set loser's vote count to 0
         remainingCandidates--;
@@ -219,6 +241,7 @@ public class IR {
         for(int i = 0; i < randomConstant; i++){
             result = randomNum.nextInt(2);
         }
+
         return result;      
 
     }
@@ -232,9 +255,8 @@ public class IR {
         Random randomNum = new Random();
         int result = 0;
         for(int i = 0; i < randomConstant; i++){
-            result = randomNum.nextInt((numTied - 1) + 1) + 1;
+            result = randomNum.nextInt(numTied);
         }
-        
         return result;
     }
 
@@ -244,24 +266,17 @@ public class IR {
     **/
     public void displayResults(){
         System.out.println("-----Instant Runoff Election Results-----");
-        System.out.println("***   The winner is: " + winner);
-        System.out.println("--Information on the Election--");
+        System.out.println("Information on the Election");       
         System.out.println("Number of Candidates: " + numCandidates);
         System.out.println("Number of Ballots cast: " + numBallots);
-        System.out.println("Candidates name and number of votes received:");
-        for(int i = 0; i < numCandidates; i++){
-            System.out.println("  " + candidates[i] + "  " + candidates[i].getVotes());
-        }
+        System.out.println("***   The winner is: " + winner.getName() + "   ***");
+        
 
         result = "-----Instant Runoff Election Results-----\n" +
-                        "***The winner is: \n" + ranking[0] +
                         "--Information on the Election--\n" +
                         "Number of Candidates: " + numCandidates + "\n" +
                         "Number of Ballots cast: " + numBallots + "\n" +
-                        "Candidates name and number of votes received:\n";
-        for(int i = 0; i < numCandidates; i++){
-            result += "  " + candidates[i].getName() + ": " + candidates[i].getVotes() + "\n";
-        }
+                        "***The winner is: " + winner.getName() + "***\n";                       
         audit.writeToAudit(result);
     }
 
@@ -283,6 +298,10 @@ public class IR {
                 j = j - 1;
             }
             ranking[j + 1] = key;
+        }
+        for (int a = 0; a < numCandidates; a++){
+            ranking[a].setRank(a);
+            audit.writeCandidateBallots(ranking[a]);
         }
         if (ranking[0].isWinner()){
             return true;
