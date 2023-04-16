@@ -7,18 +7,24 @@ public class Election{
   
     public static void main(String[] args){
         String fileNames;
-        boolean valid = true;
+        
         Scanner scanner = new Scanner(System.in); //intializes a scanner object
-        File election;
+        
         String election_type;
         File[] files;
+        String[] names;
 
-        if(args.length > 1) {
+        if(args.length > 0) {
             // command line, right now assumes file name is correct
            
-            files = new File[args.length - 1]
-            for(int i = 1; i < args.length; i++){
-                files[i-1] = new File(args[i]);
+            files = new File[args.length];
+
+          
+            
+        
+            for(int i = 0; i < args.length; i++){
+                files[i] = new File(args[i]);
+            
 
             }
 
@@ -26,18 +32,20 @@ public class Election{
             // prompt user
             System.out.println("Enter in the name of the election file(s). (ex: file1.csv file2.csv) (ex: file1.csv)  Enter 'Exit' to exit program");
             fileNames = scanner.nextLine(); //obtains the file name from user
-            String[] names = fileNames.split(" ");
-            files = new File[names.length]
+            names = fileNames.split(" ");
+            files = new File[names.length];
             for(int i = 0; i < names.length; i++){
-                files[0] = new File(names[i]);
+                files[i] = new File(names[i]);
 
             }
         }
+
+        //if last thing types .equals exit then program will terminate and not advance to an election
      
-        for(int i = 0; i < files.length() && !(fileNames[i].equals("Exit")); i++){ // while provided filename is not valid or the user has not exited the loop, keep prompting them
+        for(int i = 0; i < files.length && !(files[files.length-1].toString().equals("Exit")); i++){ // while provided filename is not valid or the user has not exited the loop, keep prompting them
 
             try {  
-                
+              
                 Scanner file_scan  = new Scanner(files[i]); // validates file exist
                
                 
@@ -54,37 +62,47 @@ public class Election{
              // prompt user
             System.out.println("Enter in the name of the election file(s). (ex: file1.csv file2.csv) (ex: file1.csv)  Enter 'Exit' to exit program");
             fileNames = scanner.nextLine(); //obtains the file name from user
-            String[] names = fileNames.split(" ");
-            files = new File[args.length - 1]
-            for(int i = 0; i < names.length; i++){
-                files[0] = new File(names[i]);
+            names = fileNames.split(" ");
+            files = new File[names.length];
+            for(int j = 0; j < names.length; j++){
+                files[j] = new File(names[j]);
 
             }
         }
+    }
          
-            
-        } //for file validator
+         if(!files[files.length-1].toString().equals("Exit"))  {
+         //for file validator
          
-        
+        election_type = "";
+        try {  
         Scanner file_scan  = new Scanner(files[0]); //obtains the file name from user
 
-        election_type = file_scan.nextLine(); // scans in the first line of the election file to see what type of election it is                
+
+        election_type = file_scan.nextLine(); // scans in the first line of the election file to see what type of election it is      
+        file_scan.close();
+        }
+        catch(IOException e){
+
+        }          
         if (election_type.equals("CPL")){
             CPL cpl  = new CPL(files);
-            cpl.run();
+            //cpl.run();
             
         }else if (election_type.equals("IR")){
             IR ir = new IR(files);
-            ir.run();
+            //
+            //ir.run();
             
         }
-        else{
-            PO po = new PO(files);
-            po.run();
+    
+        // else{
+        //     PO po = new PO(files);
+        //     po.run();
+        // }
         }
 
-
-        
+   
     
     scanner.close();
     //election.close(); close file

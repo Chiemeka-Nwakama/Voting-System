@@ -14,6 +14,7 @@ public class CPL {
     private Party[] parties;
     private int seatsRemaining;
     private CPL_Ballot[] ballots;
+    private File[] files;
     private CPL_Audit_File audit;
     private final int randomConstant = 1000;
     public Scanner sc;
@@ -36,12 +37,28 @@ public class CPL {
         
         sc.close();
     }
-      /**
+      public CPL(File[] files) {
+        this.files = files;
+       
+    }
+
+       /**
+   * This method returns the path names if the files in the format "filepath1 filepath2". This metod is to test multiple files feature
+   * @return s String containing pathnames of all files being brought in
+   */
+
+    public String getFiles(){
+        String s = files[0].toString();
+        for(int i = 1; i < files.length; i++){
+        s = s + " " + files[i].toString();
+        }
+        return s;
+    }
+    /**
    * This method runs the entire election from start to finish using various methods along the way writes to the audit file
-   * @param file
    * @return void
    */
-    public void run(File file){
+    public void run(){
         audit.writeToAudit("START OF CPL ELECTION\n");
         audit.writeToAudit("ASSIGNING BALLOTS TO PARTIES: ");
         assignBallots(); // distibutes Ballots to the parties associated with the parties voted for
