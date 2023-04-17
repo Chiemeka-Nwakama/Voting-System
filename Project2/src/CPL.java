@@ -23,12 +23,8 @@ public class CPL {
    * This constructor takes in the election file and kicks off the population of data into data types by calling various methods within
    * @param file
    */
-
+/*
     public CPL(File file) throws FileNotFoundException{
-        audit = new CPL_Audit_File(); // intitalzies the audit file
-        audit.writeToAudit("CPL ELECTION");
-        audit.writeToAudit("AUDIT FILE INITIALIZED");
-        audit.writeToAudit("POPULATING DATA FROM CPL ELECTION FILE...\n");
         sc = new Scanner(file);
         populateParties(file, sc);
         populateCandidates(file, sc);
@@ -37,8 +33,26 @@ public class CPL {
         
         sc.close();
     }
-      public CPL(File[] files) {
+*/
+    public CPL(File[] files) throws FileNotFoundException{
         this.files = files;
+        audit = new CPL_Audit_File(); // intitalzies the audit file
+        audit.writeToAudit("CPL ELECTION");
+        audit.writeToAudit("AUDIT FILE INITIALIZED");
+        audit.writeToAudit("POPULATING DATA FROM CPL ELECTION FILE...\n");
+        for (int i = 0; i < files.length; i++) {
+            File file = files[i];
+            sc = new Scanner(file);
+            populateParties(file, sc);
+            populateCandidates(file, sc);
+            populateBallots(file, sc);
+
+            sc.close();
+
+        }
+
+        audit.writeToAudit("DATA SUCCESSFULLY POPULATED!\n");
+
        
     }
 
