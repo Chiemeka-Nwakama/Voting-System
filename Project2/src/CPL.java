@@ -5,6 +5,7 @@ import java.io.*;
 import java.util.Arrays;
 import java.util.Random;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class CPL {
     private int numParties;
@@ -13,36 +14,58 @@ public class CPL {
     private int numBallots;
     private Party[] parties;
     private int seatsRemaining;
-    private CPL_Ballot[] ballots;
+    private ArrayList<CPL_Ballot> ballots;
     private File[] files;
     private CPL_Audit_File audit;
     private final int randomConstant = 1000;
     public Scanner sc;
     
-      /**
+    /**
    * This constructor takes in the election file and kicks off the population of data into data types by calling various methods within
    * @param file
    */
 
-    public CPL(File file) throws FileNotFoundException{
+    public CPL(File[] files) throws FileNotFoundException{
+        this.files = files; // initilize file list
+        this.ballots = new ArrayList<>(); // initialize ballot arraylist
         audit = new CPL_Audit_File(); // intitalzies the audit file
         audit.writeToAudit("CPL ELECTION");
         audit.writeToAudit("AUDIT FILE INITIALIZED");
         audit.writeToAudit("POPULATING DATA FROM CPL ELECTION FILE...\n");
-        sc = new Scanner(file);
-        populateParties(file, sc);
-        populateCandidates(file, sc);
-        populateBallots(file, sc);
-        audit.writeToAudit("DATA SUCCESSFULLY POPULATED!\n");
         
+        sc = new Scanner(files[0]);
+        sc.nextLine(); // Skip CPL line
+        populateParties(files[0], sc);
+        populateCandidates(files[0], sc);
+        totalSeats = sc.nextInt(); // assumes total seats is the same for all files, so no need to rescan
+        audit.writeToAudit("Total Seats: " + totalSeats);
         sc.close();
-    }
-      public CPL(File[] files) {
-        this.files = files;
+   
+        audit.writeToAudit("BALLOTS:");
+        for (int i = 0; i < files.length; i++) {
+            sc = new Scanner(files[i]);
+
+            // skip header
+            for (int j = 0; j < numParties + 4; j++) {
+                sc.nextLine();
+            }
+
+            populateBallots(files[i], sc);
+
+            sc.close();
+
+        }
+        initilizeBallotCapacities(); // initialize all partie's ballot capacities
+
+        
+        
+
+        audit.writeToAudit("DATA SUCCESSFULLY POPULATED!\n");
+
        
     }
 
-       /**
+    /**
    * This method returns the path names if the files in the format "filepath1 filepath2". This metod is to test multiple files feature
    * @return s String containing pathnames of all files being brought in
    */
@@ -62,10 +85,12 @@ public class CPL {
         audit.writeToAudit("START OF CPL ELECTION\n");
         audit.writeToAudit("ASSIGNING BALLOTS TO PARTIES: ");
         assignBallots(); // distibutes Ballots to the parties associated with the parties voted for
+        //System.out.println("whast");
         audit.writeToAudit("\nDISTRIBUTING SEATS TO PARTIES: ");
         distributeSeats(); // distributes seats to parties
         audit.writeToAudit("END OF ELECTION"); // writes that the election is over to audit
         audit.outputAudit(); // output audit file to file named "audit" once the election is completed
+        //System.out.println("afd");
         displayResults(); //displays results since election has been completed
 
     }
@@ -122,7 +147,7 @@ public class CPL {
    * @return ballots
    */
 
-   public CPL_Ballot[] getBallots(){
+   public ArrayList<CPL_Ballot> getBallots(){
     return ballots;
 
 }
@@ -174,18 +199,18 @@ public class CPL {
         audit.writeToAudit("");
         secondRound(); // begins the second round which involves giving out the remaining seats based on the remainder
 
-
+        
         audit.writeToAudit("\nFINAL RESULTS:");
         parties = temp.clone(); // corrects parties back to orginal order
         for(int i =0; i < numParties; i++) {
             audit.writeToAudit(parties[i].getName() + " Seats: " + parties[i].getSeats());
     
         }
-    audit.writeToAudit("PARTY SEAT DISTRIBUTION COMPLETED!\n");
-    audit.writeToAudit("CANDIDATE SEAT DISTRIBUTION:\n");
-    for(int i = 0; i < numParties; i++){ //distrbutes seats to candidates in every party
-        parties[i].distributeSeats(audit);
-    }
+        audit.writeToAudit("PARTY SEAT DISTRIBUTION COMPLETED!\n");
+        audit.writeToAudit("CANDIDATE SEAT DISTRIBUTION:\n");
+        for(int i = 0; i < numParties; i++){ //distrbutes seats to candidates in every party
+            parties[i].distributeSeats(audit);
+        }
    
 }
 
@@ -202,6 +227,7 @@ public class CPL {
            parties[i].addSeats(seats);
            audit.writeToAudit("Allocating " + seats + " seats to " + parties[i].getName());
            seatsRemaining = seatsRemaining - seats;
+
            results += parties[i].getName() + " Seats: " + seats + "\n";
 
         }
@@ -232,6 +258,7 @@ public class CPL {
                         audit.writeToAudit(parties[i+1].getName() + " has won a seat!");
                         parties[i+1].addSeats(1);
                     }
+                    seatsRemaining--;
  
                 }else{
                     audit.writeToAudit("Pool select between 3 or more parties is initiated\n");
@@ -249,6 +276,11 @@ public class CPL {
         }
    
     }
+
+
+
+
+
     /**
    * This method checks for how many parties of a give party with a remainder votes has that same amount of remainder votes
    * @param index the index of the party that we are checking for duplicate remainder votes
@@ -292,12 +324,14 @@ public class CPL {
 
     public void assignBallots(){
 
-        for(CPL_Ballot ballot: ballots){ //loops through ballots finding out where to assign the ballot
-            int partyVote = ballot.getPartyVote();
-            parties[partyVote].addVote(ballot);
-            audit.writeToAudit("Assigning " +  ballot + " to " + parties[partyVote].getName());
-        }
-        Arrays.fill(ballots, null); // clears ballots since no longer need since they are in the parties now
+        ballots.forEach((b) -> {
+            int partyVote = b.getPartyVote();
+            parties[partyVote].addVote(b);
+            audit.writeToAudit("Assigning " +  b + " to " + parties[partyVote].getName());        
+        });
+
+        Collections.fill(ballots, null); // clears ballots since no longer need since they are in the parties now
+
         audit.writeToAudit("BALLOT ASSIGNMENT AND VOTE COUNT COMPLETE!\n");
         audit.writeToAudit("Results:\n ");
         for(Party party: parties){ //iterates through each party
@@ -324,8 +358,7 @@ public class CPL {
    * @return void
    */
 
-    public void populateParties(File file, Scanner sc) {
-        sc.nextLine(); //ignores first line since it was read already in the Election Class
+    public void populateParties(File file, Scanner sc) throws FileNotFoundException{
         numParties =  sc.nextInt(); //reads in the 2nd line - number of parties
         audit.writeToAudit("Number of Parties: " + numParties + "\n");
         sc.nextLine();
@@ -347,8 +380,9 @@ public class CPL {
    */
 
 
-public void populateCandidates(File file, Scanner sc){ //split into poluate parties, candidates, ballot methods  
+public void populateCandidates(File file, Scanner sc) throws FileNotFoundException{ //split into poluate parties, candidates, ballot methods  
     audit.writeToAudit("\nCANDIDATES:");
+
     for(int i = 0; i < numParties; i++){ //reads candidates until all parties are populated
         String[] Candidate_names =  sc.nextLine().split(",");
         parties[i].populateCandidates(Candidate_names, Candidate_names.length);
@@ -376,27 +410,37 @@ public void populateCandidates(File file, Scanner sc){ //split into poluate part
    */
 
 public void populateBallots(File file, Scanner sc) {         
-    totalSeats =  sc.nextInt(); // reads in the total number of seats avaliable
-    audit.writeToAudit("Total Seats: " + totalSeats);
-    numBallots =  sc.nextInt(); // reads in the total number of ballots in election
-    ballots = new CPL_Ballot[numBallots];
+    int fileBallots =  sc.nextInt(); // reads in the total number of seats avaliable, assumes same for each file
+
+    int id_num = numBallots;    
+    numBallots += fileBallots; 
     sc.nextLine();
-    audit.writeToAudit("Number of Ballots: " + numBallots + "\n");
-    
+
+    for (int i = 0; i < fileBallots; i++) {
+        String ballot = sc.nextLine();
+        int partyVote = ballot.indexOf("1"); // gets the pos of the vote
+        CPL_Ballot individual_ballot = new CPL_Ballot(partyVote, numParties, (id_num+i));
+        ballots.add(individual_ballot);
+        audit.writeToAudit(ballots.get(id_num+i).toString()); //prints out the ballots by id and their integer array repesentation         
+
+    }
+
+
+}
+
+
+public void initilizeBallotCapacities() {
+        
+    // This needs to happen after all ballots have been added together
     for(int i = 0; i < numParties; i++){ //reads candidates until all parties are populated
            
         parties[i].initilizeBallotCapacity(numBallots); //initialize capacity of ballots for each party to be total ballots in election
     }
-
-    audit.writeToAudit("BALLOTS:");
-    for(int i = 0; i < numBallots; i++){ //iterates reading in all ballot lines
-        String ballot = sc.nextLine();
-        int partyVote = ballot.indexOf("1"); // gets the pos of the vote
-        ballots[i] = new CPL_Ballot(partyVote, numParties); //intializes a new ballot
-        audit.writeToAudit(ballots[i].toString()); //prints out the ballots by id and their integer array repesentation         
-    }  
     
 }
+
+
+
      /**
    * This method cointToss() will determine which party gets a seat in the two way tie
    * @param void 
@@ -536,7 +580,8 @@ Two while loops. While there are no more seats to give, for the first round we f
 }
 
 
-         /**
+
+    /**
    * This method prints out all of the important results that the election judge and public would want to see from the election
    * @param void
    * @return void

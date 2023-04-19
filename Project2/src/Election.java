@@ -1,11 +1,12 @@
 package src;
 import java.util.Scanner;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class Election{
   
-    public static void main(String[] args){
+    public static void main(String[] args) throws FileNotFoundException{
         String fileNames;
         
         Scanner scanner = new Scanner(System.in); //intializes a scanner object
@@ -18,10 +19,7 @@ public class Election{
             // command line, right now assumes file name is correct
            
             files = new File[args.length];
-
-          
-            
-        
+  
             for(int i = 0; i < args.length; i++){
                 files[i] = new File(args[i]);
             
@@ -43,16 +41,12 @@ public class Election{
         //if last thing types .equals exit then program will terminate and not advance to an election
      
         for(int i = 0; i < files.length && !(files[files.length-1].toString().equals("Exit")); i++){ // while provided filename is not valid or the user has not exited the loop, keep prompting them
-
             try {  
               
                 Scanner file_scan  = new Scanner(files[i]); // validates file exist
                
-                
                 file_scan.close();
-            
-                
-
+        
                          
             }
                 
@@ -87,7 +81,7 @@ public class Election{
         }          
         if (election_type.equals("CPL")){
             CPL cpl  = new CPL(files);
-            //cpl.run();
+            cpl.run();
             
         }else if (election_type.equals("IR")){
             IR ir = new IR(files);

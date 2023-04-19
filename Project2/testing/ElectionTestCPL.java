@@ -17,7 +17,7 @@ import src.CPL_Candidate;
 public class ElectionTestCPL {
 
     CPL cpl;
-    String path = "C:\\Users\\justi\\Desktop\\repo-Team3-Chiemeka\\Project2\\testing"; // need to edit for your machine
+    String path = "C:\\Users\\Sidney\\OneDrive\\Desktop\\repo-Team3-1\\Project2\\testing"; // need to edit for your machine
     
     @Before
     public void setUp(){
@@ -28,7 +28,10 @@ public class ElectionTestCPL {
         
         
        
-        File file = new File(path +"\\testCPL.csv");
+        File file_1 = new File(path + "\\testCPL.csv");
+        File file_2 = new File(path + "\\CPLfile1.csv");
+        File[] files = new File[2];
+
     
        
         cpl = new CPL(file);
