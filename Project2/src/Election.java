@@ -45,11 +45,8 @@ public class Election{
               
                 Scanner file_scan  = new Scanner(files[i]); // validates file exist
                
-                
                 file_scan.close();
-            
-                
-
+        
                          
             }
                 
@@ -84,7 +81,7 @@ public class Election{
         }          
         if (election_type.equals("CPL")){
             CPL cpl  = new CPL(files);
-            //cpl.run();
+            cpl.run();
             
         }else if (election_type.equals("IR")){
             IR ir = new IR(files);
