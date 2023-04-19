@@ -37,149 +37,185 @@ Tester
 
 Total Seats: 6
 BALLOTS:
-Ballot 0: ,,,,,,1
-Ballot 1: ,,,,,1,
-Ballot 2: ,,,,1,,
-Ballot 3: ,,,1,,,
-Ballot 4: ,,,,,,1
-Ballot 5: 1,,,,,,
-Ballot 6: 1,,,,,,
-Ballot 7: ,1,,,,,
-Ballot 8: ,,1,,,,
-Ballot 9: ,,1,,,,
-Ballot 10: ,,,1,,,
-Ballot 11: 1,,,,,,
-Ballot 12: ,,,,,,1
-Ballot 13: ,1,,,,,
-Ballot 14: ,,,,1,,
-Ballot 15: ,,,,,1,
-Ballot 16: ,,,1,,,
+Ballot 0: 1,,,,,,
+Ballot 1: ,,,,,,1
+Ballot 2: ,1,,,,,
+Ballot 3: ,,,,1,,
+Ballot 4: ,,,,,1,
+Ballot 5: ,,,1,,,
+Ballot 6: ,,1,,,,
+Ballot 7: 1,,,,,,
+Ballot 8: ,1,,,,,
+Ballot 9: ,,,,,,1
+Ballot 10: ,,,,,1,
+Ballot 11: ,,,,1,,
+Ballot 12: ,,,1,,,
+Ballot 13: ,,,,,,1
+Ballot 14: 1,,,,,,
+Ballot 15: 1,,,,,,
+Ballot 16: ,1,,,,,
 Ballot 17: ,,1,,,,
-Ballot 18: 1,,,,,,
-Ballot 19: ,1,,,,,
+Ballot 18: ,,1,,,,
+Ballot 19: ,,,1,,,
+Ballot 20: ,1,,,,,
+Ballot 21: ,,,,,1,
+Ballot 22: ,,,,1,,
+Ballot 23: ,,,1,,,
+Ballot 24: ,,,,,,1
+Ballot 25: 1,,,,,,
+Ballot 26: 1,,,,,,
+Ballot 27: 1,,,,,,
+Ballot 28: ,,1,,,,
+Ballot 29: ,1,,,,,
+Ballot 30: 1,,,,,,
 DATA SUCCESSFULLY POPULATED!
 
 START OF CPL ELECTION
 
 ASSIGNING BALLOTS TO PARTIES: 
-Assigning Ballot 0: ,,,,,,1 to Test
-Assigning Ballot 1: ,,,,,1, to Independent
-Assigning Ballot 2: ,,,,1,, to Green
-Assigning Ballot 3: ,,,1,,, to Reform
-Assigning Ballot 4: ,,,,,,1 to Test
-Assigning Ballot 5: 1,,,,,, to Democratic
-Assigning Ballot 6: 1,,,,,, to Democratic
-Assigning Ballot 7: ,1,,,,, to Republican
-Assigning Ballot 8: ,,1,,,, to New Wave
-Assigning Ballot 9: ,,1,,,, to New Wave
-Assigning Ballot 10: ,,,1,,, to Reform
-Assigning Ballot 11: 1,,,,,, to Democratic
-Assigning Ballot 12: ,,,,,,1 to Test
-Assigning Ballot 13: ,1,,,,, to Republican
-Assigning Ballot 14: ,,,,1,, to Green
-Assigning Ballot 15: ,,,,,1, to Independent
-Assigning Ballot 16: ,,,1,,, to Reform
+Assigning Ballot 0: 1,,,,,, to Democratic
+Assigning Ballot 1: ,,,,,,1 to Test
+Assigning Ballot 2: ,1,,,,, to Republican
+Assigning Ballot 3: ,,,,1,, to Green
+Assigning Ballot 4: ,,,,,1, to Independent
+Assigning Ballot 5: ,,,1,,, to Reform
+Assigning Ballot 6: ,,1,,,, to New Wave
+Assigning Ballot 7: 1,,,,,, to Democratic
+Assigning Ballot 8: ,1,,,,, to Republican
+Assigning Ballot 9: ,,,,,,1 to Test
+Assigning Ballot 10: ,,,,,1, to Independent
+Assigning Ballot 11: ,,,,1,, to Green
+Assigning Ballot 12: ,,,1,,, to Reform
+Assigning Ballot 13: ,,,,,,1 to Test
+Assigning Ballot 14: 1,,,,,, to Democratic
+Assigning Ballot 15: 1,,,,,, to Democratic
+Assigning Ballot 16: ,1,,,,, to Republican
 Assigning Ballot 17: ,,1,,,, to New Wave
-Assigning Ballot 18: 1,,,,,, to Democratic
-Assigning Ballot 19: ,1,,,,, to Republican
+Assigning Ballot 18: ,,1,,,, to New Wave
+Assigning Ballot 19: ,,,1,,, to Reform
+Assigning Ballot 20: ,1,,,,, to Republican
+Assigning Ballot 21: ,,,,,1, to Independent
+Assigning Ballot 22: ,,,,1,, to Green
+Assigning Ballot 23: ,,,1,,, to Reform
+Assigning Ballot 24: ,,,,,,1 to Test
+Assigning Ballot 25: 1,,,,,, to Democratic
+Assigning Ballot 26: 1,,,,,, to Democratic
+Assigning Ballot 27: 1,,,,,, to Democratic
+Assigning Ballot 28: ,,1,,,, to New Wave
+Assigning Ballot 29: ,1,,,,, to Republican
+Assigning Ballot 30: 1,,,,,, to Democratic
 BALLOT ASSIGNMENT AND VOTE COUNT COMPLETE!
 
 Results:
  
 Democratic:
-Total Votes: 4
+Total Votes: 8
 Ballots Earned: 
-Ballot 5: 1,,,,,,
-Ballot 6: 1,,,,,,
-Ballot 11: 1,,,,,,
-Ballot 18: 1,,,,,,
+Ballot 0: 1,,,,,,
+Ballot 7: 1,,,,,,
+Ballot 14: 1,,,,,,
+Ballot 15: 1,,,,,,
+Ballot 25: 1,,,,,,
+Ballot 26: 1,,,,,,
+Ballot 27: 1,,,,,,
+Ballot 30: 1,,,,,,
 
 Republican:
-Total Votes: 3
+Total Votes: 5
 Ballots Earned: 
-Ballot 7: ,1,,,,,
-Ballot 13: ,1,,,,,
-Ballot 19: ,1,,,,,
+Ballot 2: ,1,,,,,
+Ballot 8: ,1,,,,,
+Ballot 16: ,1,,,,,
+Ballot 20: ,1,,,,,
+Ballot 29: ,1,,,,,
 
 New Wave:
-Total Votes: 3
+Total Votes: 4
 Ballots Earned: 
-Ballot 8: ,,1,,,,
-Ballot 9: ,,1,,,,
+Ballot 6: ,,1,,,,
 Ballot 17: ,,1,,,,
+Ballot 18: ,,1,,,,
+Ballot 28: ,,1,,,,
 
 Reform:
-Total Votes: 3
+Total Votes: 4
 Ballots Earned: 
-Ballot 3: ,,,1,,,
-Ballot 10: ,,,1,,,
-Ballot 16: ,,,1,,,
+Ballot 5: ,,,1,,,
+Ballot 12: ,,,1,,,
+Ballot 19: ,,,1,,,
+Ballot 23: ,,,1,,,
 
 Green:
-Total Votes: 2
-Ballots Earned: 
-Ballot 2: ,,,,1,,
-Ballot 14: ,,,,1,,
-
-Independent:
-Total Votes: 2
-Ballots Earned: 
-Ballot 1: ,,,,,1,
-Ballot 15: ,,,,,1,
-
-Test:
 Total Votes: 3
 Ballots Earned: 
-Ballot 0: ,,,,,,1
-Ballot 4: ,,,,,,1
-Ballot 12: ,,,,,,1
+Ballot 3: ,,,,1,,
+Ballot 11: ,,,,1,,
+Ballot 22: ,,,,1,,
+
+Independent:
+Total Votes: 3
+Ballots Earned: 
+Ballot 4: ,,,,,1,
+Ballot 10: ,,,,,1,
+Ballot 21: ,,,,,1,
+
+Test:
+Total Votes: 4
+Ballots Earned: 
+Ballot 1: ,,,,,,1
+Ballot 9: ,,,,,,1
+Ballot 13: ,,,,,,1
+Ballot 24: ,,,,,,1
 
 
 DISTRIBUTING SEATS TO PARTIES: 
 Calculating Quota: total Votes / total Seats
-Quota = 20 / 6 = 3 (rounded)
+Quota = 31 / 6 = 5 (rounded)
 
 FIRST ROUND OF SEAT DISTRIBUTION:
 Seats Remaining: 6
 Allocating 1 seats to Democratic
 Allocating 1 seats to Republican
-Allocating 1 seats to New Wave
-Allocating 1 seats to Reform
+Allocating 0 seats to New Wave
+Allocating 0 seats to Reform
 Allocating 0 seats to Green
 Allocating 0 seats to Independent
-Allocating 1 seats to Test
+Allocating 0 seats to Test
 
 Results:
 Democratic Seats: 1
 Republican Seats: 1
-New Wave Seats: 1
-Reform Seats: 1
+New Wave Seats: 0
+Reform Seats: 0
 Green Seats: 0
 Independent Seats: 0
-Test Seats: 1
+Test Seats: 0
 
 
 SECOND ROUND OF SEAT DISTRIBUTION:
-Seats Remaining: 1
+Seats Remaining: 4
 Votes Remaining: 
-Democratic: 1
+Democratic: 3
 Republican: 0
-New Wave: 0
-Reform: 0
-Green: 2
-Independent: 2
-Test: 0
+New Wave: 4
+Reform: 4
+Green: 3
+Independent: 3
+Test: 4
 
-A tie has occurred
-Coin Toss between two parties is initiated
+New Wave has won a seat!
+Reform has won a seat!
+Test has won a seat!
+Democratic has won a seat!
+Green has won a seat!
 Independent has won a seat!
 
 FINAL RESULTS:
-Democratic Seats: 1
+Democratic Seats: 2
 Republican Seats: 1
 New Wave Seats: 1
 Reform Seats: 1
-Green Seats: 0
+Green Seats: 1
 Independent Seats: 1
 Test Seats: 1
 PARTY SEAT DISTRIBUTION COMPLETED!
@@ -187,10 +223,11 @@ PARTY SEAT DISTRIBUTION COMPLETED!
 CANDIDATE SEAT DISTRIBUTION:
 
 First Round of Distribution:
-Seats Remaining: 1
+Seats Remaining: 2
 Adding seat to Foster
+Adding seat to Volz
 Foster's Seats: 1
-Volz's Seats: 0
+Volz's Seats: 1
 Pike's Seats: 0
 Candidate Seat Distrubution for Democratic Completed!
 
@@ -217,8 +254,9 @@ Berg's Seats: 0
 Candidate Seat Distrubution for Reform Completed!
 
 First Round of Distribution:
-Seats Remaining: 0
-Zheng's Seats: 0
+Seats Remaining: 1
+Adding seat to Zheng
+Zheng's Seats: 1
 Melvin's Seats: 0
 Candidate Seat Distrubution for Green Completed!
 
