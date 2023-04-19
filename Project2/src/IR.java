@@ -23,7 +23,7 @@ public class IR {
     * This constructor initialize the audit file and taking input file
     *@param file The input file for IR election
     **/
-    public IR(File  file) throws FileNotFoundException{
+    public IR(File  file []) throws FileNotFoundException{
         inputFile = file;
         audit = new IR_Audit_File();
         audit.writeToAudit("INSTANT RUNOFF (IR) VOTING ELECTION");
