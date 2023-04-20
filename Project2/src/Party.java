@@ -1,10 +1,12 @@
 package src;
 
 import java.util.Random;
+import java.util.ArrayList;
+
 
 public class Party {
     private CPL_Candidate[] candidates;
-    private CPL_Ballot[] partyBallots;
+    private ArrayList <CPL_Ballot> partyBallots;
     private int totalVotes;
     private int remainderVotes;
     private int seats;
@@ -26,6 +28,7 @@ public class Party {
         remainderVotes = 0;
         id = count;
         count++;
+        partyBallots = new ArrayList<>();
 
     } 
 
@@ -51,14 +54,9 @@ public class Party {
    * @return void
    */
 
-
-public void initilizeBallotCapacity(int totalBallots){
-    partyBallots = new CPL_Ballot[totalBallots]; // makes the ballot array as big as there are ballots in the election
-}
    
     // WOULD RETURN MEMORY ADDRESS SO I DONT THINK WE EVEN NEED THIS
     public CPL_Candidate[] getCandidates(){
-
         return candidates;
 
     }
@@ -78,7 +76,7 @@ public void initilizeBallotCapacity(int totalBallots){
    * @return The ballots the party has been assigned
    */
 
-    public CPL_Ballot[] getBallots(){
+    public ArrayList<CPL_Ballot> getBallots(){
         return partyBallots;
 
     }
@@ -99,7 +97,7 @@ public void initilizeBallotCapacity(int totalBallots){
    * @return void
    */
     public void addVote(CPL_Ballot ballot){
-        partyBallots[totalVotes] = ballot; //gives voter's ballot to party
+        partyBallots.add(ballot); //gives voter's ballot to party
         totalVotes++; //adds to total votes party has
 
     }
@@ -128,7 +126,6 @@ public void initilizeBallotCapacity(int totalBallots){
    * @return party seats
    */
     public int getSeats(){
-
         return seats;
     }
 

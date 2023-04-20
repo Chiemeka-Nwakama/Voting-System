@@ -119,35 +119,50 @@ public void testPopulateCandidate(){ //test the populate candidates that is used
 
 //potential bug, only passes test when ran individual not with the rest of the tests
 
-public void testPopulateBallots(){ //test the populate ballots that is used in the constructor to see if it populated the data correctly
+public void testPopulateBallots(){
+     //test the populate ballots that is used in the constructor to see if it populated the data correctly
     
-   String[] expectedBallots = {"Ballot 0: 1,,,,,,", "Ballot 1: ,,,,,,1", "Ballot 2: ,1,,,,,", "Ballot 3: ,,,,1,,", "Ballot 4: ,,,,,1,", "Ballot 5: ,,,1,,,", "Ballot 6: ,,1,,,,", "Ballot 7: 1,,,,,,", "Ballot 8: ,1,,,,,"};
-   CPL_Ballot[] ballots = cpl_single.getBallots();
+    String[] expectedBallots_s = {"Ballot 0: 1,,,,,,", "Ballot 1: ,,,,,,1", "Ballot 2: ,1,,,,,", "Ballot 3: ,,,,1,,", "Ballot 4: ,,,,,1,", "Ballot 5: ,,,1,,,", "Ballot 6: ,,1,,,,", "Ballot 7: 1,,,,,,", "Ballot 8: ,1,,,,,"};
+    String[] expectedBallots_m = {"Ballot 0: 1,,,,,,", "Ballot 1: ,,,,,,1", "Ballot 2: ,1,,,,,", "Ballot 3: ,,,,1,,", "Ballot 4: ,,,,,1,", "Ballot 5: ,,,1,,,", "Ballot 6: ,,1,,,,", "Ballot 7: 1,,,,,,", "Ballot 8: ,1,,,,,", "Ballot 9: ,,,,,,1", "Ballot 10: ,,,,,1,", "Ballot 11: ,,,,1,,", "Ballot 12: ,,,1,,,", "Ballot 13: ,,,,,,1", "Ballot 14: 1,,,,,,", "Ballot 15: 1,,,,,,", "Ballot 16: ,1,,,,,", "Ballot 17: ,,1,,,,", "Ballot 18: ,,1,,,,", "Ballot 19: ,,,1,,,", "Ballot 20: ,1,,,,,", "Ballot 21: ,,,,,1,", "Ballot 22: ,,,,1,,", "Ballot 23: ,,,1,,,", "Ballot 24: ,,,,,,1", "Ballot 25: 1,,,,,,", "Ballot 26: 1,,,,,,", "Ballot 27: 1,,,,,,", "Ballot 28: ,,1,,,,", "Ballot 29: ,1,,,,,", "Ballot 30: 1,,,,,,"};                                                                                       
+
+    ArrayList <CPL_Ballot> ballots_s = new ArrayList<>();
+    ballots_s = cpl_single.getBallots();
+
+
+    ArrayList <CPL_Ballot> ballots_m = new ArrayList<>();
+    ballots_m = cpl_multiple.getBallots();
   
-   for(int i = 0; i < expectedBallots.length; i++){
+    for(int i = 0; i < expectedBallots_s.length; i++){
+        assertEquals("Testing to see if getting ballots (single file): ", expectedBallots_s[i], ballots_s[i].toString());
+    
 
-    assertEquals("Testing to see if read in ballots: ",expectedBallots[i], ballots[i].toString());
-
-   }
-   
+    }
+    
+    for (int i = 0; i < expectedBallots_m.length; i++) {
+        assertEquals("Testing to see if getting ballots (multiple files): ",expectedBallots_m[i], ballots_m[i].toString());
+    }
+    
     String expectedSeats = "6";
-    String actualSeats = cpl_single.getTotalSeats() + "";
-    assertEquals("Testing to see if read total number of seats: ",expectedSeats, actualSeats);
+    String actualSeats_s = cpl_single.getTotalSeats() + "";
+    String actualSeats_m = cpl_multiple.getTotalSeats() + "";
 
-
-
+    assertEquals("Testing to see if read total number of seats (single file): ",expectedSeats, actualSeats_s);
+    assertEquals("Testing to see if read total number of seats (multiple files): ",expectedSeats, actualSeats_m);
 
 }
+
+
 
 @Test 
 
 public void testgetNumParties(){ //test to see if num parties get works
 
    String expectedNumber = 7 + "";
-   String actualNumber = cpl_single.getNumParties() + "";
+   String actualNumber_s = cpl_single.getNumParties() + "";
+   String actualNumber_m = cpl_multiple.getNumParties() + "";
 
-   assertEquals("Testing to see if getter works: ",expectedNumber, actualNumber);
-
+   assertEquals("Testing to see if getter works (single file): ",expectedNumber, actualNumber_s);
+   assertEquals("Testing to see if getter works (multiple files): ",expectedNumber, actualNumber_m);
 
 
 }
@@ -158,16 +173,22 @@ public void testgetNumParties(){ //test to see if num parties get works
 
 public void testgetParty(){ //test to see if num parties get works
     String expectedParties = "Democratic Republican New Wave Reform Green Independent Test ";
-    String actualParties = "";
+    String actualParties_s = "";
+    String actualParties_m = "";
 
     Party[] parties = cpl_single.getParties();
     for(Party party: parties){
-        actualParties = actualParties + party.getName() + " ";
+        actualParties_s = actualParties_s + party.getName() + " ";
 
     }
 
-    assertEquals("Testing getter: ", expectedParties, actualParties);
+    Party[] parties = cpl_multiple.getParties();
+    for(Party party: parties){
+        actualParties_m = actualParties_m + party.getName() + " ";
 
+    }
+    assertEquals("Testing getter (single file): ", expectedParties, actualParties_s);
+    assertEquals("Testing getter (multiple files): ", expectedParties, actualParties_m);
 
 }
 
@@ -176,35 +197,56 @@ public void testgetParty(){ //test to see if num parties get works
 
 public void testgetNumCandidates(){ //test to see if num parties get works
     String expectedNum = "14";
-    String actualNum = cpl_single.getNumCandidates() + "";
+    String actualNum_s = cpl_single.getNumCandidates() + "";
+    String actualNum_m = cpl_multiple.getNumCandidates() + "";
 
-    
-    assertEquals("Testing getter: ", expectedNum, actualNum);
-
+    assertEquals("Testing getter (single file): ", expectedNum, actualNum_s);
+    assertEquals("Testing getter (multiple files): ", expectedNum, actualNum_m);
 
 }
+
 
 @Test 
 
 public void testgetTotalSeats(){ //test to see if num parties get works
    
     String expectedSeats = "6";
-    String actualSeats = cpl_single.getTotalSeats() + "";
-
-    assertEquals("Testing getter: ",expectedSeats, actualSeats);
-
+    String actualSeats_s = cpl_single.getTotalSeats() + "";
+    String actualSeats_m = cpl_multiple.getTotalSeats() + "";
+    assertEquals("Testing getter (single file): ",expectedSeats, actualSeats_s);
+    assertEquals("Testing getter (multiple files): ",expectedSeats, actualSeats_m);
 
 }
 
 @Test 
 
 public void testgetBallots(){ //test to see if num parties get works
-    String[] expectedBallots = {"Ballot 0: 1,,,,,,", "Ballot 1: ,,,,,,1", "Ballot 2: ,1,,,,,", "Ballot 3: ,,,,1,,", "Ballot 4: ,,,,,1,", "Ballot 5: ,,,1,,,", "Ballot 6: ,,1,,,,", "Ballot 7: 1,,,,,,", "Ballot 8: ,1,,,,,"};
-    CPL_Ballot[] ballots = cpl_single.getBallots();
-   
-    for(int i = 0; i < expectedBallots.length; i++){
- 
-     assertEquals("Testing to see if read in ballots: ",expectedBallots[i], ballots[i].toString());
+    String[] expectedBallots_s = {"Ballot 0: 1,,,,,,", "Ballot 1: ,,,,,,1", "Ballot 2: ,1,,,,,", "Ballot 3: ,,,,1,,", "Ballot 4: ,,,,,1,", "Ballot 5: ,,,1,,,", "Ballot 6: ,,1,,,,", "Ballot 7: 1,,,,,,", "Ballot 8: ,1,,,,,"};
+    String[] expectedBallots_m = {"Ballot 0: 1,,,,,,", "Ballot 1: ,,,,,,1", "Ballot 2: ,1,,,,,", "Ballot 3: ,,,,1,,", "Ballot 4: ,,,,,1,", "Ballot 5: ,,,1,,,", "Ballot 6: ,,1,,,,", "Ballot 7: 1,,,,,,", "Ballot 8: ,1,,,,,", "Ballot 9: ,,,,,,1", "Ballot 10: ,,,,,1,", "Ballot 11: ,,,,1,,", "Ballot 12: ,,,1,,,", "Ballot 13: ,,,,,,1", "Ballot 14: 1,,,,,,", "Ballot 15: 1,,,,,,", "Ballot 16: ,1,,,,,", "Ballot 17: ,,1,,,,", "Ballot 18: ,,1,,,,", "Ballot 19: ,,,1,,,", "Ballot 20: ,1,,,,,", "Ballot 21: ,,,,,1,", "Ballot 22: ,,,,1,,", "Ballot 23: ,,,1,,,", "Ballot 24: ,,,,,,1", "Ballot 25: 1,,,,,,", "Ballot 26: 1,,,,,,", "Ballot 27: 1,,,,,,", "Ballot 28: ,,1,,,,", "Ballot 29: ,1,,,,,", "Ballot 30: 1,,,,,,"};                                                                                       
+
+    ArrayList <CPL_Ballot> ballots_s = new ArrayList<>();
+    ballots_s = cpl_single.getBallots();
+
+
+    ArrayList <CPL_Ballot> ballots_m = new ArrayList<>();
+    ballots_m = cpl_multiple.getBallots();
+  
+    for(int i = 0; i < expectedBallots_s.length; i++){
+        assertEquals("Testing to see if getting ballots (single file): ", expectedBallots_s[i], ballots_s[i].toString());
+    
+
+    }
+    
+    for (int i = 0; i < expectedBallots_m.length; i++) {
+        assertEquals("Testing to see if getting ballots (multiple files): ",expectedBallots_m[i], ballots_m[i].toString());
+    }
+    
+    String expectedSeats = "6";
+    String actualSeats_s = cpl_single.getTotalSeats() + "";
+    String actualSeats_m = cpl_multiple.getTotalSeats() + "";
+
+    assertEquals("Testing to see if read total number of seats (single file): ",expectedSeats, actualSeats_s);
+    assertEquals("Testing to see if read total number of seats (multiple files): ",expectedSeats, actualSeats_m);
  
     }
 }
@@ -213,16 +255,29 @@ public void testgetBallots(){ //test to see if num parties get works
 @Test 
 
 public void testAssignBallots(){ //test to see if ballots are assigned correctly to parties
-    String[] expectedBallots = {"Ballot 0: 1,,,,,,", "Ballot 1: ,,,,,,1", "Ballot 2: ,1,,,,,", "Ballot 3: ,,,,1,,", "Ballot 4: ,,,,,1,", "Ballot 5: ,,,1,,,", "Ballot 6: ,,1,,,,", "Ballot 7: 1,,,,,,", "Ballot 8: ,1,,,,,"};
-    CPL_Ballot[] ballots = cpl_single.getBallots();
+    String[] expectedBallots = {"Ballot 0: 1,,,,,,", "Ballot 7: 1,,,,,,", "Ballot 2: ,1,,,,,", "Ballot 8: ,1,,,,,", "Ballot 6: ,,1,,,,", "Ballot 5: ,,,1,,,", "Ballot 3: ,,,,1,,", "Ballot 4: ,,,,,1,", "Ballot 1: ,,,,,,1"};
+
+    CPL_Ballot[] ballots_s = cpl_single.getBallots();
    
-    for(int i = 0; i < expectedBallots.length; i++){
- 
-     assertEquals("Testing to see if read in ballots: ",expectedBallots[i], ballots[i].toString());
+    for(int i = 0; i < expectedBallots_s.length; i++){
+     assertEquals("Testing to see if read in ballots: ",expectedBallots_s[i], ballots_s[i].toString());
  
     }
 
+    int start = 0;
+    for (int i = 0; i < cpl_single.numParties; i++) {
+        Party current_parties = cpl_single.parties[i];
+        ArrayList <CPL_Ballot> current_ballots = new ArrayList<>();
+        current_ballots = current_parties.getBallots();
+        for (int j = 0; j < current_ballots.size(); j++) {
+            assertEquals("Testing to see if assigning ballots: ", expectedBallots[start], current_ballots.get(j).toString());
+            start++;
+            
+        }
+    }
 }
+
+// STOPPED HERE
 
 @Test 
 
