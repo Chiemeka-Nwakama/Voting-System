@@ -55,13 +55,9 @@ public class CPL {
             sc.close();
 
         }
-        initilizeBallotCapacities(); // initialize all partie's ballot capacities
-
-        
         
 
         audit.writeToAudit("DATA SUCCESSFULLY POPULATED!\n");
-
        
     }
 
@@ -84,14 +80,55 @@ public class CPL {
     public void run(){
         audit.writeToAudit("START OF CPL ELECTION\n");
         audit.writeToAudit("ASSIGNING BALLOTS TO PARTIES: ");
+
         assignBallots(); // distibutes Ballots to the parties associated with the parties voted for
-        //System.out.println("whast");
         audit.writeToAudit("\nDISTRIBUTING SEATS TO PARTIES: ");
         distributeSeats(); // distributes seats to parties
         audit.writeToAudit("END OF ELECTION"); // writes that the election is over to audit
-        audit.outputAudit(); // output audit file to file named "audit" once the election is completed
-        //System.out.println("afd");
+        audit.outputAudit(); // output audit file to file named "audit" once the election is completed        
         displayResults(); //displays results since election has been completed
+
+    String[] expectedBallots = {"Ballot 0: 1,,,,,,", "Ballot 7: 1,,,,,,", "Ballot 2: ,1,,,,,", "Ballot 8: ,1,,,,,", "Ballot 6: ,,1,,,,", "Ballot 5: ,,,1,,,", "Ballot 3: ,,,,1,,", "Ballot 4: ,,,,,1,", "Ballot 1: ,,,,,,1"};
+
+
+    int start = 0;
+    for (int i = 0; i < numParties; i++) {
+        Party current_parties = parties[i];
+        ArrayList <CPL_Ballot> b = new ArrayList<>();
+        b = p.getBallots();
+        for (int j = 0; j < b.size(); j++) {
+            assertEquals("Testing to see if assigning ballots: ", expectedBallots[start], b.get(j).toString());
+            start++;
+            
+        }
+    }
+
+/*
+    int j = 0;
+    int i = 0;
+    int start = 0;
+    for (Party party: parties) {
+        CPL_Ballot [] party_ballots = party.getBallots();
+        for (i = start; i < (start + party_ballots.length); i++) {
+            System.out.println("Expected: " + expectedBallots[i].toString());
+            System.out.println("Actual: " + party_ballots[j].toString());
+            System.out.println("i " + i);
+            System.out.println("j " + j);
+            System.out.println("start " + start);
+            System.out.println("party ballot length " + party_ballots.length);
+            j++;
+        }
+        j = 0;
+        start = start + party_ballots.length;
+
+
+
+    }
+    */
+        clearBallots();
+
+
+  
 
     }
     
@@ -330,8 +367,6 @@ public class CPL {
             audit.writeToAudit("Assigning " +  b + " to " + parties[partyVote].getName());        
         });
 
-        Collections.fill(ballots, null); // clears ballots since no longer need since they are in the parties now
-
         audit.writeToAudit("BALLOT ASSIGNMENT AND VOTE COUNT COMPLETE!\n");
         audit.writeToAudit("Results:\n ");
         for(Party party: parties){ //iterates through each party
@@ -339,9 +374,10 @@ public class CPL {
             int partyVotes = party.getVotes(); //uses total votes to know when to stop looking for ballots since the rest will be null
             audit.writeToAudit("Total Votes: " + partyVotes); // writes total votes to audit
             audit.writeToAudit("Ballots Earned: "); // writes ballots earned to audit
-            CPL_Ballot[] partyBallots = party.getBallots();
+            ArrayList <CPL_Ballot> partyBallots = new ArrayList<>();
+            partyBallots = party.getBallots();
             for(int i = 0; i < partyVotes; i++){ //iterates through the ballot array in each party after distrubtion
-                audit.writeToAudit(partyBallots[i].toString());  // writes the each ballot the party earned to audit
+                audit.writeToAudit(partyBallots.get(i).toString());  // writes the each ballot the party earned to audit
             }
             audit.writeToAudit("");
         }
@@ -426,17 +462,6 @@ public void populateBallots(File file, Scanner sc) {
     }
 
 
-}
-
-
-public void initilizeBallotCapacities() {
-        
-    // This needs to happen after all ballots have been added together
-    for(int i = 0; i < numParties; i++){ //reads candidates until all parties are populated
-           
-        parties[i].initilizeBallotCapacity(numBallots); //initialize capacity of ballots for each party to be total ballots in election
-    }
-    
 }
 
 
@@ -633,8 +658,8 @@ Two while loops. While there are no more seats to give, for the first round we f
    * @param ballots to clear
    * @return void
    */
-    public void clearBallots(CPL_Ballot[] ballots){
-        Arrays.fill(ballots, null);
+    public void clearBallots(){
+        Collections.fill(ballots, null); // clears ballots since no longer need since they are in the parties now
     }
 
     
