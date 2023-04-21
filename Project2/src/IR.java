@@ -22,7 +22,7 @@ public class IR {
 
     /** 
     * This constructor initialize the audit file and taking input file
-    *@param file The input file for IR election
+    *@param file The input file for IR election 
     **/
     public IR(File[] files) throws FileNotFoundException {
         audit = new IR_Audit_File();
