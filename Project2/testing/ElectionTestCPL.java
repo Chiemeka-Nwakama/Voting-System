@@ -10,13 +10,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-
 import org.junit.*;
 
 import src.CPL;
 import src.CPL_Ballot;
 import src.CPL_Candidate;
-
 
 public class ElectionTestCPL {
 
@@ -43,7 +41,6 @@ public class ElectionTestCPL {
         file_multiple[1] = file_2;
         file_multiple[2] = file_3;
 
-
         cpl_single = new CPL(file_single);
         cpl_multiple = new CPL(file_multiple);
     }
@@ -51,7 +48,6 @@ public class ElectionTestCPL {
         System.out.println("Error File not found!");
     }
     }
-
 
   
 @Test 
@@ -132,7 +128,6 @@ public void testPopulateBallots(){
     ArrayList <CPL_Ballot> ballots_s = new ArrayList<>();
     ballots_s = cpl_single.getBallots();
 
-
     ArrayList <CPL_Ballot> ballots_m = new ArrayList<>();
     ballots_m = cpl_multiple.getBallots();
   
@@ -156,7 +151,6 @@ public void testPopulateBallots(){
 }
 
 
-
 @Test 
 
 public void testgetNumParties(){ //test to see if num parties get works
@@ -168,9 +162,7 @@ public void testgetNumParties(){ //test to see if num parties get works
    assertEquals("Testing to see if getter works (single file): ",expectedNumber, actualNumber_s);
    assertEquals("Testing to see if getter works (multiple files): ",expectedNumber, actualNumber_m);
 
-
 }
-
 
 
 @Test 
@@ -196,7 +188,6 @@ public void testgetParty(){ //test to see if num parties get works
 
 }
 
-
 @Test 
 
 public void testgetNumCandidates(){ //test to see if num parties get works
@@ -208,7 +199,6 @@ public void testgetNumCandidates(){ //test to see if num parties get works
     assertEquals("Testing getter (multiple files): ", expectedNum, actualNum_m);
 
 }
-
 
 @Test 
 
@@ -231,7 +221,6 @@ public void testgetBallots(){ //test to see if num parties get works
     ArrayList <CPL_Ballot> ballots_s = new ArrayList<>();
     ballots_s = cpl_single.getBallots();
 
-
     ArrayList <CPL_Ballot> ballots_m = new ArrayList<>();
     ballots_m = cpl_multiple.getBallots();
   
@@ -253,7 +242,6 @@ public void testgetBallots(){ //test to see if num parties get works
     assertEquals("Testing to see if read total number of seats (multiple files): ",expectedSeats, actualSeats_m);
  
 }
-
 
 
 @Test 
@@ -291,7 +279,6 @@ public void testAssignBallots(){ //test to see if ballots are assigned correctly
     }
 }
 
-
 @Test 
 
 public void testdistrubuteSeatsCoinToss(){ //test to see if seats distribute correctly with tie breaker too. Tests the first and second rounds
@@ -316,7 +303,6 @@ public void testdistrubuteSeatsCoinToss(){ //test to see if seats distribute cor
     }
     cpltest.assignBallots();
     cpltest.distributeSeats();
-
 
     
 
@@ -343,11 +329,9 @@ public void testdistrubuteSeatsCoinToss(){ //test to see if seats distribute cor
 
 
 
-
     
   
 }
-
 
 @Test 
 
@@ -394,7 +378,6 @@ public void testdistrubuteSeatsPoolSelect(){ //test to see if seats distribute c
 
 
 
-
     
   
 }
@@ -428,7 +411,6 @@ public void testCalculateRemainingVotes(){ //test to see if calculating remainin
     qd = Math.round(qd); // rounds quota
     int q = (int) qd;
 
-
     cpl_single.calculateRemainingVotes(q);
     Party [] p = cpl_single.getParties();
 
@@ -437,7 +419,6 @@ public void testCalculateRemainingVotes(){ //test to see if calculating remainin
         assertEquals("Testing to see if remaining votes are calculated correctly: ", arr[i], p[i].getRemainderVotes());
     
        }
-
 
 
 }
@@ -542,10 +523,8 @@ public void testDistributeSeatCandidatePool(){
     assertEquals("testing the fairness of pool select for candidates", expected, actual);
 
 
-
     
   
-
 
 }
 
@@ -590,6 +569,7 @@ public void testMultipleFiles() throws FileNotFoundException{
     assertEquals("Testing bringing in multiple files", expected, actual);
         }
 }
+
 
 
 
