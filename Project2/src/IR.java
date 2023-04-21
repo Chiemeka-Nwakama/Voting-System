@@ -38,7 +38,6 @@ public class IR {
         populateData(); //add all ballots to ballot array and assign IDs
         audit.writeToAudit("\nInitial Candidate Votes:");
         assignBallots(); //assign ballot IDs to candidate's ballot array
-        updateTable(0);
         scanner.close();
     }
     
@@ -73,6 +72,7 @@ public class IR {
         int rounds = 1;
         //write to audit file
         while (!setElectionStatus() || remainingCandidates != 1){ //rank all candidates and check for winner
+            updateTable(rounds);
             int numTied = checkForWinnerTie();
             if (numTied == remainingCandidates){
                 if (numTied == 2){
@@ -92,7 +92,6 @@ public class IR {
                 }
             }
             audit.writeToAudit("\nRound " + rounds + ":");
-            updateTable(rounds);
             rounds++;
         }
         if (winner == null){
@@ -399,9 +398,16 @@ public class IR {
             System.out.print("\n");
         }
 
-        System.out.format("|Exhausted Pile|");
-        for (int a = 1; a < round; a++){
+        System.out.format("|   EXHAUSTED PILE|");
+        for (int a = 1; a <= round; a++){
             System.out.format(" %6d| %+6d|", tableData[numCandidates][a], (tableData[numCandidates][a] - tableData[numCandidates][a - 1]));
+        }
+        System.out.print("\n");
+
+        System.out.format("|           TOTALS|");
+        System.out.format(" %6d| %+6d|", numBallots, numBallots);
+        for (int a = 1; a < round; a ++){
+            System.out.print("               |");
         }
         System.out.print("\n");
 

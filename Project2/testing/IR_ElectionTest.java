@@ -32,7 +32,7 @@ public class IR_ElectionTest {
 
 @Test
 public void makeTestFile(){
-    IR_Make_Test_File testFile = new IR_Make_Test_File(6, 4);
+    IR_Make_Test_File testFile = new IR_Make_Test_File(1000, 6);
     testFile.makeTestFile();
     testFile.outputTestFile();
 } 
@@ -166,6 +166,11 @@ public void testMultipleFiles(){
 
     assertEquals("Testing bringing in multiple files", expected, actual);
 
+}
+
+@Test
+public void testTable(){
+    
 }
 
 
