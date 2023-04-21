@@ -14,13 +14,15 @@ public class IR {
     private IR_Candidate[] ranking;
     private String result; //use to write each step into the audit file
     private final int randomConstant = 1000;
-    private File[] files;
     private int remainingCandidates;
     private IR_Candidate winner;
     private Scanner scanner;
+    private int[][] tableData;
+    private int[] exhaustedPile;
+    private int exhaustedIndex;
 
     /** 
-    * This constructor initialize the audit file and taking input file
+    *@brief This constructor initialize the audit file and taking input file
     *@param file The input file for IR election
     **/
     public IR(File  file) throws FileNotFoundException{
@@ -40,30 +42,7 @@ public class IR {
     
     
     /** 
-    * This constructor initialize the audit file and taking input files
-    *@param file The input file for IR election
-    **/
-    public IR(File[] files) {
-        this.files = files;
-        audit = new IR_Audit_File();
-    }
-
-     /**
-   * This method returns the path names if the files in the format "filepath1 filepath2". This metod is to test multiple files feature
-   * @return s String containing pathnames of all files being brought in
-   */
-
-   public String getFiles(){
-    String s = files[0].toString();
-    for(int i = 1; i < files.length; i++){
-    s = s + " " + files[i].toString();
-    }
-    return s;
-}
-
-
-    /** 
-    *The method run the entire election from start to finish using various methods
+    *@brief The method run the entire election from start to finish using various methods
     **/
     public void run(){
         int rounds = 1;
@@ -88,6 +67,7 @@ public class IR {
                 }
             }
             audit.writeToAudit("\nRound " + rounds + ":");
+            updateTable(rounds);
             rounds++;
         }
         if (winner == null){
@@ -95,34 +75,40 @@ public class IR {
         }
 
         displayResults();
+        printTable(rounds - 1);
         audit.writeToAudit("DATA SUCCESSFULLY POPULATED.\n");
         audit.outputAudit();
     }
 
     
     /** 
-    *This method will scan the given ballot file and read/store the informations to the election
+    *@brief This method will scan the given ballot file and read/store the informations to the election
     **/
     public void initializeData(){       
         scanner.nextLine();   //skip 1st line
         numCandidates = scanner.nextInt();
         remainingCandidates = numCandidates; //initialize remainingCanidates
+        tableData = new int[numCandidates + 1][numCandidates]; //initiallize table
         scanner.nextLine();  //get numCandidates
         String[] candidateNames = scanner.nextLine().split(", ");  //get candidates
-        candidates = new IR_Candidate[numCandidates];  
+        candidates = new IR_Candidate[numCandidates]; 
+        ranking = new IR_Candidate[numCandidates]; 
         for (int a = 0; a < numCandidates; a++){
             candidates[a] = new IR_Candidate(candidateNames[a], a); //add candidates to candidate array
+            ranking[a] = candidates[a];
         }                      
         numBallots = scanner.nextInt(); //get numBallots
         scanner.nextLine(); //move to next line
         ballots = new IR_Ballot[numBallots];   //initialize ballot array
+        exhaustedPile = new int[numBallots]; //initialize exhausted pile
+        exhaustedIndex = 0;
         for (int a = 0; a < numCandidates; a++){
             candidates[a].setCandidateBallots(numBallots);   //initialize candidate ballot arrays
         }     
     } 
 
     /**
-    @This method will read in the ballots data and store the votes with corresponding candidate 
+    @brief This method will read in the ballots data and store the votes with corresponding candidate 
     **/
     public void populateData(){
         int curBallot = 0;
@@ -145,7 +131,7 @@ public class IR {
 
    
     /** 
-    *Assign the votes in each ballot for the candidates
+    *@brief Assign the votes in each ballot for the candidates
     **/
     public void assignBallots(){
         int currentCandidate = -1;
@@ -161,7 +147,7 @@ public class IR {
     }
 
     /** 
-    *Get the array of the Candidates
+    *@brief Get the array of the Candidates
     *@return The IR_Candidate array
     **/
     public IR_Candidate[] getCandidates(){
@@ -169,7 +155,7 @@ public class IR {
     }
 
     /** 
-    *Get the number of candidates in the election
+    *@brief Get the number of candidates in the election
     *@return The number of canidates
     **/
     public int getNumCandidates(){
@@ -177,7 +163,7 @@ public class IR {
     }
 
     /** 
-    *Get the number of ballots in the election
+    *@brief Get the number of ballots in the election
     *@return The total ballots in the election
     **/
     public int getNumBallots(){
@@ -185,19 +171,19 @@ public class IR {
     }
 
     /**
-     *  Get ballot array
+     * @brief Get ballot array
      * @return ballot array
      */
     public IR_Ballot[] getBallots(){return ballots;}
 
     /**
-     *  Get candidate 
+     * @brief Get candidate 
      * @return
      */
     public IR_Candidate[] getRankings(){return ranking;}
     
     /** 
-    * The method is to make loser candidate with lowest votes
+    *@brief The method is to make loser candidate with lowest votes
     *@param loser IR_candidate of who will be the loser in the election
     **/
     public void makeLoser(IR_Candidate loser){
@@ -213,6 +199,9 @@ public class IR {
             }
             if (ballots[curBallot].getCurrentVote() != -1){
                 candidates[ballots[curBallot].getCurrentVote()].addBallot(curBallot); //add ballot to new candidate's array
+            }else{
+                exhaustedPile[exhaustedIndex] = ballots[curBallot].getBallotID();
+                exhaustedIndex++;
             }
         }
         if (ranking[remainingCandidates - 1].getCandidateID() != loser.getCandidateID()){
@@ -225,7 +214,7 @@ public class IR {
     }
 
     /** 
-    * The method check for how many cadidates tie in the election for winner
+    *@brief The method check for how many cadidates tie in the election for winner
     *@return The number of tie candidates in the election
     **/
     public int checkForWinnerTie(){
@@ -241,7 +230,7 @@ public class IR {
     }
 
     /** 
-    * The method check for how many candidates ties in votes 
+    *@brief The method check for how many candidates ties in votes 
     *@return The number of loser candidates
     **/
     public int checkForLoserTie(){
@@ -257,7 +246,7 @@ public class IR {
     }
 
     /** 
-    * Determine the winning candidate in a tie by coin toss method
+    *@brief Determine the winning candidate in a tie by coin toss method
     *@return A randomly generate number 0 or 1, 0 for heads, and 1 for tails
     **/
     public int coinToss(){
@@ -272,7 +261,7 @@ public class IR {
     }
 
     /** 
-    * Tie situation for more than 2 candidates
+    *@brief Tie situation for more than 2 candidates
     Assigned random number to all candidates, and generate a random selection 
     *@return The number of the winning candidate
     **/
@@ -286,7 +275,7 @@ public class IR {
     }
 
     /** 
-    * Display the result of the lection
+    *@brief Display the result of the lection
     *Also, write the result into the audit file
     **/
     public void displayResults(){
@@ -306,11 +295,10 @@ public class IR {
     }
 
     /** 
-    * Set the election status for all the candidates from highest to lowest
+    *@brief Set the election status for all the candidates from highest to lowest
     *@return True for candidate with highest ranking is sorted in right position
     **/
     public boolean setElectionStatus(){ //rank all candidates highest to lowest, find winner if there is one
-        ranking = candidates;
         for (int i = 0; i < numCandidates; i++){ //insertion sort modified from geeksforgeeks
             IR_Candidate key = ranking[i];
             int j = i - 1;
@@ -336,7 +324,7 @@ public class IR {
     }
    
     /** 
-    * Clean the IR_Candidate array
+    *@brief Clean the IR_Candidate array
     *@param candidates The array that stores all candidates in the election
     **/
     public void clearCandidates(IR_Candidate[] candidates){
@@ -344,11 +332,59 @@ public class IR {
     }
 
     /** 
-    * Clean the IR_Ballot array
+    *@brief Clean the IR_Ballot array
     *@param ballots The array that stores all ballots in the election
     **/
     public void clearBallots(IR_Ballot[] ballots){
         Arrays.fill(ballots, null);
+    }
+
+    public void updateTable(int round){
+        for (int a = 0; a < numCandidates; a++){
+            tableData[a][round] = candidates[a].getVotes();
+        }
+        tableData[numCandidates][round] = exhaustedIndex;
+    }
+
+    public void printTable(int round){
+        System.out.print("-------------------"); //format top of table
+        for (int a = 0; a < round; a ++){
+            System.out.print("----------------");
+        }
+        System.out.print("\n");
+
+        System.out.format("|   Candidates    |"); //format rounds header
+        for (int a = 1; a <= round; a++){
+            System.out.format("    Round %d    |", a);
+        }
+        System.out.print("\n");
+
+        System.out.format("|Candidates(Party)|"); //format vote count header
+        for (int a = 1; a <= round; a++){
+            System.out.format(" Votes | Delta |");
+        }
+        System.out.print("\n");
+
+        for (int a = 0; a < numCandidates; a++){  //format vote counts and deltas
+            System.out.format("| %16s|", ranking[a].getName());
+            for (int b = 1; b <= round; b++){
+                System.out.format(" %6d| %+6d|", tableData[ranking[a].getCandidateID()][b], 
+                (tableData[ranking[a].getCandidateID()][b] - tableData[ranking[a].getCandidateID()][b -1]));
+            }
+            System.out.print("\n");
+        }
+
+        System.out.format("|Exhausted Pile|");
+        for (int a = 1; a < round; a++){
+            System.out.format(" %6d| %+6d|", tableData[numCandidates][a], (tableData[numCandidates][a] - tableData[numCandidates][a - 1]));
+        }
+        System.out.print("\n");
+
+        System.out.print("-------------------");
+        for (int a = 0; a < round; a ++){
+            System.out.print("----------------");
+        }
+        System.out.print("\n");
     }
 }
 

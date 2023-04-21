@@ -18,6 +18,8 @@ public class IR {
     private IR_Candidate winner;
     private Scanner scanner;
     private int[][] tableData;
+    private int[] exhaustedPile;
+    private int exhaustedIndex;
 
     /** 
     *@brief This constructor initialize the audit file and taking input file
@@ -86,7 +88,7 @@ public class IR {
         scanner.nextLine();   //skip 1st line
         numCandidates = scanner.nextInt();
         remainingCandidates = numCandidates; //initialize remainingCanidates
-        tableData = new int[numCandidates][numCandidates]; //initiallize table
+        tableData = new int[numCandidates + 1][numCandidates]; //initiallize table
         scanner.nextLine();  //get numCandidates
         String[] candidateNames = scanner.nextLine().split(", ");  //get candidates
         candidates = new IR_Candidate[numCandidates]; 
@@ -98,6 +100,8 @@ public class IR {
         numBallots = scanner.nextInt(); //get numBallots
         scanner.nextLine(); //move to next line
         ballots = new IR_Ballot[numBallots];   //initialize ballot array
+        exhaustedPile = new int[numBallots]; //initialize exhausted pile
+        exhaustedIndex = 0;
         for (int a = 0; a < numCandidates; a++){
             candidates[a].setCandidateBallots(numBallots);   //initialize candidate ballot arrays
         }     
@@ -195,6 +199,9 @@ public class IR {
             }
             if (ballots[curBallot].getCurrentVote() != -1){
                 candidates[ballots[curBallot].getCurrentVote()].addBallot(curBallot); //add ballot to new candidate's array
+            }else{
+                exhaustedPile[exhaustedIndex] = ballots[curBallot].getBallotID();
+                exhaustedIndex++;
             }
         }
         if (ranking[remainingCandidates - 1].getCandidateID() != loser.getCandidateID()){
@@ -336,6 +343,7 @@ public class IR {
         for (int a = 0; a < numCandidates; a++){
             tableData[a][round] = candidates[a].getVotes();
         }
+        tableData[numCandidates][round] = exhaustedIndex;
     }
 
     public void printTable(int round){
@@ -357,13 +365,21 @@ public class IR {
         }
         System.out.print("\n");
 
-        for (int a = 0; a < numCandidates; a++){
+        for (int a = 0; a < numCandidates; a++){  //format vote counts and deltas
             System.out.format("| %16s|", ranking[a].getName());
             for (int b = 1; b <= round; b++){
-                System.out.format(" %6d| %+6d|", tableData[a][b], (tableData[a][b] - tableData[a][b -1]));
+                System.out.format(" %6d| %+6d|", tableData[ranking[a].getCandidateID()][b], 
+                (tableData[ranking[a].getCandidateID()][b] - tableData[ranking[a].getCandidateID()][b -1]));
             }
             System.out.print("\n");
         }
+
+        System.out.format("|Exhausted Pile|");
+        for (int a = 1; a < round; a++){
+            System.out.format(" %6d| %+6d|", tableData[numCandidates][a], (tableData[numCandidates][a] - tableData[numCandidates][a - 1]));
+        }
+        System.out.print("\n");
+
         System.out.print("-------------------");
         for (int a = 0; a < round; a ++){
             System.out.print("----------------");
