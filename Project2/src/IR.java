@@ -37,6 +37,7 @@ public class IR {
         populateData(); //add all ballots to ballot array and assign IDs
         audit.writeToAudit("\nInitial Candidate Votes:");
         assignBallots(); //assign ballot IDs to candidate's ballot array
+        updateTable(0);
         scanner.close();
     }
     
