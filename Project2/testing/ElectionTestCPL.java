@@ -491,7 +491,7 @@ public void testaddVote(){
 }
 
 @Test 
-public void testDistributeSeatCandidatePool(){
+public void testDistributeSeatCandidatePool(){ 
    
 
     CPL cpltest = null;
@@ -501,7 +501,7 @@ public void testDistributeSeatCandidatePool(){
     int count = 0; //how many times extra seat is given to one of the two parties
     for(int i = 0; i < 1000; i++){
         try{
-        File file = new File(path + "\\testDistrubuteSeatPoolCandidates.csv");   
+        File file = new File(path + "\\testDistrubuteSeatCandidatePool.csv");   
         File[] test = new File[1]; 
         test[0] = file;     
         cpltest = new CPL(test);
@@ -512,10 +512,6 @@ public void testDistributeSeatCandidatePool(){
         }
         cpltest.assignBallots();
         cpltest.distributeSeats();
-
-
-    
-
    
         Party[] parties = cpltest.getParties();
         CPL_Candidate[] candidates = parties[0].getCandidates();
@@ -525,14 +521,20 @@ public void testDistributeSeatCandidatePool(){
             count++;
         }
     }
+    
+    
  
     double percent = count/1000.0;
+    int a = 0;
+    int e = -5;
     if(percent >= .475 && percent <=.525){ // sees if it falls within .5 with  a margin of error of .025 +/-
         actual = "fair around 50-50";
+        a = count;
 
     }
     else{
         actual = "not fair";
+        e = -4;
   
     
     }
@@ -581,11 +583,11 @@ public void testMultipleFiles() throws FileNotFoundException{
 
    // java.util.NoSuchElementException: No line found
 
-    //String expected = fileNames[0] + " " + fileNames[1] + " " + fileNames[2];
+    String expected = fileNames[0] + " " + fileNames[1] + " " + fileNames[2];
     
-    //String actual =  cpl.getFiles();
+    String actual =  cpl.getFiles();
 
-    //assertEquals("Testing bringing in multiple files", expected, actual);
+    assertEquals("Testing bringing in multiple files", expected, actual);
         }
 }
 
