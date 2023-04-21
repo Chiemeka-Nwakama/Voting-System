@@ -86,45 +86,21 @@ public class CPL {
         distributeSeats(); // distributes seats to parties
         audit.writeToAudit("END OF ELECTION"); // writes that the election is over to audit
         audit.outputAudit(); // output audit file to file named "audit" once the election is completed        
-        displayResults(); //displays results since election has been completed
-
-    String[] expectedBallots = {"Ballot 0: 1,,,,,,", "Ballot 7: 1,,,,,,", "Ballot 2: ,1,,,,,", "Ballot 8: ,1,,,,,", "Ballot 6: ,,1,,,,", "Ballot 5: ,,,1,,,", "Ballot 3: ,,,,1,,", "Ballot 4: ,,,,,1,", "Ballot 1: ,,,,,,1"};
-
-
-    int start = 0;
-    for (int i = 0; i < numParties; i++) {
-        Party current_parties = parties[i];
-        ArrayList <CPL_Ballot> b = new ArrayList<>();
-        b = p.getBallots();
-        for (int j = 0; j < b.size(); j++) {
-            assertEquals("Testing to see if assigning ballots: ", expectedBallots[start], b.get(j).toString());
-            start++;
-            
+        displayResults(); //displays results since election has been completed        
+        String expectedPartyNumber = "7";
+        String actualPartyNumber_s = getNumParties() + "";
+    
+        String expectedParties = "Democratic Republican New Wave Reform Green Independent Test ";
+        String actualParties_s = "";
+        Party[] parties_s = getParties();
+    
+        for(Party party: parties_s){
+            actualParties_s = actualParties_s + party.getName() + " ";
+    
         }
-    }
-
-/*
-    int j = 0;
-    int i = 0;
-    int start = 0;
-    for (Party party: parties) {
-        CPL_Ballot [] party_ballots = party.getBallots();
-        for (i = start; i < (start + party_ballots.length); i++) {
-            System.out.println("Expected: " + expectedBallots[i].toString());
-            System.out.println("Actual: " + party_ballots[j].toString());
-            System.out.println("i " + i);
-            System.out.println("j " + j);
-            System.out.println("start " + start);
-            System.out.println("party ballot length " + party_ballots.length);
-            j++;
-        }
-        j = 0;
-        start = start + party_ballots.length;
-
-
-
-    }
-    */
+        System.out.println(actualParties_s);
+        System.out.println(expectedParties);
+    
         clearBallots();
 
 

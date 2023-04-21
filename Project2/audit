@@ -155,50 +155,14 @@ Participating parties in current round of choosing a winner:
 4: Test
 
 Seats remaining: 4
-Choosen randomized number: 447
+Choosen randomized number: 357
 
 Generating and assigning random numbers to parties:
-New Wave: Assigned number = 140
-Reform: Assigned number = 478
-Green: Assigned number = 696
-Independent: Assigned number = 682
-Test: Assigned number = 3
-
-Winner selected
-Reform had the number closest to the choosen randomized number
-Reform won a seat!
-
-Participating parties in current round of choosing a winner:
-0: New Wave
-1: Green
-2: Independent
-3: Test
-
-Seats remaining: 3
-Choosen randomized number: 866
-
-Generating and assigning random numbers to parties:
-New Wave: Assigned number = 140
-Green: Assigned number = 696
-Independent: Assigned number = 682
-Test: Assigned number = 3
-
-Winner selected
-Green had the number closest to the choosen randomized number
-Green won a seat!
-
-Participating parties in current round of choosing a winner:
-0: New Wave
-1: Independent
-2: Test
-
-Seats remaining: 2
-Choosen randomized number: 473
-
-Generating and assigning random numbers to parties:
-New Wave: Assigned number = 140
-Independent: Assigned number = 682
-Test: Assigned number = 3
+New Wave: Assigned number = 84
+Reform: Assigned number = 140
+Green: Assigned number = 489
+Independent: Assigned number = 260
+Test: Assigned number = 51
 
 Winner selected
 Independent had the number closest to the choosen randomized number
@@ -206,14 +170,50 @@ Independent won a seat!
 
 Participating parties in current round of choosing a winner:
 0: New Wave
+1: Reform
+2: Green
+3: Test
+
+Seats remaining: 3
+Choosen randomized number: 443
+
+Generating and assigning random numbers to parties:
+New Wave: Assigned number = 84
+Reform: Assigned number = 140
+Green: Assigned number = 489
+Test: Assigned number = 51
+
+Winner selected
+Green had the number closest to the choosen randomized number
+Green won a seat!
+
+Participating parties in current round of choosing a winner:
+0: New Wave
+1: Reform
+2: Test
+
+Seats remaining: 2
+Choosen randomized number: 723
+
+Generating and assigning random numbers to parties:
+New Wave: Assigned number = 84
+Reform: Assigned number = 140
+Test: Assigned number = 51
+
+Winner selected
+Reform had the number closest to the choosen randomized number
+Reform won a seat!
+
+Participating parties in current round of choosing a winner:
+0: New Wave
 1: Test
 
 Seats remaining: 1
-Choosen randomized number: 785
+Choosen randomized number: 487
 
 Generating and assigning random numbers to parties:
-New Wave: Assigned number = 140
-Test: Assigned number = 3
+New Wave: Assigned number = 84
+Test: Assigned number = 51
 
 Winner selected
 New Wave had the number closest to the choosen randomized number
