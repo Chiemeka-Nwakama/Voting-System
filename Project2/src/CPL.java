@@ -86,21 +86,7 @@ public class CPL {
         distributeSeats(); // distributes seats to parties
         audit.writeToAudit("END OF ELECTION"); // writes that the election is over to audit
         audit.outputAudit(); // output audit file to file named "audit" once the election is completed        
-        displayResults(); //displays results since election has been completed        
-        String expectedPartyNumber = "7";
-        String actualPartyNumber_s = getNumParties() + "";
-    
-        String expectedParties = "Democratic Republican New Wave Reform Green Independent Test ";
-        String actualParties_s = "";
-        Party[] parties_s = getParties();
-    
-        for(Party party: parties_s){
-            actualParties_s = actualParties_s + party.getName() + " ";
-    
-        }
-        System.out.println(actualParties_s);
-        System.out.println(expectedParties);
-    
+        displayResults(); //displays results since election has been completed            
         clearBallots();
 
 
