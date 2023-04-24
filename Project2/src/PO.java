@@ -15,6 +15,7 @@ public class PO {
     private int seatsRemaining;
     private PO_Ballot[] ballots;
     private PO_Audit_File audit;
+    private PO_Audit_File exhausted;
     private final int randomConstant = 1000;
     public Scanner sc;
     
@@ -35,6 +36,25 @@ public class PO {
         audit.writeToAudit("DATA SUCCESSFULLY POPULATED!\n");
         
         sc.close();
+    }
+    /**
+     * Loops through ballots to find any ballots with current vote of -1 and writes them to the exhausted ballot file
+     * @param file
+     * @return void
+     */
+    public void findExhaustedBallots(File file) throws FileNotFoundException {
+        exhausted = new CPL_Audit_File();
+        exhausted.writeToAudit("FINDING EXHAUSTED BALLOTS...");
+        int total = 0;
+        for(int i = 0; i < numBallots; i++){
+            if(ballots.getVotes() == -1){
+                exhausted.writeToAudit("FOUND " + i);
+                total++;
+            }
+        }
+        if(total > 0){
+            exhausted.writeToAudit("Number of exhausted ballots: " + total);
+        }
     }
       /**
    * This method runs the entire election from start to finish using various methods along the way writes to the audit file
@@ -503,7 +523,7 @@ Two while loops. While there are no more seats to give, for the first round we f
         //we are displaying information about the election such as number of candidates, ballots, party names along with votes recieved and seats earned and caniddate names along with seats they earned
         String results = "";
          
-        results += "-----CLOSED PARTY LIST ELECTION RESULTS AND SUMMARY-----\n\n";
+        results += "-----POPULARITY ONLY ELECTION RESULTS AND SUMMARY-----\n\n";
         results += "GENERAL INFORMATION ABOUT THE ELECTION\n";
         results += "Number of Parties: " + numParties + "\n";
         results += "Number of Candidates: " + numCandidates + "\n";
