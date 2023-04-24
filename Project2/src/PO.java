@@ -15,6 +15,7 @@ public class PO {
     private int seatsRemaining;
     private PO_Ballot[] ballots;
     private PO_Audit_File audit;
+    private PO_Audit_File exhausted;
     private final int randomConstant = 1000;
     public Scanner sc;
     
@@ -36,7 +37,7 @@ public class PO {
         
         sc.close();
     }
-    
+
     /**
      * Loops through ballots to find any ballots with current vote of -1 and writes them to the exhausted ballot file
      * @param file
