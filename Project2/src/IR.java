@@ -76,8 +76,7 @@ public class IR {
                 }else{
                     makeLoser(ranking[poolSelect(numTied)]); //redistribute losing candidate's votes
                 }
-            numTied = checkForLoserTie();
-            }else if (numTied < remainingCandidates){
+            }else if ((numTied = checkForLoserTie()) < remainingCandidates){
                 if (numTied == 2){
                     makeLoser(ranking[(remainingCandidates - 1) - coinToss()]);
                 }else if (numTied > 2){

@@ -84,10 +84,10 @@ public class Election{
             cpl.run();
             
         }else if (election_type.equals("IR")){
-            IR ir = new IR(files[0]);
+            IR ir = new IR(files);
             //
             ir.run();
-            ir.run();
+            
             
         }
     

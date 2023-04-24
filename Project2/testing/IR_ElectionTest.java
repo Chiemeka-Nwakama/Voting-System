@@ -19,7 +19,8 @@ public class IR_ElectionTest {
     @Before
     public void setUp(){    
         try{
-            File file = new File("/home/casey526/CSCI/CSCI5801/repo-Team3/CSCI 5801 Election System/IRtest.csv");
+            File[] file = new File[1];
+            file[0] = new File("/home/casey526/CSCI/CSCI5801/repo-Team3/Project2/testing/IRtest.csv");
             ir = new IR(file);
         }
         catch(Exception e) { 
@@ -32,7 +33,6 @@ public class IR_ElectionTest {
 
 @Test
 public void makeTestFile(){
-    IR_Make_Test_File testFile = new IR_Make_Test_File(1000, 6);
     IR_Make_Test_File testFile = new IR_Make_Test_File(1000, 6);
     testFile.makeTestFile();
     testFile.outputTestFile();
@@ -171,13 +171,10 @@ public void testMultipleFiles(){
 
 @Test
 public void testTable(){
-    
+    ir.run();
+    int[][] expected = new int[5][4];
+    expected = [[0, 3, 3, 3], [0, 0, 0, 0], [0, 2, 2, 2], [0, 1, 1, 0], [0, 0, 0, 1]];
+    assertEquals("table has proper data", expected, tableData); 
 }
-
-@Test
-public void testTable(){
-    
-}
-
 
 }
