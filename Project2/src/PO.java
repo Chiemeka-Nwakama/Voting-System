@@ -15,6 +15,7 @@ public class PO {
     private int seatsRemaining;
     private PO_Ballot[] ballots;
     private PO_Audit_File audit;
+    private PO_Audit_File exhausted;
     private final int randomConstant = 1000;
     public Scanner sc;
     
@@ -36,6 +37,27 @@ public class PO {
         
         sc.close();
     }
+
+    /**
+     * Loops through ballots to find any ballots with current vote of -1 and writes them to the exhausted ballot file
+     * @param file
+     * @return void
+     */
+    public void findExhaustedBallots(File file) throws FileNotFoundException {
+        exhausted = new CPL_Audit_File();
+        exhausted.writeToAudit("FINDING EXHAUSTED BALLOTS...");
+        int total = 0;
+        for(int i = 0; i < numBallots; i++){
+            if(ballots.getVotes() == -1){
+                exhausted.writeToAudit("FOUND " + i);
+                total++;
+            }
+        }
+        if(total > 0){
+            exhausted.writeToAudit("Number of exhausted ballots: " + total);
+        }
+    }
+
       /**
    * This method runs the entire election from start to finish using various methods along the way writes to the audit file
    * @param file

@@ -1,3 +1,4 @@
+
 package src;
 import java.util.Scanner;
 import java.io.*;
@@ -24,31 +25,25 @@ public class IR {
 
     /** 
     * This constructor initialize the audit file and taking input file
-    *@param file The input file for IR election
+    *@param file The input file for IR election 
     **/
-    public IR(File  file) throws FileNotFoundException{
-        inputFile = file;
+    public IR(File[] files) throws FileNotFoundException {
         audit = new IR_Audit_File();
         audit.writeToAudit("INSTANT RUNOFF (IR) VOTING ELECTION");
         audit.writeToAudit("AUDIT FILE INITIALIZED");
-        audit.writeToAudit("POPULATING DATA FROM IR ELECTION FILE...\n");
-        audit.writeToAudit("Ballots:");
-        scanner = new Scanner(inputFile);
-        initializeData();
-        populateData(); //add all ballots to ballot array and assign IDs
-        audit.writeToAudit("\nInitial Candidate Votes:");
-        assignBallots(); //assign ballot IDs to candidate's ballot array
-        scanner.close();
-    }
-    
-    
-    /** 
-    * This constructor initialize the audit file and taking input files
-    *@param file The input file for IR election
-    **/
-    public IR(File[] files) {
-        this.files = files;
-        audit = new IR_Audit_File();
+
+        for (int i = 0; i < files.length; i++) {
+            inputFile = files[i];
+            audit.writeToAudit("POPULATING DATA FROM IR ELECTION FILE " + inputFile.getName() + "...\n");
+            audit.writeToAudit("Ballots:");
+
+            scanner = new Scanner(inputFile);
+            initializeData();
+            populateData(); // add all ballots to ballot array and assign IDs
+            audit.writeToAudit("\nInitial Candidate Votes:");
+            assignBallots(); // assign ballot IDs to candidate's ballot array
+            scanner.close(); 
+        }
     }
 
      /**

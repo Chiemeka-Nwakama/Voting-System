@@ -87,6 +87,7 @@ public class Election{
             IR ir = new IR(files[0]);
             //
             ir.run();
+            ir.run();
             
         }
     
