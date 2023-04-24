@@ -364,6 +364,10 @@ public class IR {
      */
     public int[][] getTable(){return tableData;}
 
+    /**
+     * Update the table's data each round to track results
+     * @param round tracks what round of the election and t.f. what index the election is on
+     */
     public void updateTable(int round){
         for (int a = 0; a < numCandidates; a++){
             tableData[a][round] = candidates[a].getVotes();
@@ -371,6 +375,10 @@ public class IR {
         tableData[numCandidates][round] = exhaustedIndex;
     }
 
+    /**
+     * prints the IR results table formatted properly
+     * @param round tracks round so the function knows how much to print
+     */
     public void printTable(int round){
         System.out.print("-------------------"); //format top of table
         for (int a = 0; a < round; a ++){
