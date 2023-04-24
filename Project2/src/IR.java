@@ -357,6 +357,13 @@ public class IR {
         Arrays.fill(ballots, null);
     }
 
+
+    /**
+     * Return the IR table's contents
+     * @return tableData the 2D array with table's info
+     */
+    public int[][] getTable(){return tableData;}
+
     public void updateTable(int round){
         for (int a = 0; a < numCandidates; a++){
             tableData[a][round] = candidates[a].getVotes();

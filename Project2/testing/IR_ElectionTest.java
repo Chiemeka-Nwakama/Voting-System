@@ -139,15 +139,23 @@ public void testMakeLoser(){
 @Test
 public void testCoinToss(){ //should pass about half the time
     int candidate = ir.coinToss();
-    int expectedCandidate = 1;
-    assertEquals(expectedCandidate, candidate);
+    boolean expectedCandidate = true;
+    boolean actualCandidate = false;
+    if (candidate >= 0 && candidate <= 1){
+        actualCandidate = true;
+    }
+    assertEquals(expectedCandidate, actualCandidate);
 }
 
 @Test
 public void testPoolSelect(){ //should pass about a third of the time
     int candidate = ir.poolSelect(3);
-    int expectedCandidate = 1;
-    assertEquals(expectedCandidate, candidate);
+    boolean expectedCandidate = true;
+    boolean actualCandidate = false;
+    if (candidate >= 0 && candidate <= 2){
+        actualCandidate = true;
+    }
+    assertEquals(expectedCandidate, actualCandidate);
 }
 @Test 
 public void testMultipleFiles(){
@@ -158,12 +166,12 @@ public void testMultipleFiles(){
                 files[i] = new File(fileNames[i]);
 
             }
-    IR ir = new IR(files);
+    IR multIR = new IR(files);
 
    
     String expected = fileNames[0] + " " + fileNames[1] + " " + fileNames[2];
     
-    String actual =  ir.getFiles();
+    String actual =  multIR.getFiles();
 
     assertEquals("Testing bringing in multiple files", expected, actual);
 
@@ -171,10 +179,15 @@ public void testMultipleFiles(){
 
 @Test
 public void testTable(){
+    int [][] expected = {
+        {0, 3, 3, 3}, 
+        {0, 0, 0, 0}, 
+        {0, 2, 2, 2}, 
+        {0, 1, 1, 0}, 
+        {0, 0, 0, 1}
+    };
     ir.run();
-    int[][] expected = new int[5][4];
-    expected = [[0, 3, 3, 3], [0, 0, 0, 0], [0, 2, 2, 2], [0, 1, 1, 0], [0, 0, 0, 1]];
-    assertEquals("table has proper data", expected, tableData); 
+    assertEquals(expected, ir.getTable());
 }
 
 }
