@@ -7,62 +7,79 @@ import java.util.Random;
 import java.util.ArrayList;
 
 public class PO {
-    private int numParties;
     private int numCandidates;
-    private int totalSeats;
     private int numBallots;
     private PO_Candidate[] candidates;
-    private int seatsRemaining;
-    private PO_Ballot[] ballots;
-    private PO_Audit_File audit;
+    private ArrayList<PO_Ballot> ballots;
+    private File[] files;
     private final int randomConstant = 1000;
+    private PO_Candidate winner;
     public Scanner sc;
     
-      /**
+
+  /**
    * This constructor takes in the election file and kicks off the population of data into data types by calling various methods within
-   * @param file
+   * @param files
    */
 
-    public PO(File file) throws FileNotFoundException{
-        audit = new CPL_Audit_File(); // intitalzies the audit file
-        audit.writeToAudit("PO ELECTION");
-        audit.writeToAudit("AUDIT FILE INITIALIZED");
-        audit.writeToAudit("POPULATING DATA FROM PO ELECTION FILE...\n");
-        sc = new Scanner(file);
-        sc.nextLine(); //ignores first line since it was read already in the Election Class
-        populateCandidates(file, sc);
-        populateBallots(file, sc);
-        audit.writeToAudit("DATA SUCCESSFULLY POPULATED!\n");
-        
+   public PO(File[] files) throws FileNotFoundException{
+    this.files = files; // initilize file list
+    this.ballots = new ArrayList<>(); // initialize ballot arraylist
+  
+    sc = new Scanner(files[0]);
+    sc.nextLine(); // PO line
+    
+    populateCandidates(files[0], sc);
+   
+    sc.close();
+
+    for (int i = 0; i < files.length; i++) {
+        sc = new Scanner(files[i]);
+
+        // skip header
+        for (int j = 0; j < 3; j++) {
+           
+            sc.nextLine();
+        }
+       
+
+        populateBallots(files[i], sc);
+
         sc.close();
+
     }
+    
+   
+}
+
+   /**
+   * This method returns the path names if the files in the format "filepath1 filepath2". This metod is to test multiple files feature
+   * @return s String containing pathnames of all files being brought in
+   */
+
+   public String getFiles(){
+    String s = files[0].toString();
+    for(int i = 1; i < files.length; i++){
+    s = s + " " + files[i].toString();
+    }
+    return s;
+}
+/**
       /**
    * This method runs the entire election from start to finish using various methods along the way writes to the audit file
    * @param file
    * @return void
    */
-    public void run(File file){
-        audit.writeToAudit("START OF CPL ELECTION\n");
-        audit.writeToAudit("ASSIGNING BALLOTS TO PARTIES: ");
+    public void run(){
+       
         assignBallots(); // distibutes Ballots to the parties associated with the parties voted for
-        audit.writeToAudit("\nDISTRIBUTING SEATS TO PARTIES: ");
-        distributeSeats(); // distributes seats to parties
-        audit.writeToAudit("END OF ELECTION"); // writes that the election is over to audit
-        audit.outputAudit(); // output audit file to file named "audit" once the election is completed
+       
+        selectWinner(); // Selects winner
+     
         displayResults(); //displays results since election has been completed
 
     }
-    
-    /**
-   * This method returns the number of Parties in election
-   * @param void 
-   * @return A number of parties
-   */
 
-    public int getNumParties(){
-        return numParties;
-
-    }
       
      /**
    * This method returns the number of candidates in election
@@ -76,36 +93,27 @@ public class PO {
     }
 
         /**
-   * This method returns the total number of seats in election
+   * This method returns the total number of votes/ballots in election
    * @param void 
    * @return A number of seats
    */
 
-    public int getTotalSeats(){
-        return totalSeats;
+    public int getTotalVotes(){
+        return numBallots;
 
     }
 
-     /**
-   * This method returns the parties
-   * @param void 
-   * @return parties
-   */
-
-   public Party[] getParties(){
-    return parties;
-
-}
 
 
 
+ 
   /**
    * This method returns the ballots in election
    * @param void 
    * @return ballots
    */
 
-   public CPL_Ballot[] getBallots(){
+   public ArrayList<PO_Ballot> getBallots(){
     return ballots;
 
 }
@@ -119,130 +127,92 @@ public class PO {
     public int getNumBallots(){
         return numBallots;
 
+        
     }
 
-
-    
-
-    /**
-   * This method distributes the seats of in the election in two round allocations to the parties based on votes and the quota, ran after assigning ballots
-   * @param void
-   * @return void
+          /**
+   * This method returns the winner of the po election
+   * @param void 
+   * @return A candidate that won
    */
 
-    
-    public void distributeSeats(){
-        double numBallotsDec = numBallots;
-        double q = numBallotsDec / totalSeats; //calculates the quotes to be used to determine seats handed out
-        int quota = (int) Math.round(q);
-        if(quota == 1){
-            quota = 2; // quota can never be 1 messes up how many seats
-        }
-        seatsRemaining = totalSeats; //sets remaining seats to the total seats to give out in the election
-        Party temp[] = parties.clone(); // party list since they will be reordered by their remainders in descending order later
-        audit.writeToAudit("Calculating Quota: total Votes / total Seats");
-        audit.writeToAudit("Quota = " + numBallots + " / " + totalSeats + " = "  + quota + " (rounded)");
+   public PO_Candidate getWinner(){
+    return winner;
 
-        audit.writeToAudit("\nFIRST ROUND OF SEAT DISTRIBUTION:");
-        audit.writeToAudit("Seats Remaining: " + seatsRemaining);
-        firstRound(quota);
-
-        audit.writeToAudit("\nSECOND ROUND OF SEAT DISTRIBUTION:");
-        audit.writeToAudit("Seats Remaining: " + seatsRemaining);
-        audit.writeToAudit("Votes Remaining: ");
-        calculateRemainingVotes(quota); // calculates the remaining votes left to distribute seats
-        for(int i = 0; i < numParties; i++) {
-            audit.writeToAudit(parties[i].getName() + ": " + parties[i].getRemainderVotes());
-        }
-        audit.writeToAudit("");
-        secondRound(); // begins the second round which involves giving out the remaining seats based on the remainder
-
-
-        audit.writeToAudit("\nFINAL RESULTS:");
-        parties = temp.clone(); // corrects parties back to orginal order
-        for(int i =0; i < numParties; i++) {
-            audit.writeToAudit(parties[i].getName() + " Seats: " + parties[i].getSeats());
-    
-        }
-    audit.writeToAudit("PARTY SEAT DISTRIBUTION COMPLETED!\n");
-    audit.writeToAudit("CANDIDATE SEAT DISTRIBUTION:\n");
-    for(int i = 0; i < numParties; i++){ //distrbutes seats to candidates in every party
-        parties[i].distributeSeats(audit);
-    }
-   
 }
 
-    /**
-   * This method distributes the seats of in the election in the first round allocations to the parties based on votes and the quota, remainders seats are distributed in round 2
-   * @param quota the quota of the election used to determine how many seats to give out based on the votes a party got
-   * @return void
+
+          /**
+   * This method returns the candidates in the election
+   * @param void 
+   * @return an array of canddiates
    */
 
-    public void firstRound(int quota){
-        String results = "\nResults:\n";
-        for(int i = 0; i < numParties && seatsRemaining > 0; i++){
-           int seats =  parties[i].getVotes()/quota; //calculates the seats the a part will be granted before remainder
-           parties[i].addSeats(seats);
-           audit.writeToAudit("Allocating " + seats + " seats to " + parties[i].getName());
-           seatsRemaining = seatsRemaining - seats;
-           results += parties[i].getName() + " Seats: " + seats + "\n";
+   public PO_Candidate[] getCandidates(){
+    return candidates;
 
-        }
+}
 
-        audit.writeToAudit(results);
-    }
-   /**
-   * This method distributes the seats of in the election in the second round allocations based on remainder on votes  based on who has the highest remainder gets priority for remainder seats
+
+
+    
+
+    /**
+   * This method Picks a winner based on the candidate that has the highest popularity vote. Also handles ties
    * @param void
    * @return void
    */
-    public void secondRound(){
-        sortParties(parties);
 
-        for(int i = 0; i < numParties-1 && seatsRemaining > 0; i++) {
-            int dups = duplicates(i); // num duplicates
-            if(seatsRemaining < dups) {
-                audit.writeToAudit("A tie has occurred");
-                if(dups == 2){
-                    audit.writeToAudit("Coin Toss between two parties is initiated");
-                    int coin = coinToss();
-       
-                    if(coin == 0) {
-                        audit.writeToAudit(parties[i].getName() + " has won a seat!");
-                        parties[i].addSeats(1);
-                                        
-                    }else{
-                        audit.writeToAudit(parties[i+1].getName() + " has won a seat!");
-                        parties[i+1].addSeats(1);
-                    }
- 
-                }else{
-                    audit.writeToAudit("Pool select between 3 or more parties is initiated\n");
-                    poolselect(dups, i); // adds what index currently on to winner index to scale with which parties got pooled
-         
-                    
-                }
-                i = i + (dups-1); // subtract 1 as the loop increases by 1
+    
+    public void selectWinner(){
+    
+        PO_Candidate temp[] = candidates.clone(); // candidates list since they will be reordered by their remainders in descending order later
+        
+         sortCandidates(temp);
+         int dups = duplicates(0); // num duplicates
+         if(dups == 0){
+            winner = temp[0]; // gets winner by checking who has the most votes
 
+         }
+         else if(dups == 1){
+            
+            int coin = coinToss();
+          
+
+            if(coin == 0) {
+                winner = temp[0]; //first candidate is picked
+                                
             }else{
-                audit.writeToAudit(parties[i].getName() + " has won a seat!");
-                parties[i].addSeats(1);
+                
+                winner = temp[1]; // 2nd canddiates that tied is picked
             }
+
+        }else{
+            
+            winner = temp[poolselect(dups)]; // pool selects the winner
+ 
             
         }
-   
+
+        
     }
+      
+   
+
+    
+   
+   
     /**
-   * This method checks for how many parties of a give party with a remainder votes has that same amount of remainder votes
-   * @param index the index of the party that we are checking for duplicate remainder votes
-   * @return void
+   * This method checks for how Candidates have duplicate amount of votes (based on candidates with the most votes)
+   * @param index the index of the candidate that we are checking for duplicate remainder votes
+   * @return number of duplicates
    */
 
     public int duplicates(int index){
         int numDups = 0;
 
-        for(int i = index; i < numParties-1; i++) {
-            if(parties[i].getRemainderVotes() == parties[i+1].getRemainderVotes()) {
+        for(int i = index; i < numCandidates-1; i++) {
+            if(candidates[i].getVotes() == candidates[i+1].getVotes()) {
                 numDups++;
             }else{
                 break;
@@ -253,19 +223,9 @@ public class PO {
 
     }
 
-    
-/**
-   * This method calculates the remaining votes that a party has left after the first round allocation via the modulous of votes by the quota to get the remainder
-   * @param quota the quota of the election calculated by taking (total votes in election)/(total seats)
-   * @return void
-   */
 
-    public void calculateRemainingVotes(int quota){
-        for(int i = 0; i < numParties; i++) {
-            int remaining = parties[i].getVotes() % quota;
-            parties[i].setRemainderVotes(remaining);
-        }
-    }
+    
+
     /**
    * This method assigns ballots to Parties based on who they voted adding them to vote count of each party as well as giving the ballots to each parties candidates list
    * @param void
@@ -275,28 +235,12 @@ public class PO {
 
     public void assignBallots(){
 
-        for(CPL_Ballot ballot: ballots){ //loops through ballots finding out where to assign the ballot
-            int partyVote = ballot.getPartyVote();
-            parties[partyVote].addVote(ballot);
-            audit.writeToAudit("Assigning " +  ballot + " to " + parties[partyVote].getName());
-        }
-        Arrays.fill(ballots, null); // clears ballots since no longer need since they are in the parties now
-        audit.writeToAudit("BALLOT ASSIGNMENT AND VOTE COUNT COMPLETE!\n");
-        audit.writeToAudit("Results:\n ");
-        for(Party party: parties){ //iterates through each party
-            audit.writeToAudit(party.getName() + ":");
-            int partyVotes = party.getVotes(); //uses total votes to know when to stop looking for ballots since the rest will be null
-            audit.writeToAudit("Total Votes: " + partyVotes); // writes total votes to audit
-            audit.writeToAudit("Ballots Earned: "); // writes ballots earned to audit
-            CPL_Ballot[] partyBallots = party.getBallots();
-            for(int i = 0; i < partyVotes; i++){ //iterates through the ballot array in each party after distrubtion
-                audit.writeToAudit(partyBallots[i].toString());  // writes the each ballot the party earned to audit
-            }
-            audit.writeToAudit("");
-        }
-
-
-
+        
+        ballots.forEach((b) -> {
+            int candidateVote = b.getCandidateVote();
+            candidates[candidateVote].addVote();
+            
+        });
 
 
     }
@@ -310,21 +254,32 @@ public class PO {
 
 
 public void populateCandidates(File file, Scanner sc){ 
-   
+
+    
+    numCandidates = sc.nextInt();
+
+    
     candidates = new PO_Candidate[numCandidates];
-    String[] candidate_names =  sc.nextLine().split("],");
-    for(int i = 0; i < numCandidates; i++){ //reads candidates until all candidates are populated
-         String candidate_and_party = candidate_names[i].substring(1); // removes [braket in the front]
-         String[] candidate_info = candidate_and_party.split(","); //splits up the candidate name and party up by ","
-         candidates[i] = new PO_Candidate(candidate_info[0], candidate_info[1]); //makes new candidate with name and party
-        
-        audit.writeToAudit(candidates[i].getName() + ": "); //writes party name to audit
+    sc.nextLine(); //goes to next line
+    String[] candidate_names =  sc.nextLine().split("]");
+
+    //first candidates parse
+    String candidate_and_party = candidate_names[0].substring(1); // removes [braket in the front]
+    String[] candidate_info = candidate_and_party.split(","); //splits up the candidate name and party up by ","
+    candidates[0] = new PO_Candidate(candidate_info[0], candidate_info[1].substring(1)); //makes new candidate with name and party
+    
+    for(int i = 1; i < numCandidates; i++){ //reads candidates until all candidates are populated
+         candidate_and_party = candidate_names[i].substring(3); // removes [braket in the front]
+         candidate_info = candidate_and_party.split(","); //splits up the candidate name and party up by ","
+       
+         candidates[i] = new PO_Candidate(candidate_info[0], candidate_info[1].substring(1)); //makes new candidate with name and party
+
      
         }
-        candidateList = candidateList.substring(0, candidateList.length()-2);
+       
       
           
-    }    
+      
 
 }
     /**
@@ -334,28 +289,25 @@ public void populateCandidates(File file, Scanner sc){
    * @return void
    */
 
-public void populateBallots(File file, Scanner sc) {         
-    numBallots =  sc.nextInt(); // reads in the total number of ballots in election
-    ballots = new CPL_Ballot[numBallots];
-    sc.nextLine();
-    audit.writeToAudit("Number of Ballots: " + numBallots + "\n");
+public void populateBallots(File file, Scanner sc) {     
     
-    for(int i = 0; i < numParties; i++){ //reads candidates until all parties are populated
-           
-        parties[i].initilizeBallotCapacity(numBallots); //initialize capacity of ballots for each party to be total ballots in election
-    }
+    int fileBallots =  sc.nextInt(); // reads in the total number of seats avaliable, assumes same for each file
 
-    audit.writeToAudit("BALLOTS:");
-    for(int i = 0; i < numBallots; i++){ //iterates reading in all ballot lines
+    int id_num = numBallots;    
+    numBallots += fileBallots; 
+    sc.nextLine();
+
+    for (int i = 0; i < fileBallots; i++) {
         String ballot = sc.nextLine();
         int partyVote = ballot.indexOf("1"); // gets the pos of the vote
-        ballots[i] = new CPL_Ballot(partyVote, numParties); //intializes a new ballot
-        audit.writeToAudit(ballots[i].toString()); //prints out the ballots by id and their integer array repesentation         
-    }  
-    
+       
+        PO_Ballot individual_ballot = new PO_Ballot(partyVote, numCandidates, (id_num+i));
+        ballots.add(individual_ballot);
+    }
+
 }
      /**
-   * This method cointToss() will determine which party gets a seat in the two way tie
+   * This method cointToss() will determine which candidate wins in the two way tie
    * @param void 
    * @return A a randomly generate number 0 or 1, 0 for heads, 1 for tails
    */
@@ -378,39 +330,28 @@ public void populateBallots(File file, Scanner sc) {
    */
 
 /* SUMMARY: 
-partiesTemp stores the duplicate parties only
+candidateTemp stores the duplicate parties only
 assignedNumbers should be the same length and stores the assigned random numbers
 Two while loops. While there are no more seats to give, for the first round we find a winner based on the random numbers, give it a seat, and remove it. The next round we repeat with the remaining parties until there are no more seats
 */
 
-    public int poolselect(int ties, int begin){
-        ArrayList<Party> partiesTemp = new ArrayList<Party>(); // Create an ArrayList object
+    public int poolselect(int ties){
+        ArrayList<PO_Candidate> candidateTemp = new ArrayList<PO_Candidate>(); // Create an ArrayList object
         ArrayList<Integer> assignedNumbers = new ArrayList<Integer>();
         Random randomNum = new Random(); //create random object where we will produce our random numbers
         boolean winner = false;
         int index = 0;
 
         // Copy over parties to arraylist
-        for(int i = begin; i < (begin + ties); i++) {
-            partiesTemp.add(parties[i]);
+        for(int i = 0; i < ties + 1; i++) {
+            candidateTemp.add(candidates[i]);
         }
 
-        audit.writeToAudit("Parties in the pooling:");
-        for(int i = 0; i < partiesTemp.size(); i++) {
-            audit.writeToAudit(i + ": " + partiesTemp.get(i).getName());
-        }
 
-       // while there are seats to give
-        while(seatsRemaining > 0) {
+      
+         
 
-           // participating parties for the current round of choosing 1 winner
-            audit.writeToAudit("\nParticipating parties in current round of choosing a winner:");
-            for(int i = 0; i < partiesTemp.size(); i++) {
-                audit.writeToAudit(i + ": " + partiesTemp.get(i).getName());
-            }
-
-            audit.writeToAudit("\nSeats remaining: " + seatsRemaining);
-            // whie we have not choosen a winner to give 1 seat to based on random numbers
+           
             while(winner == false) {
                 winner = true;
 
@@ -420,21 +361,19 @@ Two while loops. While there are no more seats to give, for the first round we f
 
                 // chosen random number
                 int genNum = randomNum.nextInt(randomConstant);
-                audit.writeToAudit("Choosen randomized number: " + genNum);
+            
 
-
-                audit.writeToAudit("\nGenerating and assigning random numbers to parties:");
-                // assign the random numbers to the parties
-                for(int i = 0; i < ties; i++){
+                // assign the random numbers to the candidate
+                for(int i = 0; i < ties + 1; i++){
                     assignedNumbers.add(randomNum.nextInt(randomConstant)); //assigns a random number to each candidate
-                    audit.writeToAudit(partiesTemp.get(i).getName() + ": Assigned number = " + assignedNumbers.get(i));
+
                 }
         
                 
                 int leastDifference = Math.abs(genNum - assignedNumbers.get(0));
                 
                 // compare differences until a winner is found
-                for(int i = 1; i < ties && winner; i++){
+                for(int i = 1; i < ties + 1 && winner; i++){
 
                     int currDifference = Math.abs(genNum - assignedNumbers.get(i));
 
@@ -450,49 +389,32 @@ Two while loops. While there are no more seats to give, for the first round we f
                 }
         
             }
-            partiesTemp.get(index).addSeats(1);
-            seatsRemaining--;
+            return index; // returns winning candidates index. (Based on temp candidate list)
            
            
 
-            audit.writeToAudit("\nWinner selected");
-            audit.writeToAudit(partiesTemp.get(index).getName() + " had the number closest to the choosen randomized number");
-            audit.writeToAudit(partiesTemp.get(index).getName() + " won a seat!"); 
-            partiesTemp.remove(index);
-            assignedNumbers.remove(index);
-            index = 0;
-            winner = false;
-            ties--;
+   
 
             
 
-        }
-
-
-       
-    return 0; //returns the index of the winner
 
      }
 
-      /**
-   * This method sorts parties using Insertion sort by remainder of votes in descending order
-   * @param parties an array of the parties to be sorted
-   * @return void
-   */
-    public void sortParties(Party[] parties) // sorts party by their remainder votes 
-    {
-        for (int j = 1; j < parties.length; j++) {  
-            Party key = parties[j];
-            int i = j-1;  
-            while ( (i > -1) && ( parties[i].getRemainderVotes() < key.getRemainderVotes())) {  
-                parties[i+1] = parties[i];  
-                i--;  
-            }  
-            parties[i+1] = key;  
-    }
+
+public void sortCandidates(PO_Candidate[] candidates) // sorts candidates by votes
+{
+    for (int j = 1; j < candidates.length; j++) {  
+        PO_Candidate key = candidates[j];
+        int i = j-1;  
+        while ( (i > -1) && (candidates[i].getVotes() < key.getVotes())) {  
+            candidates[i+1] = candidates[i];  
+            i--;  
+        }  
+        candidates[i+1] = key;  
+}
 }
 
-
+ 
          /**
    * This method prints out all of the important results that the election judge and public would want to see from the election
    * @param void
@@ -503,40 +425,26 @@ Two while loops. While there are no more seats to give, for the first round we f
         //we are displaying information about the election such as number of candidates, ballots, party names along with votes recieved and seats earned and caniddate names along with seats they earned
         String results = "";
          
-        results += "-----POPULARITY ONLY ELECTION RESULTS AND SUMMARY-----\n\n";
+        results += "-----CLOSED PARTY LIST ELECTION RESULTS AND SUMMARY-----\n\n";
         results += "GENERAL INFORMATION ABOUT THE ELECTION\n";
-        results += "Number of Parties: " + numParties + "\n";
+        results += "WINNER: " + winner.getName() + " " + "("+ winner.getParty() + ")" + "\n";
         results += "Number of Candidates: " + numCandidates + "\n";
         results += "Number of Ballots cast: " + numBallots + "\n";
-       // results += "Total Number of Seats to in Election: " + totalSeats + "\n";
-        // results += "Party names, number of votes received, and how many seats earned:\n\n"; 
-        // for(int i = 0; i < numParties; i++){
-        //     results += parties[i].getName() + " \nVotes: " + parties[i].getVotes();// + "  Seats: " + parties[i].getSeats();
-        //     CPL_Candidate[] candiates = parties[i].getCandidates();
-        //     results += "\nCandidates name and number of seats received:\n";
-
+        results += "Total Number of in Election: " +  "\n";
+        results += "Candidate names and Party, number of votes received:" + "\n";
+        for(int i = 0; i < numCandidates; i++){
+            double votes = candidates[i].getVotes();
+            results += candidates[i].getName() + " " + "("+ candidates[i].getParty() + ")" + " \nVotes: " + candidates[i].getVotes() + " Percentage: " + Math.round((votes/numBallots * 100.00) * 100.0) / 100.0 + "%";
         
-        //     for(int j = 0; j < candiates.length; j++){
-        //         results += candiates[j].getName() + " " + "Seats: " + candiates[j].getSeats() + "\n";
-        //     }
-        //     results += "\n";
         
-        // }
-        results += "\n============================================================\n";
-        sortParties(parties);
-        result += "The Winner is: " + parties[0].getName();
-        double percentage = (parties[0].getVotes()/totalSeats)*100;
-        result += "\nPercentage of votes: " + "{:.2f}%".format(percentage) + "\n";
-        for(int i = 1; i < numParties; i++){
-            result += "\nThe Loser is: " + parties[i].getName();
-            percentage = (parties[i].getVotes()/totalSeats)*100;
-            result += "\nPercentage of votes: " + "{:.2f}%".format(percentage);
+            results += "\n";
+        
         }
 
+       
 
         System.out.println(results);
-        audit.writeToAudit("\n" + results);
-    
+       
 
     }
 
