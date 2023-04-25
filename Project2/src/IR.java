@@ -57,8 +57,25 @@ public class IR {
     s = s + " " + files[i].toString();
     }
     return s;
-}
+    }
 
+    /**
+    * This method creates a new file for exhausted ballots and loops through ballots to find any ballots with a current vote of -1, 
+    * then outputs exhausted ballots to the new file
+    */
+    public void createExhaustedBallotFile() throws IOException {
+        File exhaustedBallotsFile = new File("exhausted_ballots.txt");
+        exhaustedBallotsFile.createNewFile();
+        FileWriter writer = new FileWriter(exhaustedBallotsFile);
+        int total = 0;
+        for (int i = 0; i < ballots.length; i++) {
+            if (ballots[i].getCurrentVote() == -1) {
+                writer.write(ballots[i].getBallotID() + "\n");
+            }
+        }
+        writer.write("Total invalid votes: " + total);
+        writer.close();
+    }
 
     /** 
     *The method run the entire election from start to finish using various methods
@@ -76,8 +93,7 @@ public class IR {
                 }else{
                     makeLoser(ranking[poolSelect(numTied)]); //redistribute losing candidate's votes
                 }
-            numTied = checkForLoserTie();
-            }else if (numTied < remainingCandidates){
+            }else if ((numTied = checkForLoserTie()) < remainingCandidates){
                 if (numTied == 2){
                     makeLoser(ranking[(remainingCandidates - 1) - coinToss()]);
                 }else if (numTied > 2){
@@ -93,6 +109,12 @@ public class IR {
             winner = ranking[0];
         }
 
+        try {
+            createExhaustedBallotFile();
+        } catch (IOException e) {
+            // handle the exception
+            System.out.println("Error creating exhausted ballot file: " + e.getMessage());
+        }
         displayResults();
         printTable(rounds - 1);
         audit.writeToAudit("DATA SUCCESSFULLY POPULATED.\n");
@@ -358,6 +380,17 @@ public class IR {
         Arrays.fill(ballots, null);
     }
 
+
+    /**
+     * Return the IR table's contents
+     * @return tableData the 2D array with table's info
+     */
+    public int[][] getTable(){return tableData;}
+
+    /**
+     * Update the table's data each round to track results
+     * @param round tracks what round of the election and t.f. what index the election is on
+     */
     public void updateTable(int round){
         for (int a = 0; a < numCandidates; a++){
             tableData[a][round] = candidates[a].getVotes();
@@ -365,6 +398,10 @@ public class IR {
         tableData[numCandidates][round] = exhaustedIndex;
     }
 
+    /**
+     * prints the IR results table formatted properly
+     * @param round tracks round so the function knows how much to print
+     */
     public void printTable(int round){
         System.out.print("-------------------"); //format top of table
         for (int a = 0; a < round; a ++){

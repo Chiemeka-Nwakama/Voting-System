@@ -15,7 +15,6 @@ public class PO {
     private int seatsRemaining;
     private PO_Ballot[] ballots;
     private PO_Audit_File audit;
-    private PO_Audit_File exhausted;
     private final int randomConstant = 1000;
     public Scanner sc;
     
@@ -37,27 +36,6 @@ public class PO {
         
         sc.close();
     }
-
-    /**
-     * Loops through ballots to find any ballots with current vote of -1 and writes them to the exhausted ballot file
-     * @param file
-     * @return void
-     */
-    public void findExhaustedBallots(File file) throws FileNotFoundException {
-        exhausted = new CPL_Audit_File();
-        exhausted.writeToAudit("FINDING EXHAUSTED BALLOTS...");
-        int total = 0;
-        for(int i = 0; i < numBallots; i++){
-            if(ballots.getVotes() == -1){
-                exhausted.writeToAudit("FOUND " + i);
-                total++;
-            }
-        }
-        if(total > 0){
-            exhausted.writeToAudit("Number of exhausted ballots: " + total);
-        }
-    }
-
       /**
    * This method runs the entire election from start to finish using various methods along the way writes to the audit file
    * @param file
@@ -525,25 +503,36 @@ Two while loops. While there are no more seats to give, for the first round we f
         //we are displaying information about the election such as number of candidates, ballots, party names along with votes recieved and seats earned and caniddate names along with seats they earned
         String results = "";
          
-        results += "-----CLOSED PARTY LIST ELECTION RESULTS AND SUMMARY-----\n\n";
+        results += "-----POPULARITY ONLY ELECTION RESULTS AND SUMMARY-----\n\n";
         results += "GENERAL INFORMATION ABOUT THE ELECTION\n";
         results += "Number of Parties: " + numParties + "\n";
         results += "Number of Candidates: " + numCandidates + "\n";
         results += "Number of Ballots cast: " + numBallots + "\n";
-        results += "Total Number of Seats to in Election: " + totalSeats + "\n";
-        results += "Party names, number of votes received, and how many seats earned:\n\n"; 
-        for(int i = 0; i < numParties; i++){
-            results += parties[i].getName() + " \nVotes: " + parties[i].getVotes() + "  Seats: " + parties[i].getSeats();
-            CPL_Candidate[] candiates = parties[i].getCandidates();
-            results += "\nCandidates name and number of seats received:\n";
+       // results += "Total Number of Seats to in Election: " + totalSeats + "\n";
+        // results += "Party names, number of votes received, and how many seats earned:\n\n"; 
+        // for(int i = 0; i < numParties; i++){
+        //     results += parties[i].getName() + " \nVotes: " + parties[i].getVotes();// + "  Seats: " + parties[i].getSeats();
+        //     CPL_Candidate[] candiates = parties[i].getCandidates();
+        //     results += "\nCandidates name and number of seats received:\n";
 
         
-            for(int j = 0; j < candiates.length; j++){
-                results += candiates[j].getName() + " " + "Seats: " + candiates[j].getSeats() + "\n";
-            }
-            results += "\n";
+        //     for(int j = 0; j < candiates.length; j++){
+        //         results += candiates[j].getName() + " " + "Seats: " + candiates[j].getSeats() + "\n";
+        //     }
+        //     results += "\n";
         
+        // }
+        results += "\n============================================================\n";
+        sortParties(parties);
+        result += "The Winner is: " + parties[0].getName();
+        double percentage = (parties[0].getVotes()/totalSeats)*100;
+        result += "\nPercentage of votes: " + "{:.2f}%".format(percentage) + "\n";
+        for(int i = 1; i < numParties; i++){
+            result += "\nThe Loser is: " + parties[i].getName();
+            percentage = (parties[i].getVotes()/totalSeats)*100;
+            result += "\nPercentage of votes: " + "{:.2f}%".format(percentage);
         }
+
 
         System.out.println(results);
         audit.writeToAudit("\n" + results);
