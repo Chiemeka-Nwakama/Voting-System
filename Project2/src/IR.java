@@ -57,8 +57,25 @@ public class IR {
     s = s + " " + files[i].toString();
     }
     return s;
-}
+    }
 
+    /**
+    * This method creates a new file for exhausted ballots and loops through ballots to find any ballots with a current vote of -1, 
+    * then outputs exhausted ballots to the new file
+    */
+    public void createExhaustedBallotFile() throws IOException {
+        File exhaustedBallotsFile = new File("exhausted_ballots.txt");
+        exhaustedBallotsFile.createNewFile();
+        FileWriter writer = new FileWriter(exhaustedBallotsFile);
+        int total = 0;
+        for (int i = 0; i < ballots.length; i++) {
+            if (ballots[i].getCurrentVote() == -1) {
+                writer.write(ballots[i].getBallotID() + "\n");
+            }
+        }
+        writer.write("Total invalid votes: " + total);
+        writer.close();
+    }
 
     /** 
     *The method run the entire election from start to finish using various methods
@@ -93,6 +110,12 @@ public class IR {
             winner = ranking[0];
         }
 
+        try {
+            createExhaustedBallotFile();
+        } catch (IOException e) {
+            // handle the exception
+            System.out.println("Error creating exhausted ballot file: " + e.getMessage());
+        }
         displayResults();
         printTable(rounds - 1);
         audit.writeToAudit("DATA SUCCESSFULLY POPULATED.\n");
