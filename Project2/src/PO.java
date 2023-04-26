@@ -425,7 +425,7 @@ public void sortCandidates(PO_Candidate[] candidates) // sorts candidates by vot
         //we are displaying information about the election such as number of candidates, ballots, party names along with votes recieved and seats earned and caniddate names along with seats they earned
         String results = "";
          
-        results += "-----CLOSED PARTY LIST ELECTION RESULTS AND SUMMARY-----\n\n";
+        results += "-----POPULARITY ONLY ELECTION RESULTS AND SUMMARY-----\n\n";
         results += "GENERAL INFORMATION ABOUT THE ELECTION\n";
         results += "WINNER: " + winner.getName() + " " + "("+ winner.getParty() + ")" + "\n";
         results += "Number of Candidates: " + numCandidates + "\n";
