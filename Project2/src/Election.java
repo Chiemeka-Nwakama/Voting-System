@@ -69,8 +69,8 @@ public class Election{
                         ir.run();
                         
                     } else if (election_type.equals("PO")) {
-                        //PO po = new PO(files);
-                        //po.run();
+                        PO po = new PO(files);
+                        po.run();
                     }
                     
 
