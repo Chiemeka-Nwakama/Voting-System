@@ -31,13 +31,12 @@ public class IR {
         audit = new IR_Audit_File();
         audit.writeToAudit("INSTANT RUNOFF (IR) VOTING ELECTION");
         audit.writeToAudit("AUDIT FILE INITIALIZED");
-
+        this.files = files;
         for (int i = 0; i < files.length; i++) {
-            inputFile = files[i];
-            audit.writeToAudit("POPULATING DATA FROM IR ELECTION FILE " + inputFile.getName() + "...\n");
+            audit.writeToAudit("POPULATING DATA FROM IR ELECTION FILE " + files[i].getName() + "...\n");
             audit.writeToAudit("Ballots:");
 
-            scanner = new Scanner(inputFile);
+            scanner = new Scanner(files[i]);
             initializeData();
             populateData(); // add all ballots to ballot array and assign IDs
             audit.writeToAudit("\nInitial Candidate Votes:");
@@ -64,7 +63,7 @@ public class IR {
     * then outputs exhausted ballots to the new file
     */
     public void createExhaustedBallotFile() throws IOException {
-        File exhaustedBallotsFile = new File("exhausted_ballots.txt");
+        File exhaustedBallotsFile = new File("invalidated_dateofelection.txt");
         exhaustedBallotsFile.createNewFile();
         FileWriter writer = new FileWriter(exhaustedBallotsFile);
         int total = 0;
@@ -116,7 +115,7 @@ public class IR {
             System.out.println("Error creating exhausted ballot file: " + e.getMessage());
         }
         displayResults();
-        printTable(rounds - 1);
+        //printTable(rounds - 1);
         audit.writeToAudit("DATA SUCCESSFULLY POPULATED.\n");
         audit.outputAudit();
     }

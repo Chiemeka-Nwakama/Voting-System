@@ -20,7 +20,7 @@ public class IR_ElectionTest {
     public void setUp(){    
         try{
             File[] file = new File[1];
-            file[0] = new File("/home/casey526/CSCI/CSCI5801/repo-Team3/Project2/testing/IRtest.csv");
+            file[0] = new File("/home/lieu0009/CSCI/CSCI5801/repo-Team3/Project2/testing/IRtest.csv");
             ir = new IR(file);
         }
         catch(Exception e) { 
@@ -159,7 +159,7 @@ public void testPoolSelect(){ //should pass about a third of the time
 }
 @Test 
 public void testMultipleFiles(){
-    String path ="C:\\Users\\justi\\Desktop\\repo-Team3-Chiemeka\\Project2\\testing";
+    String path ="/home/lieu0009/5081/repo-Team3/Project2/testing/";
     String[] fileNames = {path + "\\IRfile1.csv", path + "\\IRfile2.csv", path + "\\IRfile3.csv"};
     File[] files = new File[fileNames.length];
             for(int i = 0; i < fileNames.length; i++){
