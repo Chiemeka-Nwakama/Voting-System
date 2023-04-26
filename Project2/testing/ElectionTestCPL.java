@@ -20,7 +20,7 @@ public class ElectionTestCPL {
 
     CPL cpl_single;
     CPL cpl_multiple;
-    String path = "C:\\Users\\Sidney\\OneDrive\\Desktop\\UMN Classes\\Project2\\repo-Team3\\Project2\\testing"; // need to edit for your machine
+    String path = "/home/lieu0009/5081/repo-Team3/Project2/testing"; // need to edit for your machine
     
     @Before
     public void setUp(){
@@ -31,12 +31,12 @@ public class ElectionTestCPL {
         
         
        
-        File file_1 = new File(path +"\\testCPL.csv");
+        File file_1 = new File(path +"/testCPL.csv");
         File[] file_single = new File[1];
         file_single[0] = file_1;
         File[] file_multiple = new File[3];
-        File file_2 = new File(path +"\\CPLfile1.csv");
-        File file_3 = new File(path +"\\CPLfile2.csv");
+        File file_2 = new File(path +"/CPLfile1.csv");
+        File file_3 = new File(path +"/CPLfile2.csv");
         file_multiple[0] = file_1;
         file_multiple[1] = file_2;
         file_multiple[2] = file_3;
