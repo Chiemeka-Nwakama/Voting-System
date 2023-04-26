@@ -46,6 +46,14 @@ public class IR_Ballot {
         }
     }
 
+    /**
+     * method to exhaust a ballot if not valid
+     */
+    public void exhaustBallot(){
+        currentVote = -1;
+        currentCandidate = -1;
+    }
+
     /** 
     * method return index of currently voted for candidate
     *@return currentCandidate

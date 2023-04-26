@@ -154,16 +154,25 @@ public class IR {
         int curBallot = 0;
         String[] tempBallot;
         int[] finalBallot;
+        double voteCounter;
         while (scanner.hasNextLine()) {
+            voteCounter = 0;
             String data = scanner.nextLine();                                  //parse ballots
             finalBallot = new int[numCandidates];
             tempBallot = data.split(",");
             for (int a = 0; a < tempBallot.length; a++){
                 if (!tempBallot[a].equals("")){
                     finalBallot[a] = Integer.parseInt(tempBallot[a]); //add vote to vote array
+                    if (finalBallot[a] != 0){
+                        voteCounter++;
+                    }
                 }
             }
             ballots[curBallot] = new IR_Ballot(finalBallot, curBallot); //add ballot to ballots array
+            if (voteCounter >= ((double)numCandidates / 2)){ //if less than half candidates ranked, exhaust ballot
+                exhaustedPile[exhaustedIndex] = curBallot;
+                ballots[curBallot].exhaustBallot();
+            }
             audit.writeBallot(ballots[curBallot]); //write ballot to audit file 
             curBallot++;
             }

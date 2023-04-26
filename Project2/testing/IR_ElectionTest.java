@@ -207,6 +207,7 @@ public void testMakeLoser(){
         actualLoser_m = "Yes";
     }
     assertEquals (expectedLoser_m, actualLoser_m);
+}
 
 @Test
 public void testCoinToss(){ //should pass about half the time
@@ -253,6 +254,14 @@ public void testTable(){
     };
     ir.run();
     assertEquals(expected, ir.getTable());
+}
+
+@Test
+public void testExhaustIncomplete(){
+    int expected = 0;
+    IR_Candidate[] candidates = ir.getCandidates();
+    int actual = candidates[3].getVotes();
+    assertEquals(expected, actual);
 }
 
 }
