@@ -448,23 +448,13 @@ public void sortCandidates(PO_Candidate[] candidates) // sorts candidates by vot
 
     }
 
-            /**
-   * This method clears out the parties setting all vals to null
-   * @param parties parties to clear
-   * @return void
-   */
-   
-    public void clearParties(Party[] parties){
-        Arrays.fill(parties, null);
-
-    }
 
                /**
    * This method clears out the ballots setting all values in array to null
    * @param ballots to clear
    * @return void
    */
-    public void clearBallots(CPL_Ballot[] ballots){
+    public void clearBallots(PO_Ballot[] ballots){
         Arrays.fill(ballots, null);
     }
 
