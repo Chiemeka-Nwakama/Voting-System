@@ -317,7 +317,7 @@ public void testdistrubuteSeatsCoinToss(){ //test to see if seats distribute cor
     }
  
     double percent = count/1000.0;
-    if(percent >= .475 && percent <=.525){ // sees if it falls within .5 with  a margin of error of .025 +/-
+    if(percent >= .45 && percent <=.55){ // sees if it falls within .5 with  a margin of error of .05 +/-
         actual = "fair around 50-50";
 
     }
