@@ -169,7 +169,7 @@ public class PO {
         PO_Candidate temp[] = candidates.clone(); // candidates list since they will be reordered by their remainders in descending order later
         
          sortCandidates(temp);
-         int dups = duplicates(0); // num duplicates
+         int dups = duplicates(0, temp); // num duplicates
          if(dups == 0){
             winner = temp[0]; // gets winner by checking who has the most votes
 
@@ -208,7 +208,7 @@ public class PO {
    * @return number of duplicates
    */
 
-    public int duplicates(int index){
+    public int duplicates(int index, PO_Candidate[] candidates){
         int numDups = 0;
 
         for(int i = index; i < numCandidates-1; i++) {
@@ -218,7 +218,7 @@ public class PO {
                 break;
             }
         }
-        numDups++;
+    
         return numDups;
 
     }
