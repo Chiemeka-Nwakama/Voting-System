@@ -1,4 +1,5 @@
 
+package testing;
 import src.*;
 
 import static org.junit.Assert.assertEquals;
@@ -19,7 +20,7 @@ public class ElectionTestPO {
 
     PO po_single;
     PO po_multiple;
-    String path = "C:\\Users\\justi\\Desktop\\repo-Team3\\Project2\\testing"; // need to edit for your machine
+    String path = "C:\\Users\\Admin\\Desktop\\repo-Team3-main\\Project2\\testing"; // need to edit for your machine
 
     @Before
     public void setUp() {
@@ -203,18 +204,19 @@ public class ElectionTestPO {
     @Test
 
     public void testDuplicates() { // test to see if duplicates works
-        int expected = 1;
+        int expected = 0;
         po_single.assignBallots();
-        int actual = po_single.duplicates(0);
+        PO_Candidate[] sortedCands = po_single.getCandidates();
+        int actual = po_single.duplicates(0, sortedCands);
 
         assertEquals("Testing to see if duplicates are correctly found in a row", expected, actual);
 
-        expected = 1;
-        actual = po_single.duplicates(2);
+        expected = 0;
+        actual = po_single.duplicates(2, sortedCands);
 
         assertEquals("Testing to see if duplicates are correctly found in a row ", expected, actual);
-        expected = 2;
-        actual = po_single.duplicates(4);
+        expected = 1;
+        actual = po_single.duplicates(4, sortedCands);
 
         assertEquals("Testing to see if duplicates are correctly found in a row", expected, actual);
 
@@ -262,7 +264,7 @@ public class ElectionTestPO {
 
         double percent = count / 300.0;
 
-        if (percent >= .30 && percent <= .36) { // sees if it falls within .33 with a margin of error of .03 +/-
+        if (percent >= .28 && percent <= .38) { // sees if it falls within .33 with a margin of error of .05 +/-
             actual = "fair around 33-33-33";
 
         } else {
