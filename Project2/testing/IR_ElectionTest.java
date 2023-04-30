@@ -25,12 +25,12 @@ public class IR_ElectionTest {
             // File[] file = new File[1];
             // file[0] = new File("/home/lieu0009/CSCI/CSCI5801/repo-Team3/Project2/testing/IRtest.csv");
             // ir = new IR(file);
-            File file_1 = new File(path + "IRfile1.csv");
+            File file_1 = new File(path + "/IRfile1.csv");
             File[] file_single = new File[1];
             file_single[0] = file_1;
             File[] file_multiple = new File[3];
-            File file_2 = new File(path + "IRfile2.csv");
-            File file_3 = new File(path + "IRfile3.csv");
+            File file_2 = new File(path + "/IRfile2.csv");
+            File file_3 = new File(path + "/IRfile3.csv");
             file_multiple[0] = file_1;
             file_multiple[1] = file_2;
             file_multiple[2] = file_3;
@@ -249,8 +249,8 @@ public void testTable(){
         {0, 3, 3, 3}, 
         {0, 0, 0, 0}, 
         {0, 2, 2, 2}, 
-        {0, 1, 1, 0}, 
-        {0, 0, 0, 1}
+        {0, 0, 0, 0}, 
+        {0, 1, 1, 1}
     };
     ir.run();
     assertEquals(expected, ir.getTable());

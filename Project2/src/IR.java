@@ -22,6 +22,7 @@ public class IR {
     private int[][] tableData;
     private int[] exhaustedPile;
     private int exhaustedIndex;
+    private int rounds;
 
     /** 
     * This constructor initialize the audit file and taking input file
@@ -80,10 +81,9 @@ public class IR {
     *The method run the entire election from start to finish using various methods
     **/
     public void run(){
-        int rounds = 1;
+        rounds = 1;
         //write to audit file
-        while (remainingCandidates != 1){ //rank all candidates and check for winner
-            updateTable(rounds);
+        while (!setElectionStatus() && remainingCandidates != 1){ //rank all candidates and check for winner
             int numTied = checkForWinnerTie();
             if (numTied == remainingCandidates){
                 if (numTied == 2){
@@ -115,7 +115,7 @@ public class IR {
             System.out.println("Error creating exhausted ballot file: " + e.getMessage());
         }
         displayResults();
-        //printTable(rounds - 1);
+        printTable(rounds);
         audit.writeToAudit("DATA SUCCESSFULLY POPULATED.\n");
         audit.outputAudit();
     }
@@ -169,9 +169,10 @@ public class IR {
                 }
             }
             ballots[curBallot] = new IR_Ballot(finalBallot, curBallot); //add ballot to ballots array
-            if (voteCounter >= ((double)numCandidates / 2)){ //if less than half candidates ranked, exhaust ballot
+            if (voteCounter < ((double)numCandidates / 2)){ //if less than half candidates ranked, exhaust ballot
                 exhaustedPile[exhaustedIndex] = curBallot;
                 ballots[curBallot].exhaustBallot();
+                exhaustedIndex++;
             }
             audit.writeBallot(ballots[curBallot]); //write ballot to audit file 
             curBallot++;
@@ -365,7 +366,11 @@ public class IR {
             ranking[a].setRank(a);
             audit.writeCandidateBallots(ranking[a]);
         }
+        if (rounds < numCandidates){
+            updateTable(rounds);
+        }
         if (ranking[0].isWinner()){
+            winner = ranking[0];
             return true;
         }else{
             return false;
@@ -411,6 +416,9 @@ public class IR {
      * @param round tracks round so the function knows how much to print
      */
     public void printTable(int round){
+        if (rounds >= numCandidates){
+            rounds = numCandidates - 1;
+        }
         System.out.print("-------------------"); //format top of table
         for (int a = 0; a < round; a ++){
             System.out.print("----------------");
