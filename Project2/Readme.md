@@ -12,7 +12,7 @@ Sidney Nguyen - nguy4257
 Chiemeka Nwakama - nwaka013
 
 ## Project Overview
-This application models an election system where a file containing information about the election such as number of seats, participating parties, and ballots are provided to the system. The system distributes the seats according to the rules of the type of election. An audit file is produced that displays the progression of the election as well as a summary of the election printed to the screen. This application has been updated to include an election by Popularity Only. 
+This application models an election system where a file containing information about the election such as number of seats, participating parties, and ballots are provided to the system. The system distributes the seats according to the rules of the type of election. An audit file is produced that displays the progression of the election as well as a summary of the election printed to the screen. The audit file will be create in the Project2 folder when the program has run. This application has been updated to include an election by Popularity Only. 
 
 ## Set up
 ### Compiling and Running Election Program
