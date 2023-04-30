@@ -37,5 +37,7 @@ To run the tests, you must modify the path variable string to the path of the fi
 
 Some Test in PO fail when ran all together, but pass when ran indivdidaully. We are not too sure why.
 
+*Have had issues with the implementation of the IR Table. Might need to be put that PBI back on the the final Product Backlog
+
 *System testing for both CPL, IR, and PO elections were tested by simply running a election test file and looking through the audit file to see if the steps and results at each point of both elections were as we expected. The rest of the tests (Unit testing) were done through JUnit testing in ElectionTestCPL.java and IR_ElectionTest.java respectively.
 
