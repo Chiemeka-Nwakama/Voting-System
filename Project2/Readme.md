@@ -31,13 +31,15 @@ A pop up window will direct you to select your files. You are able to select mor
 
 Note: If you wish to use the Election program with a different file, you must recompile and rerun the program with the new file name. There are events within the program that are randomized, so if the user wishes to see different results regarding this randomization, they must recompile and rerun the program.
 
+
+*Have had issues with the implementation of the IR Table. Might need to put that PBI back on the the final Product Backlog
+
 ### Running the Tests
 
 To run the tests, you must modify the path variable string to the path of the files or else the test will not work.
 
 Some Test in PO fail when ran all together, but pass when ran indivdidaully. We are not too sure why.
 
-*Have had issues with the implementation of the IR Table. Might need to be put that PBI back on the the final Product Backlog
 
 *System testing for both CPL, IR, and PO elections were tested by simply running a election test file and looking through the audit file to see if the steps and results at each point of both elections were as we expected. The rest of the tests (Unit testing) were done through JUnit testing in ElectionTestCPL.java and IR_ElectionTest.java respectively.
 
