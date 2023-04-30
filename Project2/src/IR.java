@@ -82,7 +82,7 @@ public class IR {
     public void run(){
         int rounds = 1;
         //write to audit file
-        while (!setElectionStatus() || remainingCandidates != 1){ //rank all candidates and check for winner
+        while (remainingCandidates != 1){ //rank all candidates and check for winner
             updateTable(rounds);
             int numTied = checkForWinnerTie();
             if (numTied == remainingCandidates){
