@@ -416,8 +416,8 @@ public class IR {
      * @param round tracks round so the function knows how much to print
      */
     public void printTable(int round){
-        if (rounds >= numCandidates){
-            rounds = numCandidates - 1;
+        if (round >= numCandidates){
+            round = numCandidates - 1;
         }
         System.out.print("-------------------"); //format top of table
         for (int a = 0; a < round; a ++){
