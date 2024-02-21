@@ -1,3 +1,6 @@
 {
-    "github-enterprise.uri": "https://github.umn.edu"
+    "github-enterprise.uri": "https://github.umn.edu",
+    "java.project.sourcePaths": [
+        "Project2"
+    ]
 }
