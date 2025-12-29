@@ -1,10 +1,10 @@
-#  The Election System Project
+# CSCI 5801: The Election System Project (Waterfall)
 
 ## Credits
 
 Chiemeka Nwakama
 
-Ted Casey 
+Ted Casey
 
 Phuong Lieu
 
@@ -16,6 +16,16 @@ This application models an election system where a file containing information a
 
 ## Set up
 ### Compiling and Running Election Program
+
+NOTE: There were issues with compiling the program directly in the src folder.
+
+Please compile and run from the Project1 folder as below:
+
+To compile in the project1 folder: javac src/Election.java
+To run in the project1 folder: java src/Election.java
+
+If the program is able to be compiled within the src folder:
+
 Ensure the file containing the election information and ballots is in your current directory
 To compile, type in your terminal “javac Election.java”
 If you wish to provide the election filename by command line, you must do so when you run the program or you will be prompted for the file name

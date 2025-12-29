@@ -1,0 +1,171 @@
+Project documentation
+<---- javadoc command: ---->
+C:\Program Files (x86)\BlueJ\jdk\bin\javadoc.exe
+-sourcepath
+C:\Users\justi\Desktop\dsfds
+-source
+1.8
+-classpath
+C:\Program Files (x86)\BlueJ\lib\bluejcore.jar;C:\Program Files (x86)\BlueJ\lib\junit-4.11.jar;C:\Program Files (x86)\BlueJ\lib\hamcrest-core-1.3.jar;C:\Program Files (x86)\BlueJ\lib\lang-stride.jar;C:\Program Files (x86)\BlueJ\lib\userlib\pi4j-core.jar;C:\Program Files (x86)\BlueJ\lib\userlib\pi4j-device.jar;C:\Program Files (x86)\BlueJ\lib\userlib\pi4j-gpio-extension.jar;C:\Program Files (x86)\BlueJ\lib\userlib\pi4j-service.jar;C:\Users\justi\Desktop\dsfds
+-d
+C:\Users\justi\Desktop\dsfds\doc
+-encoding
+UTF-8
+-charset
+UTF-8
+-doctitle
+dsfds
+-windowtitle
+dsfds
+-author
+-version
+-nodeprecated
+-package
+-Xdoclint:none
+-link
+http://download.oracle.com/javase/8/docs/api/
+C:\Users\justi\Desktop\dsfds/ElectionTestCPL.java
+C:\Users\justi\Desktop\dsfds/IR_Candidate.java
+C:\Users\justi\Desktop\dsfds/IR_Ballot.java
+C:\Users\justi\Desktop\dsfds/IR.java
+C:\Users\justi\Desktop\dsfds/CPL_Ballot.java
+C:\Users\justi\Desktop\dsfds/Election.java
+C:\Users\justi\Desktop\dsfds/ElectionTestPO.java
+C:\Users\justi\Desktop\dsfds/Party.java
+C:\Users\justi\Desktop\dsfds/IR_Audit_File.java
+C:\Users\justi\Desktop\dsfds/CPL_Audit_File.java
+C:\Users\justi\Desktop\dsfds/PO_Candidate.java
+C:\Users\justi\Desktop\dsfds/CPL_Candidate.java
+C:\Users\justi\Desktop\dsfds/IR_Make_Test_File.java
+C:\Users\justi\Desktop\dsfds/PO_Ballot.java
+C:\Users\justi\Desktop\dsfds/CPL.java
+C:\Users\justi\Desktop\dsfds/IR_ElectionTest.java
+C:\Users\justi\Desktop\dsfds/PO.java
+<---- end of javadoc command ---->
+Loading source file C:\Users\justi\Desktop\dsfds\ElectionTestCPL.java...
+Loading source file C:\Users\justi\Desktop\dsfds\IR_Candidate.java...
+Loading source file C:\Users\justi\Desktop\dsfds\IR_Ballot.java...
+Loading source file C:\Users\justi\Desktop\dsfds\IR.java...
+Loading source file C:\Users\justi\Desktop\dsfds\CPL_Ballot.java...
+Loading source file C:\Users\justi\Desktop\dsfds\Election.java...
+Loading source file C:\Users\justi\Desktop\dsfds\ElectionTestPO.java...
+Loading source file C:\Users\justi\Desktop\dsfds\Party.java...
+Loading source file C:\Users\justi\Desktop\dsfds\IR_Audit_File.java...
+Loading source file C:\Users\justi\Desktop\dsfds\CPL_Audit_File.java...
+Loading source file C:\Users\justi\Desktop\dsfds\PO_Candidate.java...
+Loading source file C:\Users\justi\Desktop\dsfds\CPL_Candidate.java...
+Loading source file C:\Users\justi\Desktop\dsfds\IR_Make_Test_File.java...
+Loading source file C:\Users\justi\Desktop\dsfds\PO_Ballot.java...
+Loading source file C:\Users\justi\Desktop\dsfds\CPL.java...
+Loading source file C:\Users\justi\Desktop\dsfds\IR_ElectionTest.java...
+Loading source file C:\Users\justi\Desktop\dsfds\PO.java...
+Constructing Javadoc information...
+Standard Doclet version 1.8.0_192
+Building tree for all the packages and classes...
+Generating C:\Users\justi\Desktop\dsfds\doc\CPL.html...
+C:\Users\justi\Desktop\dsfds\CPL.java:28: warning - @param argument "file" is not a parameter name.
+C:\Users\justi\Desktop\dsfds\CPL.java:325: warning - @param argument "void" is not a parameter name.
+C:\Users\justi\Desktop\dsfds\CPL.java:325: warning - @return tag cannot be used in method with void return type.
+C:\Users\justi\Desktop\dsfds\CPL.java:312: warning - @return tag cannot be used in method with void return type.
+C:\Users\justi\Desktop\dsfds\CPL.java:624: warning - @param argument "ballots" is not a parameter name.
+C:\Users\justi\Desktop\dsfds\CPL.java:624: warning - @return tag cannot be used in method with void return type.
+C:\Users\justi\Desktop\dsfds\CPL.java:614: warning - @return tag cannot be used in method with void return type.
+C:\Users\justi\Desktop\dsfds\CPL.java:437: warning - @param argument "void" is not a parameter name.
+C:\Users\justi\Desktop\dsfds\CPL.java:577: warning - @param argument "void" is not a parameter name.
+C:\Users\justi\Desktop\dsfds\CPL.java:577: warning - @return tag cannot be used in method with void return type.
+C:\Users\justi\Desktop\dsfds\CPL.java:176: warning - @param argument "void" is not a parameter name.
+C:\Users\justi\Desktop\dsfds\CPL.java:176: warning - @return tag cannot be used in method with void return type.
+C:\Users\justi\Desktop\dsfds\CPL.java:223: warning - @return tag cannot be used in method with void return type.
+C:\Users\justi\Desktop\dsfds\CPL.java:150: warning - @param argument "void" is not a parameter name.
+C:\Users\justi\Desktop\dsfds\CPL.java:161: warning - @param argument "void" is not a parameter name.
+C:\Users\justi\Desktop\dsfds\CPL.java:115: warning - @param argument "void" is not a parameter name.
+C:\Users\justi\Desktop\dsfds\CPL.java:104: warning - @param argument "void" is not a parameter name.
+C:\Users\justi\Desktop\dsfds\CPL.java:137: warning - @param argument "void" is not a parameter name.
+C:\Users\justi\Desktop\dsfds\CPL.java:126: warning - @param argument "void" is not a parameter name.
+C:\Users\justi\Desktop\dsfds\CPL.java:411: warning - @return tag cannot be used in method with void return type.
+C:\Users\justi\Desktop\dsfds\CPL.java:382: warning - @return tag cannot be used in method with void return type.
+C:\Users\justi\Desktop\dsfds\CPL.java:360: warning - @return tag cannot be used in method with void return type.
+C:\Users\justi\Desktop\dsfds\CPL.java:80: warning - @return tag cannot be used in method with void return type.
+C:\Users\justi\Desktop\dsfds\CPL.java:242: warning - @param argument "void" is not a parameter name.
+C:\Users\justi\Desktop\dsfds\CPL.java:242: warning - @return tag cannot be used in method with void return type.
+C:\Users\justi\Desktop\dsfds\CPL.java:557: warning - @return tag cannot be used in method with void return type.
+Generating C:\Users\justi\Desktop\dsfds\doc\CPL_Audit_File.html...
+C:\Users\justi\Desktop\dsfds\CPL_Audit_File.java:11: warning - @param argument "void" is not a parameter name.
+C:\Users\justi\Desktop\dsfds\CPL_Audit_File.java:30: warning - @param argument "void" is not a parameter name.
+C:\Users\justi\Desktop\dsfds\CPL_Audit_File.java:30: warning - @return tag cannot be used in method with void return type.
+C:\Users\justi\Desktop\dsfds\CPL_Audit_File.java:21: warning - @return tag cannot be used in method with void return type.
+Generating C:\Users\justi\Desktop\dsfds\doc\CPL_Ballot.html...
+C:\Users\justi\Desktop\dsfds\CPL_Ballot.java:69: warning - @param argument "void" is not a parameter name.
+C:\Users\justi\Desktop\dsfds\CPL_Ballot.java:33: warning - @param argument "void" is not a parameter name.
+C:\Users\justi\Desktop\dsfds\CPL_Ballot.java:44: warning - @param argument "void" is not a parameter name.
+C:\Users\justi\Desktop\dsfds\CPL_Ballot.java:54: warning - @param argument "void" is not a parameter name.
+Generating C:\Users\justi\Desktop\dsfds\doc\CPL_Candidate.html...
+C:\Users\justi\Desktop\dsfds\CPL_Candidate.java:37: warning - @return tag cannot be used in method with void return type.
+C:\Users\justi\Desktop\dsfds\CPL_Candidate.java:50: warning - @param argument "void" is not a parameter name.
+C:\Users\justi\Desktop\dsfds\CPL_Candidate.java:28: warning - @param argument "void" is not a parameter name.
+Generating C:\Users\justi\Desktop\dsfds\doc\Election.html...
+Generating C:\Users\justi\Desktop\dsfds\doc\ElectionTestCPL.html...
+Generating C:\Users\justi\Desktop\dsfds\doc\ElectionTestPO.html...
+Generating C:\Users\justi\Desktop\dsfds\doc\IR.html...
+C:\Users\justi\Desktop\dsfds\IR.java:232: warning - @return tag has no arguments.
+C:\Users\justi\Desktop\dsfds\IR.java:30: warning - @param argument "file" is not a parameter name.
+C:\Users\justi\Desktop\dsfds\IR.java:153: warning - @This is an unknown tag.
+Generating C:\Users\justi\Desktop\dsfds\doc\IR_Audit_File.html...
+C:\Users\justi\Desktop\dsfds\IR_Audit_File.java:14: warning - @param argument "void" is not a parameter name.
+C:\Users\justi\Desktop\dsfds\IR_Audit_File.java:62: warning - @param argument "void" is not a parameter name.
+C:\Users\justi\Desktop\dsfds\IR_Audit_File.java:45: warning - @param argument "candidates" is not a parameter name.
+Generating C:\Users\justi\Desktop\dsfds\doc\IR_Ballot.html...
+Generating C:\Users\justi\Desktop\dsfds\doc\IR_Candidate.html...
+Generating C:\Users\justi\Desktop\dsfds\doc\IR_ElectionTest.html...
+Generating C:\Users\justi\Desktop\dsfds\doc\IR_Make_Test_File.html...
+Generating C:\Users\justi\Desktop\dsfds\doc\Party.html...
+C:\Users\justi\Desktop\dsfds\Party.java:119: warning - @return tag cannot be used in method with void return type.
+C:\Users\justi\Desktop\dsfds\Party.java:99: warning - @return tag cannot be used in method with void return type.
+C:\Users\justi\Desktop\dsfds\Party.java:157: warning - @return tag cannot be used in method with void return type.
+C:\Users\justi\Desktop\dsfds\Party.java:79: warning - @param argument "void" is not a parameter name.
+C:\Users\justi\Desktop\dsfds\Party.java:59: warning - @param argument "totalBallots" is not a parameter name.
+C:\Users\justi\Desktop\dsfds\Party.java:43: warning - @return tag cannot be used in method with void return type.
+C:\Users\justi\Desktop\dsfds\Party.java:146: warning - @return tag cannot be used in method with void return type.
+Generating C:\Users\justi\Desktop\dsfds\doc\PO.html...
+C:\Users\justi\Desktop\dsfds\PO.java:236: warning - @param argument "void" is not a parameter name.
+C:\Users\justi\Desktop\dsfds\PO.java:236: warning - @return tag cannot be used in method with void return type.
+C:\Users\justi\Desktop\dsfds\PO.java:314: warning - @param argument "void" is not a parameter name.
+C:\Users\justi\Desktop\dsfds\PO.java:423: warning - @param argument "void" is not a parameter name.
+C:\Users\justi\Desktop\dsfds\PO.java:423: warning - @return tag cannot be used in method with void return type.
+C:\Users\justi\Desktop\dsfds\PO.java:116: warning - @param argument "void" is not a parameter name.
+C:\Users\justi\Desktop\dsfds\PO.java:151: warning - @param argument "void" is not a parameter name.
+C:\Users\justi\Desktop\dsfds\PO.java:127: warning - @param argument "void" is not a parameter name.
+C:\Users\justi\Desktop\dsfds\PO.java:90: warning - @param argument "void" is not a parameter name.
+C:\Users\justi\Desktop\dsfds\PO.java:101: warning - @param argument "void" is not a parameter name.
+C:\Users\justi\Desktop\dsfds\PO.java:139: warning - @param argument "void" is not a parameter name.
+C:\Users\justi\Desktop\dsfds\PO.java:292: warning - @return tag cannot be used in method with void return type.
+C:\Users\justi\Desktop\dsfds\PO.java:256: warning - @return tag cannot be used in method with void return type.
+C:\Users\justi\Desktop\dsfds\PO.java:73: warning - @param argument "file" is not a parameter name.
+C:\Users\justi\Desktop\dsfds\PO.java:73: warning - @return tag cannot be used in method with void return type.
+C:\Users\justi\Desktop\dsfds\PO.java:167: warning - @param argument "void" is not a parameter name.
+C:\Users\justi\Desktop\dsfds\PO.java:167: warning - @return tag cannot be used in method with void return type.
+Generating C:\Users\justi\Desktop\dsfds\doc\PO_Ballot.html...
+C:\Users\justi\Desktop\dsfds\PO_Ballot.java:15: warning - @param argument "partyVote" is not a parameter name.
+C:\Users\justi\Desktop\dsfds\PO_Ballot.java:15: warning - @param argument "amountOfParties" is not a parameter name.
+C:\Users\justi\Desktop\dsfds\PO_Ballot.java:32: warning - @param argument "void" is not a parameter name.
+C:\Users\justi\Desktop\dsfds\PO_Ballot.java:68: warning - @param argument "void" is not a parameter name.
+C:\Users\justi\Desktop\dsfds\PO_Ballot.java:43: warning - @param argument "void" is not a parameter name.
+C:\Users\justi\Desktop\dsfds\PO_Ballot.java:53: warning - @param argument "void" is not a parameter name.
+Generating C:\Users\justi\Desktop\dsfds\doc\PO_Candidate.html...
+C:\Users\justi\Desktop\dsfds\PO_Candidate.java:38: warning - @return tag cannot be used in method with void return type.
+C:\Users\justi\Desktop\dsfds\PO_Candidate.java:51: warning - @param argument "void" is not a parameter name.
+C:\Users\justi\Desktop\dsfds\PO_Candidate.java:62: warning - @param argument "void" is not a parameter name.
+C:\Users\justi\Desktop\dsfds\PO_Candidate.java:29: warning - @param argument "void" is not a parameter name.
+Generating C:\Users\justi\Desktop\dsfds\doc\package-frame.html...
+Generating C:\Users\justi\Desktop\dsfds\doc\package-summary.html...
+Generating C:\Users\justi\Desktop\dsfds\doc\package-tree.html...
+Generating C:\Users\justi\Desktop\dsfds\doc\constant-values.html...
+Building index for all the packages and classes...
+Generating C:\Users\justi\Desktop\dsfds\doc\overview-tree.html...
+Generating C:\Users\justi\Desktop\dsfds\doc\index-all.html...
+Building index for all classes...
+Generating C:\Users\justi\Desktop\dsfds\doc\allclasses-frame.html...
+Generating C:\Users\justi\Desktop\dsfds\doc\allclasses-noframe.html...
+Generating C:\Users\justi\Desktop\dsfds\doc\index.html...
+Generating C:\Users\justi\Desktop\dsfds\doc\help-doc.html...
+77 warnings
