@@ -1,15 +1,15 @@
-# CSCI 5801: The Election System Project
+#  The Election System Project
 
-## General Team Information
-Team #3: 
+## General Information
 
-Ted Casey - casey526
 
-Phuong Lieu - lieu0009
+Ted Casey 
 
-Sidney Nguyen - nguy4257
+Phuong Lieu
 
-Chiemeka Nwakama - nwaka013
+Sidney Nguyen
+
+Chiemeka Nwakama
 
 ## Project Overview
 This application models an election system where a file containing information about the election such as number of seats, participating parties, and balots are provided to the system. The system distributes the seats according to the rules of the type of election. An audit file is produced that displays the progression of the election as well as a summary of the election printed to the screen. 
