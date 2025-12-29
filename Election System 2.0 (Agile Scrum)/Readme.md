@@ -1,4 +1,4 @@
-# The Election System Project Version 2.0
+# The Election System Project Version 2.0 (Agile Scrum)
 
 ## Credits
 

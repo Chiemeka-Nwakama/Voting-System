@@ -1,4 +1,4 @@
-# CSCI 5801: The Election System Project
+# CSCI 5801: The Election System Project (Waterfall)
 
 ## Credits
 
