@@ -15,7 +15,7 @@ Sidney Nguyen
 This application models an election system where a file containing information about the election such as number of seats, participating parties, and balots are provided to the system. The system distributes the seats according to the rules of the type of election. An audit file is produced that displays the progression of the election as well as a summary of the election printed to the screen. 
 
 ## UML Diagram
-![UML Diagram](SDD/IR and CPL Election UML Diagram.png)
+![UML Diagram](SDD/IR%20and%20CPL%20Election%20UML%20Diagram.png)
 
 
 ## Set up
